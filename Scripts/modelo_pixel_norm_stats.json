@@ -1,0 +1,105 @@
+{
+  "predictor_stats": [
+    {
+      "mean": 292.58345642001876,
+      "std": 9.549879130186833,
+      "varname": "sst",
+      "domain": "auto"
+    },
+    {
+      "mean": 99209.08142215796,
+      "std": 5357.044030529285,
+      "varname": "sp",
+      "domain": "auto"
+    },
+    {
+      "mean": 55813.05505157914,
+      "std": 2392.0489142476663,
+      "varname": "z",
+      "domain": "auto"
+    },
+    {
+      "mean": 42.97241843407538,
+      "std": 32.02325502668539,
+      "varname": "r",
+      "domain": "auto"
+    },
+    {
+      "mean": 0.001081147081090731,
+      "std": 0.0011239680687421365,
+      "varname": "q",
+      "domain": "auto"
+    },
+    {
+      "mean": 0.00010661332639521904,
+      "std": 0.00043561404079691215,
+      "varname": "tp",
+      "domain": "auto"
+    },
+    {
+      "mean": -0.709387244388589,
+      "std": 7.415591025731641,
+      "varname": "u",
+      "domain": "auto"
+    },
+    {
+      "mean": 0.10615965232216218,
+      "std": 5.78678936615849,
+      "varname": "v",
+      "domain": "auto"
+    }
+  ],
+  "predictor_feat_sizes": [
+    651,
+    538,
+    248,
+    899,
+    899,
+    899,
+    899,
+    899
+  ],
+  "predictor_names": [
+    "sst",
+    "sp",
+    "z",
+    "r",
+    "q",
+    "tp",
+    "u",
+    "v"
+  ],
+  "target_transform": "log1p",
+  "target_mean": null,
+  "target_std": null,
+  "train_end": "2025-11-01 00:00:00",
+  "n_train_months": 441,
+  "n_val_months": 96,
+  "pca_components": 0,
+  "pca_variance_target": 0.999,
+  "cache_dir": "./preprocessing_cache",
+  "huber_delta": 1.0,
+  "huber_weight": 0.4,
+  "quantile_weight": 0.1,
+  "quantile_tau": 0.62,
+  "low_threshold": 30.0,
+  "high_threshold": 150.0,
+  "tweedie_weight": 0.4,
+  "tweedie_power": 1.5,
+  "tweedie_scale_norm": true,
+  "corr_weight": 0.1,
+  "extreme_boost": 3.5,
+  "precip_max_mm": 2000.0,
+  "clip_lo_transformed": -0.5,
+  "clip_hi_transformed": 7.601402334583733,
+  "output_activation": "softplus",
+  "coord_embed_dim": 32,
+  "spatial_refine": false,
+  "smooth_weight": 0.005,
+  "n_attn_heads": 8,
+  "use_swa": true,
+  "noise_std": 0.05,
+  "mixup_alpha": 0.4,
+  "seed": 40,
+  "low_ram_edition": true
+}

@@ -718,6 +718,8 @@ Dic  52.106 30.388  -4.991 0.782  0.607  0.688
 
 COMBINACIÓN 5
 
+Entrada 1. *DATOS DE ENTRENAMIENTO Y VALIDACIÓN ALEATORIO
+
 python MODELO.py   --precip /home/practicante/Downloads/TEST/ENACTS2_prcp.nc --varname rfe   --predictor "/home/practicante/Downloads/TEST/era5.sst.nc:sst" --predictor "/home/practicante/Downloads/TEST/era5.sp.nc:sp" --predictor "/home/practicante/Downloads/TEST/era5.1.nc:z,r,q" --predictor "/home/practicante/Downloads/TEST/era5.tp.nc:tp" --predictor "/home/practicante/Downloads/TEST/era5.2.nc:u,v"  --seed 40 --seed_split 101 --n_jobs 4 --max_ram_gb 8.0 --batch_size 64 --epochs 400   --pca_components 0   --spatial_embed 512 --temporal_dim 192 --hidden_dim 256   --dtype float32 --huber_delta 1.0 --target_transform log1p   --tweedie_weight 0.4 --quantile_weight 0.1 --tweedie_power 1.5   --quantile_tau 0.62 --low_threshold 30 --high_threshold 150   --corr_weight 0.1 --extreme_boost 3.5 --use_swa  --noise_std 0.05 --mixup_alpha 0.4 --n_attn_heads 8 --smooth_weight 0.005
 
 ============================================================
@@ -775,7 +777,9 @@ Dic  60.086 40.288  22.284 0.645  0.154 0.485
   P90  obs=  369.26   pred=  310.57   ratio=0.841
   P95  obs=  453.52   pred=  365.82   ratio=0.807
 
-  python MODELO.py   --precip /home/practicante/Downloads/TEST/ENACTS2_prcp.nc --varname rfe   --predictor "/home/practicante/Downloads/TEST/era5.sst.nc:sst" --predictor "/home/practicante/Downloads/TEST/era5.sp.nc:sp" --predictor "/home/practicante/Downloads/TEST/era5.1.nc:z,r,q" --predictor "/home/practicante/Downloads/TEST/era5.tp.nc:tp" --predictor "/home/practicante/Downloads/TEST/era5.2.nc:u,v"  --seed 40 --seed_split 104 --n_jobs 4 --max_ram_gb 8.0 --batch_size 64 --epochs 400   --pca_components 0   --spatial_embed 512 --temporal_dim 192 --hidden_dim 256   --dtype float32 --huber_delta 1.0 --target_transform log1p   --tweedie_weight 0.4 --quantile_weight 0.1 --tweedie_power 1.5   --quantile_tau 0.62 --low_threshold 30 --high_threshold 150   --corr_weight 0.1 --extreme_boost 3.5 --use_swa  --noise_std 0.05 --mixup_alpha 0.4 --n_attn_heads 8 --smooth_weight 0.005
+Entrada 2. *DATOS DE ENTRENAMIENTO Y VALIDACIÓN ALEATORIO
+
+python MODELO.py   --precip /home/practicante/Downloads/TEST/ENACTS2_prcp.nc --varname rfe   --predictor "/home/practicante/Downloads/TEST/era5.sst.nc:sst" --predictor "/home/practicante/Downloads/TEST/era5.sp.nc:sp" --predictor "/home/practicante/Downloads/TEST/era5.1.nc:z,r,q" --predictor "/home/practicante/Downloads/TEST/era5.tp.nc:tp" --predictor "/home/practicante/Downloads/TEST/era5.2.nc:u,v"  --seed 40 --seed_split 104 --n_jobs 4 --max_ram_gb 8.0 --batch_size 64 --epochs 400   --pca_components 0   --spatial_embed 512 --temporal_dim 192 --hidden_dim 256   --dtype float32 --huber_delta 1.0 --target_transform log1p   --tweedie_weight 0.4 --quantile_weight 0.1 --tweedie_power 1.5   --quantile_tau 0.62 --low_threshold 30 --high_threshold 150   --corr_weight 0.1 --extreme_boost 3.5 --use_swa  --noise_std 0.05 --mixup_alpha 0.4 --n_attn_heads 8 --smooth_weight 0.005
 
 ============================================================
  Diagnósticos – C5E2.nc
@@ -832,10 +836,66 @@ Dic  43.882  29.112  11.315 0.827 0.640 0.759
   P90  obs=  378.50   pred=  382.72   ratio=1.011
   P95  obs=  457.05   pred=  462.01   ratio=1.011
 
+Entrada 3. *DATOS DE ENTRENAMIENTO Y VALIDACIÓN ALEATORIO
 
+python MODELO.py   --precip /home/practicante/Downloads/TEST/ENACTS2_prcp.nc --varname rfe   --predictor "/home/practicante/Downloads/TEST/era5.sst.nc:sst" --predictor "/home/practicante/Downloads/TEST/era5.sp.nc:sp" --predictor "/home/practicante/Downloads/TEST/era5.1.nc:z,r,q" --predictor "/home/practicante/Downloads/TEST/era5.tp.nc:tp" --predictor "/home/practicante/Downloads/TEST/era5.2.nc:u,v"  --seed 40 --seed_split 100 --n_jobs 4 --max_ram_gb 8.0 --batch_size 64 --epochs 400   --pca_components 0   --spatial_embed 512 --temporal_dim 192 --hidden_dim 256   --dtype float32 --huber_delta 1.0 --target_transform log1p   --tweedie_weight 0.4 --quantile_weight 0.1 --tweedie_power 1.5   --quantile_tau 0.62 --low_threshold 30 --high_threshold 150   --corr_weight 0.1 --extreme_boost 3.5 --use_swa  --noise_std 0.05 --mixup_alpha 0.4 --n_attn_heads 8 --smooth_weight 0.005
+
+============================================================
+ Diagnósticos – C5E3.nc
+============================================================
+
+─── Estadísticas globales ───
+  RMSE                      = 89.9102
+  MAE                       = 60.1696
+  Bias (media)              = 9.2837
+  % Bias                    = 5.28 %
+  Std(error)                = 89.4297
+  R²                        = 0.6812
+  Pearson r                 = 0.8339  (p=0.00e+00)
+  Spearman ρ                = 0.8741  (p=0.00e+00)
+  Nash-Sutcliffe            = 0.6812
+  Kling-Gupta (KGE)         = 0.8149
+
+─── Métricas por mes ───
+Mes    RMSE     MAE    Bias     r    NSE   KGE
+Ene  47.852  27.308  -7.939 0.796  0.620 0.649
+Feb  33.378  21.993  12.828 0.671  0.028 0.448
+Mar  40.029  26.113  -2.729 0.591  0.339 0.476
+Abr  51.827  40.361   5.722 0.354 -0.064 0.310
+May 115.642  82.307   5.385 0.451  0.196 0.272
+Jun 110.017  83.186 -11.900 0.626  0.379 0.517
+Jul 104.111  77.689   7.486 0.745  0.534 0.719
+Ago 112.919  90.675  44.134 0.694  0.374 0.602
+Sep  97.075  75.871  26.314 0.749  0.514 0.699
+Oct 143.856 103.267  48.801 0.442 -0.077 0.382
+Nov  84.453  59.520 -16.655 0.730  0.512 0.570
+Dic  54.743  33.745  -0.042 0.779  0.606 0.688
+
+─── Métricas por año ───
+ Año    RMSE    Bias     r   NSE   KGE
+1990  77.573   4.419 0.836 0.671 0.834
+1992  65.681   9.072 0.875 0.748 0.861
+2003  83.153  10.033 0.826 0.663 0.805
+2006  85.205   9.037 0.841 0.677 0.833
+2008  86.515  12.764 0.878 0.765 0.835
+2010 128.176   2.379 0.778 0.600 0.734
+2013  73.918 -10.073 0.877 0.758 0.860
+2024 103.860  36.638 0.814 0.598 0.700
+
+─── Análisis de extremos ───
+  P90 (>= 392.8 mm): n=38208, r=0.459, RMSE=160.4, Bias=-91.9
+  P95 (>= 477.5 mm): n=19104, r=0.403, RMSE=192.8, Bias=-130.9
+  P99 (>= 674.4 mm): n=3821, r=0.310, RMSE=288.2, Bias=-231.5
+
+─── Percentiles cruzados ───
+  P10  obs=    9.96   pred=   13.31   ratio=1.336
+  P25  obs=   44.36   pred=   58.81   ratio=1.326
+  P50  obs=  137.72   pred=  159.04   ratio=1.155
+  P75  obs=  266.90   pred=  281.24   ratio=1.054
+  P90  obs=  392.77   pred=  389.88   ratio=0.993
+  P95  obs=  477.53   pred=  461.28   ratio=0.966
 
 COMBINACIÓN 6
 
-
-
+python MODELO.py   --precip /home/practicante/Downloads/TEST/ENACTS2_prcp.nc --varname rfe   --predictor "/home/practicante/Downloads/TEST/era5.sst.nc:sst" --predictor "/home/practicante/Downloads/TEST/era5.sp.nc:sp" --predictor "/home/practicante/Downloads/TEST/era5.1.nc:z,r,q" --predictor "/home/practicante/Downloads/TEST/era5.tp.nc:tp" --predictor "/home/practicante/Downloads/TEST/era5.2.nc:u,v" --predictor "/home/practicante/Downloads/TEST/mjo.nc:RMM1,RMM2" --seed 40 --seed_split 101 --n_jobs 4 --max_ram_gb 8.0 --batch_size 64 --epochs 400   --pca_components 0   --spatial_embed 512 --temporal_dim 192 --hidden_dim 256   --dtype float32 --huber_delta 1.0 --target_transform log1p   --tweedie_weight 0.4 --quantile_weight 0.1 --tweedie_power 1.5   --quantile_tau 0.62 --low_threshold 30 --high_threshold 150   --corr_weight 0.1 --extreme_boost 3.5 --use_swa  --noise_std 0.05 --mixup_alpha 0.4 --n_attn_heads 8 --smooth_weight 0.005
 

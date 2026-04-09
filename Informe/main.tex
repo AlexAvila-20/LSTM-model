@@ -1,0 +1,344 @@
+% 20241108
+% Giovanni Ramirez
+% ramirez@ecfm.usac.edu.gt
+%                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%
+% Esta es una plantilla y contiene lo mínimo que debe llevar el
+% informe final del año de prácticas.  La portada es una propuesta y
+% se puede ajustar según se desee.
+%
+% Esta plantilla se puede usar tanto en un compilador de LaTeX en su
+% computadora o en algún compilador en línea como overleaf.com
+%
+
+\documentclass[titlepage,11pt]{report}
+
+%%% PAQUETES
+% esto es para hacer las cosas en español y para usar el punto como separador
+% decimal
+\usepackage[spanish,es-nodecimaldot]{babel}%
+% esto es por la codificación con la que se escribe, revisar la codificación
+% de su sistema pues podría estar en utf16 o en iso-latin-1 o iso 8859-1
+\usepackage[utf8]{inputenc}%
+\usepackage{float}
+
+\usepackage{listings}
+\usepackage{xcolor} % para colores
+
+\lstdefinelanguage{Mathematica}{
+  morekeywords={
+    Module, Table, Plot, Integrate, Sum, If, Do, While, For, Return,
+    Function, Set, SetDelayed, Rule, RuleDelayed, Block, With, True, False
+  },
+  sensitive=true,
+  morecomment=[l](\*),
+  morestring=[b]",
+}
+
+\lstset{
+  language=Mathematica,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  showstringspaces=false,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space}
+}
+% esto es para agregar gráficas y figuras
+\usepackage{graphicx}%
+% esto es por algunos símbolos como la ñ o las vocales tildadas
+\usepackage{latexsym}%
+\usepackage{amsmath, amssymb, graphics, setspace}
+\usepackage{xcolor} % Para colores
+\usepackage{listings} % Para mostrar código
+\usepackage[many]{tcolorbox} % Para cajas con estilo
+\usepackage{geometry} % Para ajustar márgenes
+
+% Configuración de listings para Mathematica
+
+% esto es para tener acceso a varios símbolos matemáticos
+\usepackage{amsfonts, amsmath}%
+% esto es para facilitar la escritura de algunos símbolos en física
+\usepackage{physics}
+% esto es para poder usar el sistema internacional de unidades
+\usepackage[amssymb]{SIunits}%
+% esto es para que la página sea tamaño carta
+\usepackage[letterpaper, bottom=25mm, top=25mm]{geometry}
+% esto es para los colores, la opción table es para poner colores en las
+% celdas
+
+% esto es para las tablas largas
+\usepackage{longtable}
+% esto es para poder escribir en varios renglones en la tabla
+\usepackage{array}
+\usepackage{natbib}
+% esto es útil para los hipervínculos y metadata
+\usepackage[bookmarksnumbered, breaklinks={true},%
+pdfauthor={Bilbo Baggins (bilbo@theshire.middleearth)},%
+pdftitle={El Hobbit o la historia de una ida y una vuelta},%
+pdfsubject={Describir las aventuras de Bilbo},%
+pdfkeywords={condensed matter materials \& applied physics, quasiparticles \&
+  collective excitations, optical phonons}]{hyperref}
+
+
+\begin{document}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% aquí se define la página de la portada, las distancias y tamaños son
+% relativos al tamaño de la fuente que se define al inicio en documentclass
+\begin{titlepage}
+  % esto es para que no ponga número a la página
+  \pagestyle{empty}
+  % esto agrega el título a los bookmarks
+  \pdfbookmark[0]{Title}{title}
+  \begin{center}
+    % esto es para los logos
+    \begin{minipage}{\textwidth}
+      \begin{minipage}[c]{0.45\textwidth}
+        \centering \includegraphics[width=.8\textwidth]{usacAzul}
+      \end{minipage}%
+      \hfill
+      \begin{minipage}[c]{0.45\textwidth}
+        \vspace{-1em}\includegraphics[width=.85\textwidth]{ecfmAzul}
+      \end{minipage}
+    \end{minipage}
+
+    % esto pone los nombres de las instituciones
+    \vspace{2em}
+    \begin{minipage}[t]{.95\textwidth}
+      \centering\large
+      \textsc{Universidad de San Carlos de Guatemala\\
+        Escuela de Ciencias Físicas y Matemáticas}
+    \end{minipage}
+
+    % esto pone la línea horizontal
+    \vspace{1em}\noindent\rule{\textwidth}{1px}\vfill
+    % esto pone el título
+    \begin{minipage}[t]{.95\textwidth}
+      \centering\Huge
+      \textsc{Desarrollo de un modelo predictivo de precipitación para la región Bocacosta de Guatemala mediante redes neuronales LSTM}
+    \end{minipage}
+
+    % esto pone los datos 
+    \vfill
+    \begin{minipage}[t]{.75\textwidth}
+      \centering
+      Informe final de ejercicio profesional supervisado elaborado por:\\%
+      \textbf{Miguel Alexander Avila Chacón}\\
+      presentado ante el Departamento de Física
+    \end{minipage}
+
+    % esto pone más datos
+    \vfill
+    \begin{minipage}[t]{.95\textwidth}
+      \centering
+      Supervisado por \\%
+      Ing. Klaus Hermann Aldo Johannes Zúñiga Kaufmann \\ Dr. Giovanni Ramírez
+    \end{minipage}
+
+    \vfill\noindent\rule{\textwidth}{1px}
+    \begin{minipage}[t]{.95\textwidth}
+      \centering
+      Guatemala, junio de 2026
+    \end{minipage}
+  \end{center}
+\end{titlepage}
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+
+% esto hace que el resumen no tenga número de página y que la introducción
+% empiece con el número de página 1
+\pagestyle{empty}
+\setcounter{page}{0}
+
+% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+% en esta página se hace un resumen del trabajo, se recomienda que no exceda
+% las 500 palabras.
+%
+
+\section*{Resumen}
+\label{sec:resumen}
+
+% ver metadatos
+\vspace{2em}
+\textbf{Palabras clave:} parton distribution functions \& phenomenology \& high energy physics.
+
+% esto es para terminar la página del resumen y pasar a la nueva página con el
+% número uno
+\newpage
+\pagestyle{plain}
+
+\chapter{Introducción}
+\label{sec:introduccion}
+
+El ser humano se caracteriza por la búsqueda constante de herramientas que mejoren sus condiciones de vida. En los últimos años, estos esfuerzos se han orientado hacia la construcción de máquinas con algoritmos capaces de resolver, de forma automática y rápida, operaciones que resultan tediosas para una persona. Sin embargo, estas máquinas, basadas en algoritmos específicos, presentan una limitación importante: en ocasiones el problema que se busca resolver no requiere un tratamiento algorítmico sino el aprendizaje de patrones a través de la experiencia. 
+
+El ser humano es capaz de resolver múltiples problemas que no pueden expresarse mediante un algoritmo gracias a su experiencia y a su capacidad para memorizar y asociar hechos. Así, parece lógico que una forma de aproximarse a este tipo de problemas consista en construir sistemas capaces de reproducir dicha característica humana. En este sentido, las redes neuronales constituyen un intento simplificado de simular el funcionamiento del cerebro humano en el tratamiento de la información, cuya unidad básica de procesamiento se inspira en la célula fundamental del sistema nervioso: la neurona.
+
+Una característica esencial del cerebro humano es su capacidad de aprendizaje, entendida como la habilidad de resolver problemas que inicialmente no podían abordarse, mediante la adquisición de nueva información sobre ellos \citep{matich2001redes, salas2004redes, tablada2009redes, izaurieta2000redes}.
+
+Por lo tanto, las redes neuronales se componen de unidades de procesamiento que intercambian datos o información. Se utilizan para reconocer patrones en conjuntos de datos, como imágenes, manuscritos o secuencias temporales, con el objetivo de aprender de ellos y mejorar su desempeño \citep{matich2001redes}.
+
+Debido a sus fundamentos, las redes neuronales artificiales presentan un gran número de características semejantes a las del cerebro, y por ello una gran cantidad de ventajas por sobre los programas basados en algoritmos \cite{McCullochPitts1943}. Por ejemplo, son capaces de aprender a través de la experiencia, de generalizar de una gran serie de casos específicos a nuevos casos, de abstraer características esenciales de bancos de información, desechando la información irrelevante, etc. 
+
+\chapter{Objetivos}
+\label{sec:objetivos}
+\section{General}
+\label{sec:general}
+
+Desarrollar un modelo predictivo de precipitación para la región de Bocacosta en Guatemala utilizando redes neuronales LSTM. Con datos históricos con el propósito de complementar los métodos tradicionales de pronóstico climático. 
+
+\section{Específicos}
+\label{sec:especificos}
+
+\begin{enumerate}
+    \item Analizar series de tiempo de variables climáticas, como precipitación y temperatura, utilizando estadística descriptiva. 
+    \item Diseñar e implementar un modelo LSTM utilizando datos históricos del INSIVUMEH.
+    \item Evaluar el desempeño del modelo mediante métricas de validación, como el análisis de correlación.
+    \item Comparar los resultados obtenidos con métodos tradicionales.
+\end{enumerate}
+
+\chapter{Marco teórico}
+\label{sec:marco}
+
+\section{Mecanismos de formación de precipitación}
+
+La precipitación es el resultado de una serie de procesos termodinámicos que conducen a la condensación del vapor de agua en la atmósfera y al posterior crecimiento de partículas hidrometeorológicas hasta alcanzar un tamaño suficiente para caer por acción de la gravedad. Para comprender su formación, es necesario analizar los mecanismos responsables de la saturación del aire, la formación de nubes y los procesos que favorecen el ascenso de las masas de aire.
+
+Las nubes se forman cuando una masa de aire alcanza su estado de saturación, esto es, cuando la presión parcial del vapor de agua iguala la presión de vapor de saturación para una cierta temperatura. Este estado puede alcanzarse principalmente por dos mecanismos:
+
+\begin{itemize}
+    \item \textbf{Aumento del contenido de vapor de agua.} La evaporación desde superficies acuáticas, suelos húmedos o vegetación genera un incremento en la cantidad de vapor presente en el aire, favoreciendo la saturación.
+
+    \item \textbf{Descenso de temperatura.} Cuando una parcela de aire se enfría, disminuye la presión de vapor de saturación y, por tanto, su capacidad para contener vapor de agua. Este enfriamiento puede continuar hasta alcanzar el punto de rocío. En la parcela el exceso de vapor se condensa sobre núcleos de consdensación, formando gotas de agua o cristales de hielo.
+\end{itemize}
+
+La dependencia de la presión de vapor de saturación con la temperatura está descrita por la ecuación de Clausius-Clapeyron:
+
+\begin{equation*}
+    \frac{de_s}{dT} = \frac{L}{T \Delta v},
+\end{equation*}
+
+donde \(e_s\) es la presión de vapor de saturación, \(L\) es el calor latente de vaporización, \(T\) es la temperatura absoluta y \(\Delta v\) es la diferencia de volumen específico entre fases.
+
+En condiciones ideales, considerando que el volumen específico del gas es mucho mayor que el de la fase condensada, se obtiene:
+\begin{equation*}
+    \frac{de_s}{dT} = \frac{L e_s}{R_v T^2},
+\end{equation*}
+
+Evidenciando la dependencia exponencial entre la temperatura y la capacidad del aire para contener vapor de agua.
+
+Sin embargo, la formación de nubes no implica necesariamente la ocurrencia de precipitación. Para que se produzca, las partículas deben crecer mediante otros procesos. En nubes cálidas, el crecimiento ocurre principalmente por colisión y coalescencia entre gotas, mientras que en nubes frías o mixtas interviene el proceso de Bergeron-Findeisen, en el cual los cristales de hielo crecen a expensas de gotas subenfriadas.
+
+El enfriamiento del aire necesario para alcanzar la saturación ocurre principalmente como consecuencia del ascenso de una parcela de aire. Existen cuatro mecanismos fundamentales de ascenso: convergencia, convección, elevación frontal y elevación orográfica.
+
+En todos estos casos, el aire ascendente se expande debido a la disminución de presión con la altitud, lo que produce un enfriamiento adiabático. Si el ascenso continúa, la parcela alcanza la saturación y eventualmente se produce precipitación.
+
+\section{Variables físicas relevantes en el proceso de formación de precipitaciones}
+
+La formación y variabilidad de la precipitación está condicionada por un conjunto de variables atmosféricas que describen el estado del sistema. Entre las más relevantes se encuentran la temperatura, la humedad, la circulación del viento y la estructura de presión en la atmósfera.
+
+La humedad relativa describe el grado de saturación del aire, mientras que la humedad específica la cantidad absoluta de vapor de agua presente. Ambas variables son fundamentales para determinar la tasa de probabilidad de condensación.
+
+Por otra parte, las velocidades del viento en sus direcciones zonales y meridionales, controlan el transporte de humedad, así como los patrones de convergencia y divergencia que inducen movimientos verticales.
+
+La estructura de presión, representada frecuentemente mediante el geopotencial, permite identificar patrones dinámicos de gran escala, como vaguadas y dorsales, que están asociados a regiones de ascenso o subsidencia.
+
+El modelado de la precipitación requiere la selección de variables predictoras que capturen los procesos físicos fundamentales que controlan su formación. En este contexto, se han considerado variables oceánicas y atmosféricas que representan tanto la disponibilidad de humedad como los mecanismos dinámicos de transporte y ascenso.
+
+\subsection{Temperatura superficial del mar (SST)}
+
+La temperatura superficial del mar (SST por sus siglas en inglés: \textit{sea surface temperature}) es un factor clave en el ciclo hidrológico, pues controla la tasa de evaporación en la superficie oceánica. La presión de vapor de saturación aumenta con la temperatura, y por tanto, aumenta la cantidad de vapor de agua que puede ser transferido a la atmósfera.
+
+En particular, anomalías en la SST están asociadas a fenómenos de gran escala como El Niño-Oscilación del Sur (ENSO), que modifican los patrones de circulación atmosférica y, en consecuencia, la distribución espacial y temporal de la precipitación. En particular, la zona NINO 3.4 tiene un gran impacto en las tendencias climáticas de la zona de Centroamérica. 
+
+De esta manera, la SST actúa como un predictor indirecto de la disponibilidad de humedad y de la variabilidad climática a gran escala.
+
+\subsection{Precipitación global como predictor}
+
+El uso de la precipitación global como predictor (un conjunto de datos distinto a la precipitación específica de la región guatemalteca) permite capturar la tendencia global del fenómeno y su relación con los otros predictores.
+
+Asimismo, la precipitación reciente es un indicador del estado de humedad de la atmósfera y de la superficie, lo cual influye en la probabilidad de eventos posteriores.
+
+\subsection{Viento zonal y meridional a 850 hPa}
+
+El nivel de 850 hPa representa la baja troposfera, donde ocurre gran parte del transporte de humedad. Las componentes zonal (\(u\)) y meridional (\(v\)) del viento permiten caracterizar:
+
+\begin{itemize}
+    \item La advección de humedad desde fuentes oceánicas.
+    \item Los patrones de convergencia, asociados al ascenso del aire.
+    \item La organización de sistemas convectivos.
+\end{itemize}
+
+La convergencia del viento en este nivel está directamente relacionada con el ascenso de masas de aire y, por tanto, con la formación de nubes y precipitación.
+
+\subsection{Geopotencial}
+
+El geopotencial es una medida de la energía potencial gravitatoria por unidad de masa y está directamente relacionado con la distribución de presión en la atmósfera. Los campos de geopotencial permiten identificar estructuras dinámicas como vaguadas, que favorecen el ascenso de cúmulos de aire.
+
+Por ello, el geopotencial es un indicador clave de la dinámica atmosférica de gran escala que modula la formación de precipitación.
+
+\subsection{Humedad relativa y específica a 500 hPa}
+
+El nivel de 500 hPa corresponde a la troposfera media, donde se desarrollan muchos procesos de convección. La humedad en este nivel es fundamental para cuantificar la estabilidad atmosférica y la eficiencia de los procesos de condensación. Una atmósfera seca en niveles medios puede inhibir el desarrollo de convección profunda, incluso si las condiciones en superficie son favorables. Por el contrario, una atmósfera húmeda en 500 hPa favorece la persistencia y desarrollo vertical de las nubes. Es esencial considerar tanto la humedad en relación con el punto de saturación como la cantidad real de agua presente en la atmósfera, y es por ello que la humedad relativa y específica son dos predictores complementarios en este nivel de la troposfera.
+
+La selección de estos predictores está fundamentada en su capacidad para representar los mecanismos físicos descritos. En el aprendizaje automático estas variables permiten establecer relaciones entre el estado atmosférico, teleconexiones entre distintas variables y la persistencia de precipitación, incluyendo información a gran escala. Con estas variables, el modelo no está limitada a una correlación empírica, sino que incorpora variables con significado físico, mejorando su interpretabilidad.  
+
+\section{Redes neuronales}
+
+
+Modelos de \textit{deep learning} son aplicados comúnmente para resolver muchos problemas en ciencias de la tierra, alimentados por una cantidad masiva de datos observados. Un modelo típico de \textit{deep learning} es el de una red neuronal recurrent, (RNN por sus siglas en inglés: \textit{recurrent net network}).  
+
+Las RNN emulan el trabajo de un cerebro, envían y reciben información, de manera similar a como un cerebro puede enviar y recibir datos de una neurona a otra. En general, el cerebro humano es capaz de tomar decisiones racionales, teniendo en cuenta los datos del pasado. Las redes neuronales recurrentes utilizan datos del pasado y aprenden de ellos para predecir situaciones futuras y clasificarlas. 
+
+Las RNN están conformadas por grandes cantidades de conexiones de una neurona a la siguiente, procesadas en una secuencia de tiempo, de tal manera que exista una relación directa entre la secuencia de tiempo actual y la anterior. Esto hace que las RNN tengan una memoria capaz de recordar los resultados de los procesos previos, y utilizan dicha información para calcular los resultados del siguiente proceso. 
+
+Puesto que las RNN procesan grandes cantidades de datos, tienen dificultad a largo plazo para mantener la información de los pasos previos. La primera capa oculta de la arquitectura tiene el peso de la capa de entrada, y a cada capa oculta funciona a partir del peso de la capa anterior. Esto hace que el rendimiento de una RNN sea deficiente al momento de aprender dependencias para largas series temporales.
+
+
+\chapter{Metodología}
+\label{sec:metodologia}
+
+
+
+
+\chapter{Resultados}
+\label{sec:resultados}
+
+
+
+\chapter{Conclusiones}
+\label{sec:conclusiones}
+
+
+\chapter{Recomendaciones}
+\label{sec:recomendaciones}
+
+% adjunto con el nombre referencias.bib.  Hay varios estilos, los básicos son:
+% abbrv, acm, alpha, apalike, ieeetr, plain, siam, unsrt
+\nocite{*}
+\bibliographystyle{unsrt}% otras opciones {plain}
+\bibliography{biblio}
+\end{document}
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

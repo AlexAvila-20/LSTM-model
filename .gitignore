@@ -1,0 +1,18 @@
+# Directorios de caché y resultados
+Scripts/preprocessing-cache/
+Resultados/
+
+# Archivos de modelos (si quieres ignorar todos)
+*.keras
+*.h5
+*.pkl
+*.nc
+
+# Archivos comunes de Python (si aplica)
+__pycache__/
+*.pyc
+*.pyo
+
+# Entornos virtuales
+venv/
+env/

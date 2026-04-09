@@ -7,6 +7,7 @@ Resultados/
 *.h5
 *.pkl
 *.nc
+.DS_Store
 
 # Archivos comunes de Python (si aplica)
 __pycache__/

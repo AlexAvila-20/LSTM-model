@@ -1,0 +1,42 @@
+════════════════════════════════════════════════════════════
+Reinstalando TensorFlow + CUDA/cuDNN
+════════════════════════════════════════════════════════════
+
+🔍 Ambiente Conda actual: miniconda3
+
+Limpiando caché de pip...
+Files removed: 0 (0 bytes)
+Directories removed: 0
+
+Desinstalando tensorflow y CUDA/cuDNN...
+Found existing installation: tensorflow 2.21.0
+Uninstalling tensorflow-2.21.0:
+  Successfully uninstalled tensorflow-2.21.0
+2 channel Terms of Service accepted
+Limpiando caché de conda...
+Will remove 370 (3.18 GB) tarball(s).
+Will remove 1 index cache(s).
+Will remove 36 (2.38 GB) package(s).
+There are no tempfile(s) to remove.
+There are no logfile(s) to remove.
+Limpiando caché local de TensorFlow/Keras...
+
+Reinstalando TensorFlow 2.21.0 con CUDA 12...
+Requirement already satisfied: pip in /home/alex/miniconda3/lib/python3.13/site-packages (26.0.1)
+Requirement already satisfied: setuptools in /home/alex/miniconda3/lib/python3.13/site-packages (80.10.2)
+Collecting setuptools
+  Downloading setuptools-82.0.1-py3-none-any.whl.metadata (6.5 kB)
+Downloading setuptools-82.0.1-py3-none-any.whl (1.0 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.0/1.0 MB 2.6 MB/s  0:00:00
+Installing collected packages: setuptools
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 80.10.2
+    Uninstalling setuptools-80.10.2:
+      Successfully uninstalled setuptools-80.10.2
+Successfully installed setuptools-82.0.1
+Collecting tensorflow==2.21.0
+  Downloading tensorflow-2.21.0-cp313-cp313-manylinux_2_27_x86_64.whl.metadata (4.4 kB)
+Collecting nvidia-cudnn-cu12==9.2.0.82
+  Downloading nvidia_cudnn_cu12-9.2.0.82-py3-none-manylinux2014_x86_64.whl.metadata (1.6 kB)
+ERROR: Could not find a version that satisfies the requirement nvidia-cuda-runtime-cu12==12.4.131 (from versions: 0.0.1.dev5, 12.0.107, 12.0.146, 12.1.55, 12.1.105, 12.2.53, 12.2.128, 12.2.140, 12.3.52, 12.3.101, 12.4.99, 12.4.127, 12.5.39, 12.5.82, 12.6.37, 12.6.68, 12.6.77, 12.8.57, 12.8.90, 12.9.37, 12.9.79)
+ERROR: No matching distribution found for nvidia-cuda-runtime-cu12==12.4.131

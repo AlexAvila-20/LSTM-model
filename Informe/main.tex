@@ -1,24 +1,6 @@
 % 20241108
 % Giovanni Ramirez
 % ramirez@ecfm.usac.edu.gt
-%                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-%
 % Esta es una plantilla y contiene lo mínimo que debe llevar el
 % informe final del año de prácticas.  La portada es una propuesta y
 % se puede ajustar según se desee.
@@ -217,104 +199,238 @@ Desarrollar un modelo predictivo de precipitación para la región de Bocacosta 
 \chapter{Marco teórico}
 \label{sec:marco}
 
-\section{Mecanismos de formación de precipitación}
 
-La precipitación es el resultado de una serie de procesos termodinámicos que conducen a la condensación del vapor de agua en la atmósfera y al posterior crecimiento de partículas hidrometeorológicas hasta alcanzar un tamaño suficiente para caer por acción de la gravedad. Para comprender su formación, es necesario analizar los mecanismos responsables de la saturación del aire, la formación de nubes y los procesos que favorecen el ascenso de las masas de aire.
+\section{Dinámica de la Atmósfera}
 
-Las nubes se forman cuando una masa de aire alcanza su estado de saturación, esto es, cuando la presión parcial del vapor de agua iguala la presión de vapor de saturación para una cierta temperatura. Este estado puede alcanzarse principalmente por dos mecanismos:
+\subsection{Conceptos Básicos del Sistema Climático}
+El sistema climático terrestre es un sistema acoplado no lineal compuesto por la atmósfera, la hidrósfera, la criósfera, la litósfera y la biósfera. Su dinámica está gobernada por las leyes de conservación de la masa, el momento y la energía, así como por la ecuación de estado de los gases ideales. La fuente primaria de energía es la radiación solar de onda corta, la cual es distribuida de manera desigual sobre la superficie terrestre debido a la esfericidad del planeta y la inclinación del eje de rotación. Este desequilibrio radiativo genera gradientes de temperatura que impulsan la circulación general de la atmósfera y los océanos, cuyo objetivo termodinámico es transportar calor desde las regiones ecuatoriales hacia los polos.
 
+\subsection{Variables Atmosférias Relevantes}
+Para caracterizar el estado de la atmósfera y su evolución, se utilizan variables de estado fundamentales. La \textbf{presión atmosférica} (\(P\)), definida como la fuerza por unidad de área ejercida por el peso de la columna de aire, decrece exponencialmente con la altura siguiendo la ecuación hipsométrica. La \textbf{temperatura} (\(T\)) es una medida de la energía cinética media de las moléculas del aire. El \textbf{contenido de vapor de agua} se cuantifica mediante la humedad específica (\(q\)), que representa la masa de vapor de agua por unidad de masa de aire húmedo, o la humedad relativa (\(HR\)), que indica el grado de saturación del aire respecto a la presión de vapor de saturación. El \textbf{viento}, un campo vectorial \(\vec{V} = (u, v, w)\), describe el movimiento del aire en las direcciones zonal, meridional y vertical, respectivamente.
+
+\subsection{Procesos Termodinámicos}
+Los procesos adiabáticos son centrales en la formación de nubes y precipitación. Cuando una parcela de aire asciende en la atmósfera, encuentra una presión ambiental menor y se expande. Si el ascenso es lo suficientemente rápido para que el intercambio de calor con el entorno sea despreciable (proceso adiabático), la parcela se enfría a la tasa adiabática seca (\(\Gamma_d \approx 9.8 \text{ K km}^{-1}\)). Una vez que la parcela alcanza la saturación, la condensación libera calor latente, reduciendo la tasa de enfriamiento a la tasa pseudo-adiabática húmeda (\(\Gamma_s\)), cuyo valor varía con la temperatura y la presión, siendo típicamente de \(4-6 \text{ K km}^{-1}\) en la troposfera tropical. Este calor latente es una fuente crucial de energía para la convección profunda.
+
+\section{Mecanismos de Formación de la Precipitación}
+
+\subsection{Saturación, Condensación y Formación de Nubes}
+La precipitación es el resultado final de una cadena de procesos microfísicos que comienzan con la saturación del aire. La \textbf{ecuación de Clausius-Clapeyron} establece la relación termodinámica fundamental entre la presión de vapor de saturación (\(e_s\)) y la temperatura:
+\begin{equation}
+    \frac{de_s}{dT} = \frac{L_v e_s}{R_v T^2}
+\end{equation}
+donde \(L_v\) es el calor latente de vaporización y \(R_v\) es la constante específica del vapor de agua. Esta ecuación implica que la capacidad del aire para contener vapor de agua aumenta exponencialmente con la temperatura. En un clima más cálido, la atmósfera puede retener más humedad, lo que intensifica los eventos extremos de precipitación si los mecanismos de ascenso están presentes. La condensación del vapor sobre núcleos de condensación de nubes (CCN) da lugar a las gotitas de nube, cuyo tamaño es insuficiente para precipitar por gravedad.
+
+\subsection{Procesos de Colisión-Coalescencia y Bergeron-Findeisen}
+La formación de gotas de lluvia requiere el crecimiento de las gotitas de nube hasta alcanzar un tamaño crítico. En nubes cálidas (temperatura \(> 0^\circ\)C), predomina el proceso de \textbf{colisión-coalescencia}, donde gotas de diferente tamaño y velocidad terminal colisionan y se fusionan. En nubes frías o mixtas, opera el \textbf{proceso de Bergeron-Findeisen}, que explota la diferencia de presión de vapor de saturación sobre el agua líquida y el hielo. En un ambiente mixto saturado respecto al agua, existe sobresaturación respecto al hielo, lo que induce la deposición de vapor sobre los cristales de hielo a expensas de las gotitas de agua subfundida.
+
+\subsection{Ascenso de Masas de Aire}
+Para que se produzca precipitación significativa, es indispensable el ascenso de masas de aire húmedo que enfríen la parcela hasta la saturación. Los mecanismos de ascenso principales son:
 \begin{itemize}
-    \item \textbf{Aumento del contenido de vapor de agua.} La evaporación desde superficies acuáticas, suelos húmedos o vegetación genera un incremento en la cantidad de vapor presente en el aire, favoreciendo la saturación.
-
-    \item \textbf{Descenso de temperatura.} Cuando una parcela de aire se enfría, disminuye la presión de vapor de saturación y, por tanto, su capacidad para contener vapor de agua. Este enfriamiento puede continuar hasta alcanzar el punto de rocío. En la parcela el exceso de vapor se condensa sobre núcleos de consdensación, formando gotas de agua o cristales de hielo.
+    \item \textbf{Convección libre:} Calentamiento diferencial de la superficie que genera burbujas de aire cálido menos denso que ascienden.
+    \item \textbf{Ascenso orográfico:} El viento horizontal es forzado a remontar una barrera montañosa, enfriándose adiabáticamente. Este mecanismo es crítico en la Bocacosta guatemalteca.
+    \item \textbf{Convergencia en niveles bajos:} La fricción superficial o la dinámica de ondas del este generan zonas de acumulación de masa que fuerzan el movimiento vertical ascendente.
+    \item \textbf{Frentes:} Superficies de discontinuidad entre masas de aire de distinta densidad.
 \end{itemize}
 
-La dependencia de la presión de vapor de saturación con la temperatura está descrita por la ecuación de Clausius-Clapeyron:
+\section{Variables Físicas Relevantes para la Predicción de Precipitación}
 
-\begin{equation*}
-    \frac{de_s}{dT} = \frac{L}{T \Delta v},
-\end{equation*}
+La selección de predictores (características de entrada) para un modelo de precipitación debe basarse en su conexión causal con los procesos de condensación y ascenso.
 
-donde \(e_s\) es la presión de vapor de saturación, \(L\) es el calor latente de vaporización, \(T\) es la temperatura absoluta y \(\Delta v\) es la diferencia de volumen específico entre fases.
+\subsection{Temperatura Superficial del Mar (SST)}
+La SST es la variable oceánica más influyente en el clima tropical. Anomalías cálidas en la SST incrementan el flujo de calor latente y sensible hacia la atmósfera, reduciendo la estabilidad estática e incrementando la humedad en la capa límite. En el contexto del Pacífico Oriental, la SST modula la intensidad de la Zona de Convergencia Intertropical (ZCIT) y la convección asociada a ondas del este.
 
-En condiciones ideales, considerando que el volumen específico del gas es mucho mayor que el de la fase condensada, se obtiene:
-\begin{equation*}
-    \frac{de_s}{dT} = \frac{L e_s}{R_v T^2},
-\end{equation*}
+\subsection{Humedad Relativa y Específica}
+La humedad específica (\(q\)) en niveles bajos y medios (850-700 hPa) es un indicador directo del combustible disponible para la convección. La humedad relativa (\(HR\)) proporciona información sobre qué tan cerca está la columna atmosférica de la saturación, lo cual es crucial para la activación de la convección profunda.
 
-Evidenciando la dependencia exponencial entre la temperatura y la capacidad del aire para contener vapor de agua.
-
-Sin embargo, la formación de nubes no implica necesariamente la ocurrencia de precipitación. Para que se produzca, las partículas deben crecer mediante otros procesos. En nubes cálidas, el crecimiento ocurre principalmente por colisión y coalescencia entre gotas, mientras que en nubes frías o mixtas interviene el proceso de Bergeron-Findeisen, en el cual los cristales de hielo crecen a expensas de gotas subenfriadas.
-
-El enfriamiento del aire necesario para alcanzar la saturación ocurre principalmente como consecuencia del ascenso de una parcela de aire. Existen cuatro mecanismos fundamentales de ascenso: convergencia, convección, elevación frontal y elevación orográfica.
-
-En todos estos casos, el aire ascendente se expande debido a la disminución de presión con la altitud, lo que produce un enfriamiento adiabático. Si el ascenso continúa, la parcela alcanza la saturación y eventualmente se produce precipitación.
-
-\section{Variables físicas relevantes en el proceso de formación de precipitaciones}
-
-La formación y variabilidad de la precipitación está condicionada por un conjunto de variables atmosféricas que describen el estado del sistema. Entre las más relevantes se encuentran la temperatura, la humedad, la circulación del viento y la estructura de presión en la atmósfera.
-
-La humedad relativa describe el grado de saturación del aire, mientras que la humedad específica la cantidad absoluta de vapor de agua presente. Ambas variables son fundamentales para determinar la tasa de probabilidad de condensación.
-
-Por otra parte, las velocidades del viento en sus direcciones zonales y meridionales, controlan el transporte de humedad, así como los patrones de convergencia y divergencia que inducen movimientos verticales.
-
-La estructura de presión, representada frecuentemente mediante el geopotencial, permite identificar patrones dinámicos de gran escala, como vaguadas y dorsales, que están asociados a regiones de ascenso o subsidencia.
-
-El modelado de la precipitación requiere la selección de variables predictoras que capturen los procesos físicos fundamentales que controlan su formación. En este contexto, se han considerado variables oceánicas y atmosféricas que representan tanto la disponibilidad de humedad como los mecanismos dinámicos de transporte y ascenso.
-
-\subsection{Temperatura superficial del mar (SST)}
-
-La temperatura superficial del mar (SST por sus siglas en inglés: \textit{sea surface temperature}) es un factor clave en el ciclo hidrológico, pues controla la tasa de evaporación en la superficie oceánica. La presión de vapor de saturación aumenta con la temperatura, y por tanto, aumenta la cantidad de vapor de agua que puede ser transferido a la atmósfera.
-
-En particular, anomalías en la SST están asociadas a fenómenos de gran escala como El Niño-Oscilación del Sur (ENSO), que modifican los patrones de circulación atmosférica y, en consecuencia, la distribución espacial y temporal de la precipitación. En particular, la zona NINO 3.4 tiene un gran impacto en las tendencias climáticas de la zona de Centroamérica. 
-
-De esta manera, la SST actúa como un predictor indirecto de la disponibilidad de humedad y de la variabilidad climática a gran escala.
-
-\subsection{Precipitación global como predictor}
-
-El uso de la precipitación global como predictor (un conjunto de datos distinto a la precipitación específica de la región guatemalteca) permite capturar la tendencia global del fenómeno y su relación con los otros predictores.
-
-Asimismo, la precipitación reciente es un indicador del estado de humedad de la atmósfera y de la superficie, lo cual influye en la probabilidad de eventos posteriores.
-
-\subsection{Viento zonal y meridional a 850 hPa}
-
-El nivel de 850 hPa representa la baja troposfera, donde ocurre gran parte del transporte de humedad. Las componentes zonal (\(u\)) y meridional (\(v\)) del viento permiten caracterizar:
-
-\begin{itemize}
-    \item La advección de humedad desde fuentes oceánicas.
-    \item Los patrones de convergencia, asociados al ascenso del aire.
-    \item La organización de sistemas convectivos.
-\end{itemize}
-
-La convergencia del viento en este nivel está directamente relacionada con el ascenso de masas de aire y, por tanto, con la formación de nubes y precipitación.
+\subsection{Viento (Componentes Zonal y Meridional)}
+El viento zonal (\(u\)) en niveles bajos (925-850 hPa) es fundamental para el transporte de humedad desde las fuentes oceánicas (el Jet de Bajo Nivel del Caribe o el flujo del Pacífico). La componente meridional (\(v\)) está asociada a la convergencia/divergencia y a la posición de la ZCIT. La cizalladura vertical del viento puede tanto inhibir como organizar los sistemas convectivos.
 
 \subsection{Geopotencial}
+La altura geopotencial (\(Z\)) en niveles de 500 hPa permite identificar la presencia de vaguadas y dorsales en la tropósfera media. Una vaguada profunda sobre Centroamérica se asocia con ascenso de gran escala y enfriamiento en la tropósfera superior, lo que desestabiliza la columna atmosférica y favorece tormentas.
 
-El geopotencial es una medida de la energía potencial gravitatoria por unidad de masa y está directamente relacionado con la distribución de presión en la atmósfera. Los campos de geopotencial permiten identificar estructuras dinámicas como vaguadas, que favorecen el ascenso de cúmulos de aire.
+\subsection{Teleconexiones Climáticas (ENSO, AMO, TNA)}
+El sistema climático presenta modos de variabilidad de baja frecuencia que modulan las condiciones medias de precipitación en Guatemala.
+\begin{itemize}
+    \item \textbf{ENSO (El Niño-Southern Oscillation):} La fase cálida (El Niño) se asocia típicamente con déficit de precipitación en la vertiente del Pacífico guatemalteco debido al debilitamiento de los vientos alisios y al desplazamiento de la convección profunda hacia el Pacífico Central. La fase fría (La Niña) se correlaciona con excesos de lluvia.
+    \item \textbf{AMO (Atlantic Multidecadal Oscillation):} Afecta la SST del Atlántico Norte y modula la fuerza del transporte de humedad desde el Caribe hacia el Pacífico a través del istmo.
+    \item \textbf{TNA (Tropical North Atlantic Index):} Anomalías cálidas en el Atlántico tropical intensifican la corriente de humedad hacia Centroamérica, compitiendo con la influencia del Pacífico.
+\end{itemize}
 
-Por ello, el geopotencial es un indicador clave de la dinámica atmosférica de gran escala que modula la formación de precipitación.
+\section{Series de Tiempo en Climatología}
 
-\subsection{Humedad relativa y específica a 500 hPa}
+\subsection{Definición y Componentes}
+Una serie de tiempo climática es una secuencia de observaciones de una variable atmosférica ordenada cronológicamente y generalmente equiespaciada. Matemáticamente, se define como \(\{X_t : t \in T\}\), donde \(T\) es el índice temporal. Estas series suelen descomponerse en tres componentes aditivos o multiplicativos:
+\begin{equation}
+    X_t = T_t + S_t + R_t
+\end{equation}
+donde \(T_t\) es la \textbf{tendencia} a largo plazo (cambio climático o variabilidad decadal), \(S_t\) es la \textbf{estacionalidad} periódica (ciclo anual marcado por el monzón centroamericano), y \(R_t\) es el residuo o \textbf{variabilidad} de alta frecuencia (sinóptica e intradiurna).
 
-El nivel de 500 hPa corresponde a la troposfera media, donde se desarrollan muchos procesos de convección. La humedad en este nivel es fundamental para cuantificar la estabilidad atmosférica y la eficiencia de los procesos de condensación. Una atmósfera seca en niveles medios puede inhibir el desarrollo de convección profunda, incluso si las condiciones en superficie son favorables. Por el contrario, una atmósfera húmeda en 500 hPa favorece la persistencia y desarrollo vertical de las nubes. Es esencial considerar tanto la humedad en relación con el punto de saturación como la cantidad real de agua presente en la atmósfera, y es por ello que la humedad relativa y específica son dos predictores complementarios en este nivel de la troposfera.
+\subsection{Autocorrelación}
+La función de autocorrelación (ACF) mide la dependencia lineal entre los valores de la serie en el tiempo \(t\) y en rezagos \(t-k\). En climatología, la precipitación exhibe una \textbf{persistencia} significativa; la lluvia de hoy está correlacionada con la lluvia de ayer, y más aún, con la humedad del suelo o los modos de variabilidad oceánica de semanas previas. Esta propiedad justifica el uso de modelos con memoria temporal como las redes recurrentes.
 
-La selección de estos predictores está fundamentada en su capacidad para representar los mecanismos físicos descritos. En el aprendizaje automático estas variables permiten establecer relaciones entre el estado atmosférico, teleconexiones entre distintas variables y la persistencia de precipitación, incluyendo información a gran escala. Con estas variables, el modelo no está limitada a una correlación empírica, sino que incorpora variables con significado físico, mejorando su interpretabilidad.  
+\section{Relación entre Procesos Físicos y Aprendizaje Automático}
 
-\section{Redes neuronales}
+\subsection{Naturaleza No Lineal del Sistema Climático}
+La atmósfera es un fluido geofísico turbulento gobernado por las ecuaciones no lineales de Navier-Stokes. Los procesos de retroalimentación, como el acoplamiento entre la radiación de onda larga y la nubosidad, o la liberación de calor latente en función de la convergencia de humedad, generan una respuesta altamente no lineal del sistema. Esta no linealidad implica que pequeños errores en las condiciones iniciales crecen exponencialmente (caos determinista), limitando la predictibilidad de los modelos dinámicos más allá de unos pocos días para el detalle convectivo.
+
+\subsection{Limitaciones de Modelos Físicos Tradicionales}
+Los Modelos de Circulación General (GCM) y los Modelos de Predicción Numérica del Tiempo (NWP) resuelven las ecuaciones primitivas en una malla discreta. Sin embargo, enfrentan dificultades inherentes en regiones de terreno complejo como la Bocacosta, donde la resolución espacial es insuficiente para resolver la orografía escarpada y los procesos de convección sub-malla deben ser \textbf{parametrizados} (aproximados empíricamente). Estas parametrizaciones introducen sesgos sistemáticos y errores en el pronóstico de precipitación orográfica.
+
+\subsection{Justificación del Uso de Machine Learning}
+El Aprendizaje Automático (ML), y en particular las redes neuronales profundas, ofrecen un enfoque complementario puramente basado en datos. Una red neuronal puede aprender empíricamente la función de mapeo \(f: \mathbb{R}^n \to \mathbb{R}\) que relaciona un conjunto de predictores físicos de gran escala (resueltos por reanálisis) con la precipitación local observada. Este enfoque permite capturar relaciones estadísticas no lineales y dependencias temporales complejas que son difíciles de formular explícitamente en un modelo físico.
+
+\subsection{Interpretabilidad Física de los Predictores}
+Si bien las redes neuronales son a menudo criticadas como ``cajas negras'', la selección cuidadosa de predictores basada en la dinámica atmosférica permite una \textbf{interpretabilidad física}, asegurando que la red está utilizando información sobre la SST del Pacífico, la humedad transportada por el viento zonal y la estabilidad atmosférica para inferir la probabilidad e intensidad de la precipitación, en concordancia con la teoría de la convección.
+
+\section{Redes Neuronales Artificiales}
+
+\subsection{Definición Formal y Modelo Matemático}
+Una red neuronal artificial es un modelo computacional inspirado en el sistema nervioso biológico, compuesto por unidades de procesamiento interconectadas llamadas neuronas. Formalmente, una neurona artificial recibe un vector de entrada \(\mathbf{x} = (x_1, x_2, ..., x_n)\), calcula una suma ponderada de estas entradas y aplica una función de activación no lineal \(g(\cdot)\):
+\begin{equation}
+    y = g\left( \sum_{i=1}^{n} w_i x_i + b \right) = g(\mathbf{w}^T \mathbf{x} + b)
+\end{equation}
+donde \(\mathbf{w}\) son los pesos sinápticos (parámetros ajustables que determinan la importancia de cada entrada) y \(b\) es el sesgo o \textit{bias}.
+
+\subsection{Funciones de Activación}
+La no linealidad \(g(\cdot)\) es esencial para que la red pueda aproximar funciones complejas. Las funciones más comunes en modelos LSTM son:
+\begin{itemize}
+    \item \textbf{Sigmoide (\(\sigma\)):} \(\sigma(x) = \frac{1}{1+e^{-x}}\). Comprime los valores al rango \((0, 1)\), utilizada en puertas de control de flujo de información.
+    \item \textbf{Tangente Hiperbólica (\(\tanh\)):} \(\tanh(x) = \frac{e^x - e^{-x}}{e^x + e^{-x}}\). Comprime valores al rango \((-1, 1)\), centrada en cero, utilizada para regular el estado de la celda.
+    \item \textbf{ReLU (Rectified Linear Unit):} \(ReLU(x) = \max(0, x)\). Popular en capas ocultas densas por su eficiencia computacional y mitigación del desvanecimiento del gradiente.
+\end{itemize}
+
+\section{Redes Neuronales Recurrentes (RNN)}
+
+\subsection{Concepto de Memoria Temporal}
+Las redes neuronales \textit{feedforward} estándar asumen independencia entre muestras, lo cual es inadecuado para series de tiempo donde \(X_t\) depende de \(X_{t-1}\). Las Redes Neuronales Recurrentes (RNN) introducen conexiones de retroalimentación que forman un ciclo dirigido, permitiendo que la información persista. El estado oculto \(\mathbf{h}_t\) actúa como una ``memoria'' que resume la historia pasada de la secuencia:
+\begin{equation}
+    \mathbf{h}_t = g(\mathbf{W}_{xh} \mathbf{x}_t + \mathbf{W}_{hh} \mathbf{h}_{t-1} + \mathbf{b}_h)
+\end{equation}
+donde \(\mathbf{W}_{hh}\) es la matriz de pesos recurrente que propaga el estado anterior.
+
+\subsection{Problema del Gradiente Evanescente}
+El entrenamiento de RNNs mediante retropropagación a través del tiempo (BPTT) implica el cálculo de gradientes a través de múltiples pasos temporales. Debido a multiplicaciones repetidas de la matriz \(\mathbf{W}_{hh}\) y las derivadas de las funciones de activación, los gradientes tienden a \textbf{desvanecerse} (tender a cero) o \textbf{explotar} (tender a infinito). En el contexto climático, donde la precipitación actual puede estar influenciada por la SST de hace meses (teleconexiones ENSO), la RNN simple es incapaz de capturar estas dependencias de \textbf{largo plazo} debido al gradiente evanescente.
+
+\section{Redes LSTM (Long Short-Term Memory)}
+
+\subsection{Justificación de su Uso}
+La arquitectura LSTM fue diseñada específicamente para superar el problema del gradiente evanescente y aprender dependencias temporales de largo alcance. Dado que los fenómenos atmosféricos operan en múltiples escalas temporales (desde la turbulencia horaria hasta la oscilación interanual del ENSO), la LSTM es la elección óptima para modelar la precipitación acumulada. Su capacidad para recordar y olvidar información selectivamente permite a la red mantener un estado que refleje la condición climática de fondo (e.g., ``estamos en fase La Niña'') mientras reacciona a perturbaciones sinópticas de corta duración.
+
+\subsection{Arquitectura Interna y Ecuaciones Fundamentales}
+La celda LSTM reemplaza la neurona recurrente simple por un módulo que contiene una \textbf{celda de estado} (\(C_t\)) y tres compuertas que regulan el flujo de información.
+
+\begin{enumerate}
+    \item \textbf{Puerta de Olvido (\(f_t\)):} Decide qué información eliminar del estado de la celda previo \(C_{t-1}\). Observa \(\mathbf{h}_{t-1}\) y \(\mathbf{x}_t\), y emite un valor entre 0 (olvidar) y 1 (retener).
+    \begin{equation}
+        f_t = \sigma(\mathbf{W}_f \cdot [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_f)
+    \end{equation}
+    
+    \item \textbf{Puerta de Entrada (\(i_t\)) y Candidato de Celda (\(\tilde{C}_t\)):} Decide qué nueva información almacenar en la celda. La puerta de entrada selecciona los valores a actualizar, mientras que una capa \(\tanh\) genera un vector de nuevos valores candidatos.
+    \begin{equation}
+        i_t = \sigma(\mathbf{W}_i \cdot [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_i)
+    \end{equation}
+    \begin{equation}
+        \tilde{C}_t = \tanh(\mathbf{W}_C \cdot [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_C)
+    \end{equation}
+    
+    \item \textbf{Actualización del Estado de Celda (\(C_t\)):} El estado anterior se actualiza combinando la acción del olvido y la adición de la nueva información.
+    \begin{equation}
+        C_t = f_t * C_{t-1} + i_t * \tilde{C}_t
+    \end{equation}
+    El flujo lineal de gradiente a través de la operación \(+\) y \(*\) (producto elemento a elemento) es lo que evita el desvanecimiento del gradiente a lo largo de decenas de pasos temporales.
+
+    \item \textbf{Puerta de Salida (\(o_t\)) y Estado Oculto (\(h_t\)):} La salida se basa en el estado de la celda, pero filtrado por una compuerta de salida que decide qué partes del estado actual son relevantes para el siguiente paso o la predicción final.
+    \begin{equation}
+        o_t = \sigma(\mathbf{W}_o \cdot [\mathbf{h}_{t-1}, \mathbf{x}_t] + \mathbf{b}_o)
+    \end{equation}
+    \begin{equation}
+        \mathbf{h}_t = o_t * \tanh(C_t)
+    \end{equation}
+\end{enumerate}
+
+\section{Preprocesamiento de Datos Climáticos}
+
+\subsection{Normalización y Estandarización}
+Las variables climáticas poseen escalas y unidades físicas dispares (e.g., geopotencial en \(m^2 s^{-2}\), humedad relativa en \%). Para que el optimizador por gradiente converja eficientemente y las funciones de activación operen en su rango sensible, es imperativo escalar los datos. La \textbf{estandarización} (o puntuación Z) se utiliza comúnmente en climatología para preservar las anomalías relativas:
+\begin{equation}
+    X_{std} = \frac{X - \mu}{\sigma}
+\end{equation}
+donde \(\mu\) es la media y \(\sigma\) la desviación estándar del período de entrenamiento.
+
+\subsection{Manejo de Datos Faltantes}
+Los conjuntos de datos observacionales (pluviómetros) o satelitales contienen lagunas. Se aplican técnicas de imputación como la interpolación lineal temporal o la sustitución por la mediana climatológica del mes correspondiente. Para mantener la consistencia física, es preferible eliminar segmentos cortos de reanálisis en lugar de interpolar valores espurios de viento.
+
+\subsection{Construcción de Ventanas Temporales (Lags)}
+Para alimentar la red LSTM, la serie de tiempo continua debe ser segmentada en secuencias de longitud fija \(L\) (ventana de entrada). Si se predice la precipitación en el tiempo \(t\), la entrada es la matriz \(\mathbf{X} \in \mathbb{R}^{L \times N}\) donde \(N\) es el número de predictores. La elección de \(L\) es crítica: debe ser lo suficientemente larga para capturar la evolución de una onda del este (3-5 días) y la memoria de la humedad del suelo, pero no tan larga como para diluir el gradiente en el entrenamiento.
+
+\subsection{División de Datos}
+Para evaluar la capacidad de generalización del modelo, el conjunto de datos se divide en:
+\begin{itemize}
+    \item \textbf{Entrenamiento:} Aproximadamente 70-80\% de los datos (e.g., años iniciales). Usado para ajustar los pesos \(\mathbf{W}\) y \(\mathbf{b}\) mediante retropropagación.
+    \item \textbf{Validación:} 10-15\% de los datos. Usado para monitorear el rendimiento fuera de muestra y detener el entrenamiento (\textit{early stopping}) antes del sobreajuste.
+    \item \textbf{Prueba:} 10-15\% final. Conjunto de datos \textbf{no vistos} durante el desarrollo. Proporciona una estimación insesgada del rendimiento operativo del modelo final.
+\end{itemize}
+
+\section{Evaluación de Modelos Predictivos}
+
+La bondad del ajuste y la precisión del pronóstico se cuantifican mediante métricas de error y correlación.
+
+\subsection{RMSE (Raíz del Error Cuadrático Medio)}
+Mide la desviación estándar de los residuos (errores de predicción). Penaliza fuertemente los errores grandes debido al término cuadrático. Es útil para cuantificar la magnitud media del error en las mismas unidades que la variable observada (mm/día).
+\begin{equation}
+    RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
+\end{equation}
+
+\subsection{MAE (Error Absoluto Medio)}
+Mide la magnitud promedio de los errores en un conjunto de predicciones, sin considerar la dirección. Es menos sensible a valores atípicos extremos que el RMSE.
+\begin{equation}
+    MAE = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+\end{equation}
+
+\subsection{Correlación de Pearson (\(r\))}
+Evalúa la relación lineal entre los valores predichos (\(\hat{y}\)) y los observados (\(y\)). Un valor cercano a 1 indica que el modelo captura correctamente la fase y la tendencia de la variabilidad de la precipitación, aunque pudiera tener un sesgo sistemático en la magnitud.
+\begin{equation}
+    r = \frac{\sum (y_i - \bar{y})(\hat{y}_i - \bar{\hat{y}})}{\sqrt{\sum (y_i - \bar{y})^2 \sum (\hat{y}_i - \bar{\hat{y}})^2}}
+\end{equation}
+
+\section{Problemas en el Entrenamiento de Modelos}
+
+\subsection{Overfitting (Sobreajuste)}
+Ocurre cuando el modelo aprende no solo la señal física subyacente, sino también el \textit{ruido} estadístico y las idiosincrasias del conjunto de entrenamiento. Un modelo sobreajustado exhibe un error muy bajo en entrenamiento pero un error alto en validación/prueba. En el contexto de LSTM, el sobreajuste se manifiesta cuando la red memoriza secuencias específicas de años pasados en lugar de aprender las relaciones atmósfera-lluvia generalizables.
+
+\subsection{Underfitting (Subajuste)}
+Sucede cuando el modelo es demasiado simple (pocas neuronas o capas) para capturar la complejidad no lineal del sistema climático. El error es alto tanto en entrenamiento como en validación, indicando que el modelo no ha logrado aprender la función de mapeo verdadera.
+
+\subsection{Técnicas de Regularización}
+Para combatir el sobreajuste en redes LSTM profundas se emplean:
+\begin{itemize}
+    \item \textbf{Dropout:} Durante el entrenamiento, se ``apaga'' aleatoriamente un porcentaje \(p\) de las neuronas en cada paso (ignorando su salida y gradiente). Esto fuerza a la red a no depender de una ruta de activación específica, mejorando la robustez y actuando como un ensamble de sub-redes.
+    \item \textbf{Early Stopping:} El entrenamiento se detiene cuando el error de validación deja de disminuir y comienza a aumentar, incluso si el error de entrenamiento sigue bajando. Es una de las técnicas más efectivas en series temporales climáticas.
+\end{itemize}
+
+\section{Contexto Climático de Guatemala y Región Bocacosta}
+
+\subsection{Estacionalidad de la Precipitación}
+La región Bocacosta se ubica en la vertiente sur de la cadena volcánica de Guatemala, descendiendo hacia la llanura costera del Pacífico. El régimen de precipitación es marcadamente estacional, definido por el monzón norteaméricano y la migración latitudinal de la Zona de Convergencia Intertropical. La temporada lluviosa se extiende típicamente de mayo a octubre, presentando un característico \textbf{doble máximo}: un primer pico en junio asociado al inicio de la época lluviosa y al paso de ondas del este, una \textbf{canícula} en julio-agosto debido a la intensificación de los vientos alisios y subsidencia, y un segundo máximo en septiembre-octubre coincidiendo con el pico de actividad de la Zona de Convergencia Intertropical en el Pacífico Oriental y la temporada de ciclones tropicales.
+
+\subsection{Influencia del Pacífico y Rol de la Orografía}
+La Bocacosta está directamente expuesta al flujo de humedad del Océano Pacífico tropical nororiental. La interacción entre el flujo de bajo nivel del suroeste y la pronunciada orografía de la Sierra Madre guatemalteca es el principal mecanismo forzante de la precipitación en la zona. El ascenso forzado (efecto Föehn) condensa la abundante humedad oceánica, generando núcleos de precipitación convectiva\begin{comment}y estratiforme que superan los 4000 mm anuales en las laderas de barlovento\end{comment}. Pequeñas variaciones en la dirección del viento o en la temperatura superficial del Pacífico pueden traducirse en grandes anomalías de precipitación local, exacerbando el riesgo de deslizamientos e inundaciones.
+
+\subsection{Importancia de la Predicción en la Región}
+La Bocacosta es una de las zonas con más producción agrícola del país (café, caña de azúcar, hule), pero también una de las más vulnerables a eventos hidrometeorológicos extremos. La predicción precisa de la precipitación a corto y mediano plazo es un insumo fundamental para:
+\begin{itemize}
+    \item Sistemas de Alerta Temprana (SAT) ante deslizamientos y crecidas de ríos.
+    \item Planificación de siembra y cosecha en el sector agrícola.
+    \item Gestión de recursos hídricos para generación hidroeléctrica en la vertiente del Pacífico.
+\end{itemize}
+El desarrollo de un modelo LSTM para la precipitación local busca complementar las limitaciones de los modelos numéricos globales, proporcionando una herramienta basada en predictores físicos de gran escala.
 
 
-Modelos de \textit{deep learning} son aplicados comúnmente para resolver muchos problemas en ciencias de la tierra, alimentados por una cantidad masiva de datos observados. Un modelo típico de \textit{deep learning} es el de una red neuronal recurrent, (RNN por sus siglas en inglés: \textit{recurrent net network}).  
 
-Las RNN emulan el trabajo de un cerebro, envían y reciben información, de manera similar a como un cerebro puede enviar y recibir datos de una neurona a otra. En general, el cerebro humano es capaz de tomar decisiones racionales, teniendo en cuenta los datos del pasado. Las redes neuronales recurrentes utilizan datos del pasado y aprenden de ellos para predecir situaciones futuras y clasificarlas. 
-
-Las RNN están conformadas por grandes cantidades de conexiones de una neurona a la siguiente, procesadas en una secuencia de tiempo, de tal manera que exista una relación directa entre la secuencia de tiempo actual y la anterior. Esto hace que las RNN tengan una memoria capaz de recordar los resultados de los procesos previos, y utilizan dicha información para calcular los resultados del siguiente proceso. 
-
-Puesto que las RNN procesan grandes cantidades de datos, tienen dificultad a largo plazo para mantener la información de los pasos previos. La primera capa oculta de la arquitectura tiene el peso de la capa de entrada, y a cada capa oculta funciona a partir del peso de la capa anterior. Esto hace que el rendimiento de una RNN sea deficiente al momento de aprender dependencias para largas series temporales.
 
 
 \chapter{Metodología}
 \label{sec:metodologia}
-
 
 
 
@@ -342,3 +458,4 @@ Puesto que las RNN procesan grandes cantidades de datos, tienen dificultad a lar
 %%% mode: latex
 %%% TeX-master: t
 %%% End:
+

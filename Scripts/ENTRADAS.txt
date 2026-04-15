@@ -899,3 +899,57 @@ COMBINACIÓN 6
 
 python MODELO.py   --precip /home/practicante/Downloads/TEST/ENACTS2_prcp.nc --varname rfe   --predictor "/home/practicante/Downloads/TEST/era5.sst.nc:sst" --predictor "/home/practicante/Downloads/TEST/era5.sp.nc:sp" --predictor "/home/practicante/Downloads/TEST/era5.1.nc:z,r,q" --predictor "/home/practicante/Downloads/TEST/era5.tp.nc:tp" --predictor "/home/practicante/Downloads/TEST/era5.2.nc:u,v" --predictor "/home/practicante/Downloads/TEST/mjo.nc:RMM1,RMM2" --seed 40 --seed_split 101 --n_jobs 4 --max_ram_gb 8.0 --batch_size 64 --epochs 400   --pca_components 0   --spatial_embed 512 --temporal_dim 192 --hidden_dim 256   --dtype float32 --huber_delta 1.0 --target_transform log1p   --tweedie_weight 0.4 --quantile_weight 0.1 --tweedie_power 1.5   --quantile_tau 0.62 --low_threshold 30 --high_threshold 150   --corr_weight 0.1 --extreme_boost 3.5 --use_swa  --noise_std 0.05 --mixup_alpha 0.4 --n_attn_heads 8 --smooth_weight 0.005
 
+============================================================
+ Diagnósticos – C6E1.nc
+============================================================
+
+─── Estadísticas globales ───
+  RMSE                      = 91.5952
+  MAE                       = 59.2753
+  Bias (media)              = 1.3409
+  % Bias                    = 0.81 %
+  Std(error)                = 91.5853
+  R²                        = 0.6151
+  Pearson r                 = 0.7874  (p=0.00e+00)
+  Spearman ρ                = 0.8622  (p=0.00e+00)
+  Nash-Sutcliffe            = 0.6151
+  Kling-Gupta (KGE)         = 0.7435
+
+─── Métricas por mes ───
+Mes    RMSE    MAE    Bias     r    NSE   KGE
+Ene  48.548 29.048 -18.756 0.831  0.611 0.568
+Feb  27.973 17.483  -0.923 0.797  0.634 0.692
+Mar  40.826 26.106  -4.390 0.586  0.328 0.467
+Abr  47.974 37.923  21.539 0.347 -0.587 0.217
+May  89.621 70.821   1.664 0.468  0.178 0.374
+Jun 104.706 87.383  18.207 0.468  0.151 0.371
+Jul  85.636 66.752  37.234 0.774  0.496 0.688
+Ago 101.188 78.672 -16.395 0.565  0.283 0.467
+Sep 119.570 92.011  31.324 0.496  0.143 0.407
+Oct  97.510 71.242 -19.057 0.754  0.510 0.485
+Nov 172.762 94.993 -53.003 0.524  0.183 0.174
+Dic  57.866 38.870  18.646 0.655  0.207 0.536
+
+─── Métricas por año ───
+ Año    RMSE    Bias     r   NSE   KGE
+1994  70.399  20.253 0.822 0.626 0.761
+2003  85.167   1.418 0.806 0.647 0.758
+2007  86.257   9.156 0.822 0.667 0.781
+2012  91.360   8.185 0.773 0.539 0.767
+2013  72.318 -12.861 0.881 0.768 0.824
+2020 130.812 -18.105 0.685 0.458 0.542
+
+─── Análisis de extremos ───
+  P90 (>= 359.0 mm): n=28656, r=0.157, RMSE=203.6, Bias=-130.9
+  P95 (>= 437.8 mm): n=14328, r=0.042, RMSE=262.4, Bias=-189.9
+  P99 (>= 627.6 mm): n=2866, r=-0.166, RMSE=453.8, Bias=-380.3
+
+─── Percentiles cruzados ───
+  P10  obs=    9.98   pred=   14.23   ratio=1.426
+  P25  obs=   43.20   pred=   56.52   ratio=1.308
+  P50  obs=  133.28   pred=  148.96   ratio=1.118
+  P75  obs=  251.45   pred=  256.44   ratio=1.020
+  P90  obs=  358.97   pred=  335.87   ratio=0.936
+  P95  obs=  437.84   pred=  389.61   ratio=0.890
+
+

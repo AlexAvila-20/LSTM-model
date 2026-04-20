@@ -1,0 +1,23 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026) (preloaded format=pdflatex 2026.3.22)  16 APR 2026 15:11
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**\nonstopmode\input marco_teórico.tex
+
+! Emergency stop.
+<to be read again> 
+                   \global 
+<*> \nonstopmode\input marco_teó
+                                 rico.tex
+*** (job aborted, file error in nonstop mode)
+
+ 
+Here is how much of TeX's memory you used:
+ 13 strings out of 467525
+ 322 string characters out of 5418982
+ 433756 words of memory out of 5000000
+ 29025 multiletter control sequences out of 15000+600000
+ 627721 words of font info for 40 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 11i,0n,13p,68b,8s stack positions out of 10000i,1000n,20000p,200000b,200000s
+!  ==> Fatal error occurred, no output PDF file produced!

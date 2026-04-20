@@ -1,0 +1,97 @@
+\begin{thebibliography}{10}
+
+\bibitem{matich2001redes}
+Dami{\'a}n~Jorge Matich.
+\newblock Redes neuronales: Conceptos b{\'a}sicos y aplicaciones.
+\newblock {\em Universidad Tecnol{\'o}gica Nacional, M{\'e}xico}, 41:12--16,
+  2001.
+
+\bibitem{salas2004redes}
+Rodrigo Salas.
+\newblock Redes neuronales artificiales.
+\newblock {\em Universidad de Valpara{\i}so. Departamento de Computaci{\'o}n},
+  1(1):1--7, 2004.
+
+\bibitem{tablada2009redes}
+Claudio~Javier Tablada and Germ{\'a}n~Ariel Torres.
+\newblock Redes neuronales artificiales.
+\newblock {\em Revista de educaci{\'o}n matem{\'a}tica}, 24(3), 2009.
+
+\bibitem{izaurieta2000redes}
+Fernando Izaurieta and Carlos Saavedra.
+\newblock Redes neuronales artificiales.
+\newblock {\em Departamento de F{\'\i}sica, Universidad de Concepci{\'o}n
+  Chile}, 2000.
+
+\bibitem{McCullochPitts1943}
+Warren~S. McCulloch and Walter Pitts.
+\newblock A logical calculus of the ideas immanent in nervous activity.
+\newblock {\em Bulletin of Mathematical Biophysics}, 5:115--133, 1943.
+
+\bibitem{medsker2001recurrent}
+Larry~R Medsker, Lakhmi Jain, et~al.
+\newblock Recurrent neural networks.
+\newblock {\em Design and applications}, 5(64-67):2, 2001.
+
+\bibitem{islam2019overview}
+Mohaiminul Islam, Guorong Chen, and Shangzhu Jin.
+\newblock An overview of neural network.
+\newblock {\em American Journal of Neural Networks and Applications},
+  5(1):7--11, 2019.
+
+\bibitem{hochreiter1998recurrent}
+Sepp Hochreiter.
+\newblock Recurrent neural net learning and vanishing gradient.
+\newblock {\em International Journal Of Uncertainity, Fuzziness and
+  Knowledge-Based Systems}, 6(2):107--116, 1998.
+
+\bibitem{ortiz2002modelos}
+Juan Antonio~P{\'e}rez Ortiz.
+\newblock Modelos predictivos basados en redes neuronales recurrentes de tiempo
+  discreto.
+\newblock {\em Universidad de Alicante. Departamento de lenguaje y sistemas
+  inform{\'a}ticos.[Documento en l{\i}nea http://www. conicyt. cIl573 Modelos
+  predictivos basados en redes neuronales recurrentes de tiempo discreto.
+  pdf][22/07/08]}, 2002.
+
+\bibitem{grossberg2013recurrent}
+Stephen Grossberg.
+\newblock Recurrent neural networks.
+\newblock {\em Scholarpedia}, 8(2):1888, 2013.
+
+\bibitem{yu2019review}
+Yong Yu, Xiaosheng Si, Changhua Hu, and Jianxun Zhang.
+\newblock A review of recurrent neural networks: Lstm cells and network
+  architectures.
+\newblock {\em Neural computation}, 31(7):1235--1270, 2019.
+
+\bibitem{song2020time}
+Xuanyi Song, Yuetian Liu, Liang Xue, Jun Wang, Jingzhe Zhang, Junqiang Wang,
+  Long Jiang, and Ziyan Cheng.
+\newblock Time-series well performance prediction based on long short-term
+  memory (lstm) neural network model.
+\newblock {\em Journal of Petroleum Science and Engineering}, 186:106682, 2020.
+
+\bibitem{karevan2020transductive}
+Zahra Karevan and Johan~AK Suykens.
+\newblock Transductive lstm for time-series prediction: An application to
+  weather forecasting.
+\newblock {\em Neural Networks}, 125:1--9, 2020.
+
+\bibitem{rew1990netcdf}
+Russ Rew and Glenn Davis.
+\newblock Netcdf: an interface for scientific data access.
+\newblock {\em IEEE computer graphics and applications}, 10(4):76--82, 1990.
+
+\bibitem{riishojgaard2021intercambio}
+Lars~Peter Riishojgaard, John~W Zillman, Adrian Simmons, and John Eyre.
+\newblock Intercambio de datos en la organizaci{\'o}n meteorol{\'o}gica
+  mundial: contexto, historia e impacto.
+\newblock 2021.
+
+\bibitem{HDFGroup2024HDF5}
+{The HDF Group}.
+\newblock Hdf5, 2024.
+\newblock Accessed: 2024-12-19.
+
+\end{thebibliography}

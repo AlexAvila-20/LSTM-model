@@ -1,22 +1,21 @@
-% =====================================================================
-% SECCIÓN: METODOLOGÍA
-% =====================================================================
-
-\section{Diseño General del Estudio}
+\section{Diseño general del estudio}
 \label{sec:disenio_general}
 
-El modelo predictivo se construyó siguiendo un enfoque de aprendizaje automático basado en una arquitectura LSTM multi-torre, la cual procesa series temporales de predictores climáticos de múltiples variables y resueluciones espaciales para estimar la precipitación mensual acumulada (en mm) en una región de interés. El flujo de trabajo se estructura en cuatro etapas principales: (1) adquisición y preprocesamiento de datos, (2) normalización y reducción de dimensionalidad, (3) entrenamiento y validación del modelo, y (4) evaluación mediante diagnósticos completos.
+El modelo predictivo se construyó siguiendo un enfoque de aprendizaje automático basado en una arquitectura LSTM multi-torre, la cual procesa series temporales de predictores climáticos de múltiples variables y resoluciones espaciales para estimar la precipitación mensual acumulada (en mm) en una región de interés. El flujo de trabajo se estructura en cuatro etapas principales: (1) adquisición y preprocesamiento de datos, (2) normalización y reducción de dimensionalidad, (3) entrenamiento y validación del modelo, y (4) evaluación mediante diagnósticos completos.
 
-\section{Adquisición y Preprocesamiento de Datos}
+\section{Adquisición y preprocesamiento de datos}
 \label{sec:adquisicion_datos}
 
-\subsection{Fuentes de Datos}
-Los datos de precipitación observada fueron obtenidos del Instituto Nacional de Sismología, Vulcanología, Meteorología e Hidrología (INSIVUMEH) de Guatemala, consistiendo en series de tiempo diarias de precipitación medida en estaciones pluviométricas distribuidas en la región Bocacosta. Los predictores climáticos fueron adquiridos de fuentes globales de reanálisis:
+\subsection{Fuentes de datos}
+Los datos de precipitación observada fueron obtenidos del Instituto Nacional de Sismología, Vulcanología, Meteorología e Hidrología (INSIVUMEH) de Guatemala, consistiendo en series de tiempo diarias de precipitación medida en estaciones pluviométricas calibradas distribuidas a lo largo del país. Los predictores climáticos fueron adquiridos de fuentes globales de reanálisis, considerados en la cuadrícula de latitudes de $[-165, 0]$ en longitud y $[-15, 75]$ en latitud, para poder considerar las teleconexiones que dominan el escenario climático guatemalteco, sin considerar ruido proveniente de otras regiones climáticas lejos de Centroamérica:
 
 \begin{itemize}
-    \item \textbf{Temperatura Superficial del Mar (SST):} Anomalías de SST en la región del Pacífico tropical, que modulan el flujo de humedad hacia Centroamérica.
-    \item \textbf{Presión Superficial (SP):} Campo de presión a nivel del mar, que refleja la estructura barométrica de sistemas de baja presión (depresiones, huracanes).
-    \item \textbf{Índices de Madden-Julian Oscillation (RMM1, RMM2):} Componentes principales que caracterizan la propagación intraseasonal de convección tropical en el Pacífico occidental.
+    \item Temperatura Superficial del Mar (SST).
+    \item Presión Superficial (SP).
+    \item Humedad relativa y específica (r y q) a 500 hPa. 
+    \item Geopotencial (z) a 500 hPa. 
+    \item Velocidades zonal y meridional (u, v) a 850 hPa. 
+    \item Índices de Madden-Julian Oscillation (RMM1, RMM2).
 \end{itemize}
 
 \subsection{Normalización Espacio-Temporal}

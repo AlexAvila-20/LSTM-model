@@ -1,0 +1,27 @@
+# Requisitos del proyecto LSTM
+# Instalar con: conda activate tf_lstm && pip install -r requirements.txt
+
+# Deep Learning
+tensorflow==2.21.0
+
+# Computación científica y numérica
+numpy==2.2.6
+scipy==1.15.2
+pandas==2.3.3
+
+# Machine Learning
+scikit-learn==1.7.2
+
+# Datos NetCDF
+xarray==2025.4.0
+
+# Visualización
+matplotlib==3.10.8
+
+# Serialización y paralelización
+joblib==1.5.3
+psutil>=5.9.0
+
+# Utilidades (opcionales pero recomendados)
+# jupyter>=1.0.0  # Para notebooks interactivos
+# ipython>=8.0.0  # Para mejor consola interactiva

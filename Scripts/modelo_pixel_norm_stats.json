@@ -1,51 +1,51 @@
 {
   "predictor_stats": [
     {
-      "mean": 292.58345642001876,
-      "std": 9.549879130186833,
+      "mean": 292.5733458764628,
+      "std": 9.561730919489875,
       "varname": "sst",
       "domain": "auto"
     },
     {
-      "mean": 55792.58372003842,
-      "std": 2403.8944217772478,
+      "mean": 55785.9763724965,
+      "std": 2409.154558896849,
       "varname": "z",
       "domain": "auto"
     },
     {
-      "mean": 42.89668259948116,
-      "std": 31.979467962793244,
+      "mean": 42.894423814295095,
+      "std": 31.97531416092071,
       "varname": "r",
       "domain": "auto"
     },
     {
-      "mean": 0.0010817778368643518,
-      "std": 0.0011292698014232487,
+      "mean": 0.0010800791117655383,
+      "std": 0.0011261438219006702,
       "varname": "q",
       "domain": "auto"
     },
     {
-      "mean": 0.00010604469485730138,
-      "std": 0.00043144578069535594,
+      "mean": 0.00010637092958919096,
+      "std": 0.00043234887954462766,
       "varname": "tp",
       "domain": "auto"
     },
     {
-      "mean": -0.6797984657713956,
-      "std": 7.4685771050260295,
+      "mean": -0.6665860369833452,
+      "std": 7.442913633951039,
       "varname": "u",
       "domain": "auto"
     },
     {
-      "mean": 0.10439560291351783,
-      "std": 5.751011113344068,
+      "mean": 0.11021596147332437,
+      "std": 5.750476379003073,
       "varname": "v",
       "domain": "auto"
     }
   ],
   "predictor_feat_sizes": [
-    651,
-    251,
+    655,
+    249,
     899,
     899,
     899,
@@ -64,9 +64,9 @@
   "target_transform": "log1p",
   "target_mean": null,
   "target_std": null,
-  "train_end": "2025-11-01 00:00:00",
-  "n_train_months": 441,
-  "n_val_months": 96,
+  "train_end": "2024-12-01 00:00:00",
+  "n_train_months": 444,
+  "n_val_months": 93,
   "pca_components": 0,
   "pca_variance_target": 0.999,
   "cache_dir": "./preprocessing_cache",

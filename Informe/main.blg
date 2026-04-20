@@ -1,0 +1,51 @@
+This is BibTeX, Version 0.99d (TeX Live 2023/Debian)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+The style file: unsrt.bst
+Database file #1: biblio.bib
+Warning--entry type for "HDFGroup2024HDF5" isn't style-file defined
+--line 145 of file biblio.bib
+Warning--empty publisher in VanishingGradient
+Warning--empty journal in riishojgaard2021intercambio
+You've used 29 entries,
+            1791 wiz_defined-function locations,
+            634 strings with 8619 characters,
+and the built_in function-call counts, 5964 in all, are:
+= -- 523
+> -- 255
+< -- 2
++ -- 98
+- -- 69
+* -- 398
+:= -- 964
+add.period$ -- 87
+call.type$ -- 29
+change.case$ -- 25
+chr.to.int$ -- 0
+cite$ -- 31
+duplicate$ -- 263
+empty$ -- 610
+format.name$ -- 69
+if$ -- 1318
+int.to.chr$ -- 0
+int.to.str$ -- 29
+missing$ -- 30
+newline$ -- 147
+num.names$ -- 28
+pop$ -- 83
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 105
+stack$ -- 0
+substring$ -- 359
+swap$ -- 39
+text.length$ -- 2
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 2
+while$ -- 56
+width$ -- 31
+write$ -- 311
+(There were 3 warnings)

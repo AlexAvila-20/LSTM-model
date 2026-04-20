@@ -7,7 +7,7 @@ El modelo predictivo se construyó siguiendo un enfoque de aprendizaje automáti
 \label{sec:adquisicion_datos}
 
 \subsection{Fuentes de datos}
-Los datos de precipitación observada fueron obtenidos del Instituto Nacional de Sismología, Vulcanología, Meteorología e Hidrología (INSIVUMEH) de Guatemala, consistiendo en series de tiempo diarias de precipitación medida en estaciones pluviométricas calibradas distribuidas a lo largo del país. Los predictores climáticos fueron adquiridos de fuentes globales de reanálisis, considerados en la cuadrícula de latitudes de $[-165, 0]$ en longitud y $[-15, 75]$ en latitud, para poder considerar las teleconexiones que dominan el escenario climático guatemalteco, sin considerar ruido proveniente de otras regiones climáticas lejos de Centroamérica:
+Los datos de precipitación observada fueron obtenidos del Instituto Nacional de Sismología, Vulcanología, Meteorología e Hidrología (INSIVUMEH) de Guatemala, consistiendo en series de tiempo diarias de precipitación medida en estaciones pluviométricas calibradas distribuidas a lo largo del país. Los predictores climáticos fueron adquiridos de fuentes globales de reanálisis (Copernicus Climate Data Store: ERA5 post-processed daily statistics on single [and pressure] levels from 1940 to present) considerados en la cuadrícula de latitudes de $[-165, 0]$ en longitud y $[-15, 75]$ en latitud, para poder considerar las teleconexiones que dominan el escenario climático guatemalteco, sin considerar ruido proveniente de otras regiones climáticas lejos de Centroamérica:
 
 \begin{itemize}
     \item Temperatura Superficial del Mar (SST).
@@ -18,7 +18,7 @@ Los datos de precipitación observada fueron obtenidos del Instituto Nacional de
     \item Índices de Madden-Julian Oscillation (RMM1, RMM2).
 \end{itemize}
 
-\subsection{Normalización Espacio-Temporal}
+\subsection{Normalización espacio-temporal}
 Todos los archivos de entrada (NetCDF4) fueron procesados para garantizar consistencia dimensional y nomenclatura:
 
 \begin{itemize}
@@ -27,8 +27,8 @@ Todos los archivos de entrada (NetCDF4) fueron procesados para garantizar consis
     \item \textbf{Indexación temporal:} Se convirtieron valores numéricos o cadenas de tiempo a formato \texttt{datetime64} de NumPy para facilitar operaciones de fecha y sincronización.
 \end{itemize}
 
-\subsection{Detección de Píxeles Válidos y Máscaras Espaciales}
-Dado que las grillas rasterizadas típicamente contienen píxeles con NaN (océanos, regiones fuera de dominio), se construyó una máscara de validez mediante muestreo de los primeros 50 pasos temporales de cada predictor. Un píxel se clasificó como \textbf{válido} si presentaba al menos un valor finito en el intervalo muestreado. Esta máscara aseguró que:
+\subsection{Detección de píxeles válidos y máscaras espaciales}
+Dado que las grillas rasterizadas típicamente contienen píxeles con NaN (océanos, regiones fuera de dominio), se construyó una máscara de validez mediante muestreo de los primeros 50 pasos temporales de cada predictor. Un píxel se clasificó como válido si presentaba al menos un valor finito en el intervalo muestreado. Esta máscara aseguró que:
 
 \begin{itemize}
     \item La red neuronal procesa solo píxeles con datos físicamente significativos.
@@ -36,10 +36,10 @@ Dado que las grillas rasterizadas típicamente contienen píxeles con NaN (océa
     \item La compresión dimensional mediante PCA se realiza exclusivamente sobre píxeles válidos.
 \end{itemize}
 
-\section{Normalización y Reducción de Dimensionalidad}
+\section{Normalización y reducción de dimensionalidad}
 \label{sec:normalizacion_pca}
 
-\subsection{Estandarización de Predictores}
+\subsection{Estandarización de predictores}
 Para que el optimizador por gradiente converja eficientemente, cada predictor fue estandarizado usando estadísticas (media $\mu_p$ y desviación estándar $\sigma_p$) calculadas sobre el conjunto de entrenamiento:
 
 \begin{equation}
@@ -53,7 +53,7 @@ Como los predictores climáticos típicamente presentan elevada colinealidad esp
 
 \begin{enumerate}
     \item Se calculó la matriz de covarianza de cada predictor estandarizado sobre el conjunto de entrenamiento en píxeles válidos.
-    \item Se seleccionaron las primeras $k_p$ componentes principales que acumulaban al menos el 95\% de la varianza explicada.
+    \item Se seleccionaron las primeras $k_p$ componentes principales que acumulaban al menos el 95\% de la varianza explicada, siempre que fuera posible.
     \item El modelo PCA se almacenó para transformación consistente durante predicción.
 \end{enumerate}
 
@@ -64,10 +64,10 @@ La reducción dimensional cumple varios objetivos:
     \item Acelera el cálculo durante entrenamiento y predicción.
 \end{itemize}
 
-\section{Construcción y Segmentación de Secuencias Temporales}
+\section{Construcción y segmentación de secuencias temporales}
 \label{sec:secuencias_temporales}
 
-\subsection{Ventanas de Entrada (Lags)}
+\subsection{Ventanas de entrada}
 Para la predicción de precipitación mensual, la red LSTM requiere una ventana de entrada de longitud fija $L$ (por defecto, $L = 31$ días). Formalmente, si se predice la precipitación acumulada en el mes $[t_{\text{start}}, t_{\text{end}}]$, la secuencia de entrada comprende $L$ días anteriores:
 
 \begin{equation}
@@ -76,30 +76,29 @@ Para la predicción de precipitación mensual, la red LSTM requiere una ventana 
 
 donde cada $X_{\tau}$ es un vector de características (predictores normalizados y comprimidos por PCA) para el día $\tau$.
 
-\subsection{División Cronológica del Conjunto de Datos}
-Para evaluar la capacidad de generalización del modelo sin contaminación temporal (data leakage), el conjunto de datos se dividió de manera \textbf{cronológica} en tres subconjuntos no superpuestos:
+\subsection{División cronológica del conjunto de datos}
+Para evaluar la capacidad de generalización del modelo sin contaminación temporal (data leakage), el conjunto de datos se dividió de manera cronológica en dos subconjuntos:
 
 \begin{itemize}
     \item \textbf{Entrenamiento:} Años iniciales (~70-80\% del período total). Utilizado para ajustar los pesos $\mathbf{W}$ y sesgos $\mathbf{b}$ de la red mediante retropropagación del error.
-    \item \textbf{Validación:} Período intermedio (~10-15\%). Monitorea el desempeño fuera de muestra durante el entrenamiento, permitiendo la detención temprana (\textit{early stopping}) para evitar sobreajuste.
-    \item \textbf{Prueba:} Período final (~10-15\%, \textbf{no visto} durante desarrollo). Proporciona una estimación insesgada del desempeño operativo del modelo final.
+    \item \textbf{Validación:} Período intermedio (~30-20\%). Monitorea el desempeño fuera de muestra durante el entrenamiento, permitiendo la detención temprana (\textit{early stopping}) para evitar sobreajuste.
 \end{itemize}
 
 Esta partición respeta la estructura temporal inherente a los datos climáticos, donde la dependencia estadística es más fuerte entre observaciones cercanas en tiempo.
 
-\section{Arquitectura del Modelo LSTM Multi-Torre}
+\section{Arquitectura del modelo LSTM multi-torre}
 \label{sec:arquitectura_lstm}
 
-\subsection{Diseño de Entrada y Torres Paralelas}
-El modelo multi-torre procesa cada predictor climático mediante una rama (``torre'') independiente de capas LSTM y fully-connected, explotando la especificidad de cada variable:
+\subsection{Diseño de entrada y torres paralelas}
+El modelo multi-torre procesa cada predictor climático mediante una rama (torre) independiente de capas LSTM y capas totalmente conectadas, explotando la especificidad de cada variable:
 
 \begin{enumerate}
     \item \textbf{Torre $p$:} Recibe una secuencia de entrada $\mathbf{x}_{t-L:t}^{(p)} \in \mathbb{R}^{L \times d_p}$, donde $d_p$ es la dimensión post-PCA del predictor $p$.
     \item \textbf{Capas LSTM:} La secuencia temporal se procesa mediante una o más capas LSTM que capturan dependencias de largo alcance. Cada LSTM emite un estado oculto $\mathbf{h}_T^{(p)}$ al final de la ventana.
-    \item \textbf{Capas densas locales:} El estado final se procesa mediante capas fully-connected para extraer características no lineales específicas del predictor.
+    \item \textbf{Capas densas locales:} El estado final se procesa mediante capas totalmente conectadas para extraer características no lineales específicas del predictor.
 \end{enumerate}
 
-\subsection{Fusión de Representaciones y Decodificación Espacial}
+\subsection{Fusión de representaciones y decodificación espacial}
 Las salidas de todas las torres se concatenan:
 
 \begin{equation}
@@ -109,14 +108,14 @@ Las salidas de todas las torres se concatenan:
 A continuación, se aplican varias técnicas de refinamiento espacial:
 
 \begin{enumerate}
-    \item \textbf{Modulación por Coordenadas:} Un módulo aprendible que ingiere las coordenadas geográficas (lat, lon) de cada píxel y genera factores de escala y desplazamiento (shift) para modular las predicciones. Esta técnica captura variabilidad geográfica implícita.
+    \item \textbf{Modulación por coordenadas:} Un módulo aprendible que ingiere las coordenadas geográficas (lat, lon) de cada píxel y genera factores de escala y desplazamiento (shift) para modular las predicciones. Esta técnica captura variabilidad geográfica implícita.
     
-    \item \textbf{Sesgo por Píxel:} Se añade un sesgo aprendible específico de cada píxel, permitiendo que el modelo capture errores sistemáticos locales.
+    \item \textbf{Sesgo por píxel:} Se añade un sesgo aprendible específico de cada píxel, permitiendo que el modelo capture errores sistemáticos locales.
     
-    \item \textbf{Refinamiento Espacial:} Un módulo convolucional (2D) que reconstruye temporalmente la grilla $(h_{\text{target}} \times w_{\text{target}})$ a partir de píxeles válidos, propaga información espacial mediante capas convolucionales (Conv2D + BatchNorm), y reextrae los píxeles tierra para corrección fina.
+    \item \textbf{Refinamiento espacial:} Un módulo convolucional (2D) que reconstruye temporalmente la grilla $(h_{\text{target}} \times w_{\text{target}})$ a partir de píxeles válidos, propaga información espacial mediante capas convolucionales (Conv2D + BatchNorm), y reextrae los píxeles tierra para corrección fina.
 \end{enumerate}
 
-\subsection{Transformación de Objetivo}
+\subsection{Transformación de objetivo}
 Debido a la distribución fuertemente asimétrica (sesgada) de la precipitación mensual, se aplicó una transformación invertible al objetivo antes del entrenamiento. Las opciones implementadas incluyen:
 
 \begin{itemize}
@@ -129,10 +128,10 @@ Debido a la distribución fuertemente asimétrica (sesgada) de la precipitación
 
 El modelo LSTM entrenó en el espacio transformado, y las predicciones se invirtieron analíticamente para recuperar precipitación en milímetros.
 
-\section{Entrenamiento del Modelo}
+\section{Entrenamiento del modelo}
 \label{sec:entrenamiento_modelo}
 
-\subsection{Función de Pérdida y Optimizador}
+\subsection{Función de pérdida y optimizador}
 Se empleó el error cuadrático medio (MSE) como función de pérdida en el espacio transformado:
 
 \begin{equation}
@@ -141,7 +140,7 @@ Se empleó el error cuadrático medio (MSE) como función de pérdida en el espa
 
 El modelo se optimizó usando Adam (Adaptive Moment Estimation) con un esquema de tasa de aprendizaje adaptativo: calentamiento lineal (warmup) durante los primeros pasos, seguido de decaimiento coseno con reinicios (cosine annealing with warm restarts). Este esquema equilibra convergencia rápida inicial con refinamiento fino tardío.
 
-\subsection{Regularización y Detención Temprana}
+\subsection{Regularización y detención temprana}
 Para mitigar sobreajuste en esta red profunda se aplicaron:
 
 \begin{enumerate}
@@ -150,65 +149,36 @@ Para mitigar sobreajuste en esta red profunda se aplicaron:
     \item \textbf{Early Stopping:} El entrenamiento se detuvo cuando la métrica de validación (RMSE o KGE) no mejoró durante $N$ épocas consecutivas (típicamente $N=15$), previniendo descenso en generalización.
 \end{enumerate}
 
-\subsection{Acumulación de Gradientes}
+\subsection{Acumulación de gradientes}
 Para facilitar el entrenamiento con lotes grandes (que mejora estabilidad del gradiente), se implementó acumulación de gradientes: cada paso acumula gradientes de múltiples minilotes (típicamente 4-8) antes de actualizar pesos. Esto efectivamente incrementa el tamaño de lote sin aumentar uso de memoria GPU.
 
-\section{Evaluación del Modelo}
+\section{Evaluación del modelo}
 \label{sec:evaluacion_modelo}
 
-\subsection{Métricas de Error Global}
+\subsection{Métricas de error global}
 El desempeño predictivo se cuantificó mediante:
 
 \begin{enumerate}
-    \item \textbf{RMSE (Raíz del Error Cuadrático Medio):}
-    \begin{equation}
-        \text{RMSE} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
-    \end{equation}
-    Mide la magnitud media del error, penalizando fuertemente desviaciones grandes.
-    
-    \item \textbf{MAE (Error Absoluto Medio):}
-    \begin{equation}
-        \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
-    \end{equation}
-    Menos sensible a valores atípicos que RMSE, proporciona una visión robusta del error típico.
-    
-    \item \textbf{Coeficiente de Determinación ($R^2$):}
-    \begin{equation}
-        R^2 = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}
-    \end{equation}
-    Indica la proporción de varianza explicada; rango [0, 1] para modelos útiles.
-    
-    \item \textbf{Correlación de Pearson ($r$):}
-    \begin{equation}
-        r = \frac{\sum (y_i - \bar{y})(\hat{y}_i - \bar{\hat{y}})}{\sqrt{\sum (y_i - \bar{y})^2 \sum (\hat{y}_i - \bar{\hat{y}})^2}}
-    \end{equation}
-    Mide la relación lineal entre observado y predicho; cercano a 1 indica excelente fase.
+    \item RMSE (Raíz del error cuadrático medio).
+    \item MAE (Error Absoluto Medio).
+    \item Coeficiente de Determinación ($R^2$).
+    \item Correlación de Pearson ($r$).
 \end{enumerate}
 
-\subsection{Métricas de Eficiencia Hidrológica}
+\subsection{Métricas de eficiencia de modelos hidrológicos}
 Se incluyeron métricas estándar en predicción de precipitación:
 
 \begin{enumerate}
-    \item \textbf{Nash-Sutcliffe Efficiency (NSE):}
-    \begin{equation}
-        \text{NSE} = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}
-    \end{equation}
-    Mide la reducción de varianza predictiva respecto a la predicción media. NSE > 0.5 indica desempeño aceptable.
-    
-    \item \textbf{Kling-Gupta Efficiency (KGE):}
-    \begin{equation}
-        \text{KGE} = 1 - \sqrt{(r - 1)^2 + (\alpha - 1)^2 + (\beta - 1)^2}
-    \end{equation}
-    donde $r$ es correlación, $\alpha = \sigma_{\hat{y}} / \sigma_y$ (relación de varianzas) y $\beta = \bar{\hat{y}} / \bar{y}$ (relación de medias). Incorpora sesgo y dispersión; valores cercanos a 1 indican excelencia.
-    
-    \item \textbf{Porcentaje de Sesgo (PBIAS):}
+    \item Nash-Sutcliffe Efficiency (NSE).
+    \item Kling-Gupta Efficiency (KGE). 
+    \item Porcentaje de Sesgo (PBIAS):
     \begin{equation}
         \text{PBIAS} = 100 \cdot \frac{\sum (\hat{y}_i - y_i)}{\sum y_i}
     \end{equation}
-    Cuantifica si el modelo tiende a subestimar (-) o sobrestimar (+) la precipitación.
+    Cuantifica si el modelo tiende a subestimar o sobrestimar la precipitación.
 \end{enumerate}
 
-\subsection{Análisis Temporal y Espacial}
+\subsection{Análisis temporal y espacial}
 Para diagnosticar fortalezas y debilidades del modelo:
 
 \begin{enumerate}
@@ -218,19 +188,19 @@ Para diagnosticar fortalezas y debilidades del modelo:
     \item \textbf{Mapas espaciales:} Se generaron grillas de bias, RMSE, correlación, NSE y KGE píxel a píxel, revelando heterogeneidad geográfica del error.
 \end{enumerate}
 
-\subsection{Distribuciones y Estadísticos de Orden}
-Complementariamente:
+\subsection{Distribuciones y estadísticas de entrenamiento}
 
+Con el propósito de complementar, se consideró lo siguiente:
 \begin{enumerate}
     \item \textbf{QQ-plot:} Gráfico de cuantiles observados vs predichos, que expone desviaciones sistemáticas en colas.
     \item \textbf{Función de distribución acumulada (CDF):} Comparación de CDFs observada y predicha, útil para verificar sesgo en percentiles.
     \item \textbf{Percentiles cruzados:} Tabla de P10, P25, P50, P75, P90, P95 observados vs predichos, con razones que diagnostican compresión o dilatación de rango.
 \end{enumerate}
 
-\section{Diagnósticos Ejecutados}
+\section{Diagnósticos ejecutados}
 \label{sec:diagnosticos}
 
-Se desarrolló un programa de diagnósticos exhaustivos (\texttt{DIAGNÓSTICOS.py}) que genera aproximadamente 15 figuras y reportes estadísticos completos. Entre los diagnósticos clave se encuentran:
+Se desarrolló un programa de diagnósticos exhaustivos (\texttt{DIAGNÓSTICOS.py}) generando figuras y reportes estadísticos completos. Entre los diagnósticos clave se encuentran:
 
 \begin{itemize}
     \item Dispersión (hexbin + scatter con regresión lineal) de predicciones vs observaciones.
@@ -246,10 +216,10 @@ Se desarrolló un programa de diagnósticos exhaustivos (\texttt{DIAGNÓSTICOS.p
 
 Los resultados se exportan tanto a figuras PNG (si se especifica \texttt{--save}) como a un archivo NetCDF con métricas espaciales (\texttt{*\_diagnosticos.nc}) para análisis posterior.
 
-\section{Procedimiento de Predicción Operativa}
+\section{Procedimiento de Predicción operativa}
 \label{sec:prediccion_operativa}
 
-Una vez entrenado y validado, el modelo se utiliza en modo predicción mediante el script \texttt{PRONÓSTICO.py}. El procedimiento es:
+Una vez entrenado y validado un modelo, se utiliza en modo predicción mediante el script \texttt{PRONÓSTICO.py}. El procedimiento es:
 
 \begin{enumerate}
     \item \textbf{Cargar metadatos:} Se leen los parámetros de entrenamiento (normalización, PCA, transformación objetivo, etc.) desde \texttt{metadata.json} y modelos PCA desde cache.
@@ -260,11 +230,10 @@ Una vez entrenado y validado, el modelo se utiliza en modo predicción mediante 
     \item \textbf{Exportación:} El resultado se guarda en formato NetCDF4 con metadatos descriptivos.
 \end{enumerate}
 
-\section{Procesamiento Geográfico de Resultados}
+\section{Procesamiento geográfico de resultados}
 \label{sec:procesamiento_geografico}
 
-Para análisis geográficos específicos (ej. desempeño en un departamento específico), se implementó el script \texttt{DEP.py}, que:
-
+Para análisis geográficos específicos (ej. desempeño en un departamento o región específica, mediante el paquete gtMapTools que incluye los shapes específicos del país utilizados en los análisis de INSIVUMEH), se implementó el script \texttt{DEP.py}, que:
 \begin{enumerate}
     \item Carga un archivo de predicciones NetCDF (típicamente \texttt{modelo\_pixel\_predictions.nc}).
     \item Utiliza un shapefile de departamentos de Guatemala para definir polígonos.
@@ -273,9 +242,4 @@ Para análisis geográficos específicos (ej. desempeño en un departamento espe
     \item Exporta un NetCDF recortado conservando la dimensión temporal completa.
 \end{enumerate}
 
-Este tipo de recorte geográfico es útil para validación regional y para productos operativos específicos de zona.
-
-\section{Resumen Metodológico}
-\label{sec:resumen_metodologia}
-
-La metodología implementada combina técnicas modernas de aprendizaje automático profundo con principios sólidos de validación climática y evaluación hidrológica. El flujo de trabajo (preprocesamiento → normalización → LSTM multi-torre → diagnósticos exhaustivos) asegura un modelo robusto, interpretable y operacionalmente viable. Las métricas múltiples (RMSE, MAE, NSE, KGE, correlación) y análisis granular (temporal, espacial, por extremos) permiten caracterizar completamente las fortalezas y limitaciones del modelo en diferentes contextos oceanográficos y geográficos.
+Este tipo de recorte geográfico es útil para validación regional y para productos operativos específicos de una zona. Por ejemplo, para propósitos de este documento, se considera el shape asociado a Bocacosta y se realizan los diagnósticos de acuerdo a las variables de esa región.

@@ -1,72 +1,96 @@
 {
   "predictor_stats": [
     {
-      "mean": 292.5733458764628,
-      "std": 9.561730919489875,
+      "mean": 292.6309609494795,
+      "std": 9.56576030338225,
       "varname": "sst",
       "domain": "auto"
     },
     {
-      "mean": 55785.9763724965,
-      "std": 2409.154558896849,
+      "mean": 99212.29133827215,
+      "std": 5347.705710196059,
+      "varname": "sp",
+      "domain": "auto"
+    },
+    {
+      "mean": 55808.23274096026,
+      "std": 2402.6206960346317,
       "varname": "z",
       "domain": "auto"
     },
     {
-      "mean": 42.894423814295095,
-      "std": 31.97531416092071,
+      "mean": 42.81012563642793,
+      "std": 32.093905345225515,
       "varname": "r",
       "domain": "auto"
     },
     {
-      "mean": 0.0010800791117655383,
-      "std": 0.0011261438219006702,
+      "mean": 0.0010883452947028215,
+      "std": 0.0011413142462322681,
       "varname": "q",
       "domain": "auto"
     },
     {
-      "mean": 0.00010637092958919096,
-      "std": 0.00043234887954462766,
+      "mean": 0.00010781151954552035,
+      "std": 0.0004511997669755824,
       "varname": "tp",
       "domain": "auto"
     },
     {
-      "mean": -0.6665860369833452,
-      "std": 7.442913633951039,
+      "mean": -0.7095889561478114,
+      "std": 7.469650535836304,
       "varname": "u",
       "domain": "auto"
     },
     {
-      "mean": 0.11021596147332437,
-      "std": 5.750476379003073,
+      "mean": 0.10867606337376876,
+      "std": 5.809704160920812,
       "varname": "v",
+      "domain": "auto"
+    },
+    {
+      "mean": 0.012752474440272636,
+      "std": 0.9667729506385465,
+      "varname": "RMM1",
+      "domain": "auto"
+    },
+    {
+      "mean": -0.0322362750726752,
+      "std": 0.8899688504327,
+      "varname": "RMM2",
       "domain": "auto"
     }
   ],
   "predictor_feat_sizes": [
-    655,
-    249,
+    660,
+    547,
+    251,
     899,
     899,
     899,
     899,
-    899
+    899,
+    1,
+    1
   ],
   "predictor_names": [
     "sst",
+    "sp",
     "z",
     "r",
     "q",
     "tp",
     "u",
-    "v"
+    "v",
+    "RMM1",
+    "RMM2"
   ],
   "target_transform": "log1p",
   "target_mean": null,
   "target_std": null,
-  "train_end": "2024-12-01 00:00:00",
-  "n_train_months": 444,
-  "n_val_months": 93,
+  "train_end": "2025-11-01 00:00:00",
+  "n_train_months": 346,
+  "n_val_months": 72,
   "pca_components": 0,
   "pca_variance_target": 0.999,
   "cache_dir": "./preprocessing_cache",

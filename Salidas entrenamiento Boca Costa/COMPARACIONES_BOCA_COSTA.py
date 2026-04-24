@@ -187,7 +187,7 @@ def plot_single_score(ranked: pd.DataFrame, savepath: str = "ranking_combinacion
 
 if __name__ == "__main__":
     # Cambia esto por el nombre real de tu archivo
-    filepath = "ENTRADAS.txt"
+    filepath = "BOCA_COSTA_ENTRADAS.txt"
 
     df = parse_metrics_file(filepath)
 

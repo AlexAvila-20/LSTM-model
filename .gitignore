@@ -1,6 +1,6 @@
 # Directorios de caché y resultados
 Scripts/preprocessing_cache/
-Resultados/
+Scripts/ETC/
 
 # Archivos de modelos (si quieres ignorar todos)
 *.keras
@@ -8,6 +8,7 @@ Resultados/
 *.pkl
 *.nc
 .DS_Store
+*.json
 
 # Archivos comunes de Python (si aplica)
 __pycache__/

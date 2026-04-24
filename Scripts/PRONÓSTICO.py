@@ -22,6 +22,19 @@ Uso:
     --target_months 2025-01:2025-12 \\
     --output predicciones_2025.nc
 
+      python predict.py \\
+    --model modelo_pixel.keras \\
+    --cache_dir ./preprocessing_cache \\
+    --predictor /home/alex/Downloads/TEST/era5.sst.nc:sst \\
+    --predictor /home/alex/Downloads/TEST/era5.1.nc:z,r,q \\
+    --predictor /home/alex/Downloads/TEST/era5.tp.nc:tp \\
+    --predictor /home/alex/Downloads/TEST/era5.tp.nc:tp \\
+    --predictor /home/alex/Downloads/TEST/era5.2.nc:u,v \\
+    --target_months 2025-01:2025-12 \\
+    --output predicciones.nc
+    
+    /home/alex/Downloads/TEST/
+
 Los predictores DEBEN proporcionarse en el MISMO ORDEN que durante
 el entrenamiento.
 """
@@ -332,6 +345,8 @@ def parse_args():
     --predictor rmm2_new.nc:RMM2 \\
     --target_months 2025-01:2025-12 \\
     --output predicciones_2025.nc
+
+    python PRONÓSTICO.py --model modelo_pixel.keras --cache_dir ./preprocessing_cache --predictor /home/alex/Downloads/TEST/era5.sst.nc:sst --predictor /home/alex/Downloads/TEST/era5.1.nc:z,r,q --predictor /home/alex/Downloads/TEST/era5.tp.nc:tp --predictor /home/alex/Downloads/TEST/era5.2.nc:u,v --target_months 2025-01:2025-12 --output predicciones.nc
 
 Los predictores DEBEN ir en el MISMO ORDEN que durante el entrenamiento.
 Los archivos deben cubrir al menos 31 días antes del primer mes objetivo.

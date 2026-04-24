@@ -4,7 +4,7 @@ import os
 from gtMapTools import gtRaster, nc_info
 
 # input file
-ncfile = 'predicciones_2026.nc'
+ncfile = 'predicciones.nc'
 
 # view file variable, coordinate names and other info
 print(nc_info(ncfile))
@@ -13,7 +13,7 @@ print(nc_info(ncfile))
 example_raster = gtRaster()
 
 
-date_sel = dt(2026, 1, 1, 0, 0, 0)
+date_sel = dt(2025, 12, 1, 0, 0, 0)
 
 example_raster.getNc_data(
 	ncfile,
@@ -37,5 +37,5 @@ example_raster.setInfo('NetCDF example: info text\nSpatial resolution 1 arcmin')
 # plot map
 os.makedirs('output', exist_ok=True)
 example_raster.interpolate(resolution=1, sigma=2)
-example_raster.plotData('fromNC.png', 'output/', settings='precip:month')
+example_raster.plotData('fromNC.png', 'output/', settings='precip-ell:month')
 

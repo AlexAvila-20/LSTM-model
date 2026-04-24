@@ -61,6 +61,13 @@ Script de **mapeo y agregación por departamentos**. Utiliza:
 - Calcula estadísticas (media, mediana, percentiles) por departamento
 - Mapeo visual de resultados por región
 
+#### **REG.py** 
+Script de **mapeo y agregación por regiones**. Utiliza:
+- Shapefile de límites administrativos de Guatemala
+- Carga predicciones del archivo NetCDF
+- Calcula estadísticas (media, mediana, percentiles) por departamento
+- Mapeo visual de resultados por región
+
 **Uso:**
 ```bash
 python DEP.py
@@ -101,10 +108,15 @@ Se usa para desnormalizar predicciones
 
 #### **ENTRADAS.txt**
 Documento de **referencia con comandos de ejecución**. Contiene:
-- Combinaciones de predictores probadas (6 variantes)
+- Combinaciones de predictores probadas (7 variantes)
 - Comandos listos para copiar y ejecutar
 - Parámetros recomendados por combinación
 - Notas sobre resultados de diagnósticos
+
+#### **COMPARACIONES.py**
+
+Código implementado para comparar la efectividad de las diversas combinaciones de predictores para una región específica (país completo, Boca Costa, etc).
+Brinda el análisis comparativo de cada combinación utilizada y un ranking de la combinación más a menos efectiva para esa región. 
 
 #### **README.md**
 Este archivo. Documentación del proyecto.
@@ -151,7 +163,7 @@ Estos archivos acelaran entrenamientos posteriores y aseguran que la predicción
 3. DIAGNÓSTICOS
    ├─ Leer predicciones + observaciones
    ├─ Calcular métricas (RMSE, R², correlación)
-   └─ Generar 15 figuras de análisis
+   └─ Generar figuras de análisis
 
 4. VISUALIZACIÓN POR DEPARTAMENTOS
    ├─ Mapear a límites administrativos

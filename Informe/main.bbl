@@ -1,0 +1,450 @@
+\begin{thebibliography}{10}
+
+\bibitem{matich2001redes}
+Dami{\'a}n~Jorge Matich.
+\newblock Redes neuronales: Conceptos b{\'a}sicos y aplicaciones.
+\newblock {\em Universidad Tecnol{\'o}gica Nacional, M{\'e}xico}, 41:12--16,
+  2001.
+
+\bibitem{salas2004redes}
+Rodrigo Salas.
+\newblock Redes neuronales artificiales.
+\newblock {\em Universidad de Valpara{\i}so. Departamento de Computaci{\'o}n},
+  1(1):1--7, 2004.
+
+\bibitem{tablada2009redes}
+Claudio~Javier Tablada and Germ{\'a}n~Ariel Torres.
+\newblock Redes neuronales artificiales.
+\newblock {\em Revista de educaci{\'o}n matem{\'a}tica}, 24(3), 2009.
+
+\bibitem{izaurieta2000redes}
+Fernando Izaurieta and Carlos Saavedra.
+\newblock Redes neuronales artificiales.
+\newblock {\em Departamento de F{\'\i}sica, Universidad de Concepci{\'o}n
+  Chile}, 2000.
+
+\bibitem{McCullochPitts1943}
+Warren~S. McCulloch and Walter Pitts.
+\newblock A logical calculus of the ideas immanent in nervous activity.
+\newblock {\em Bulletin of Mathematical Biophysics}, 5:115--133, 1943.
+
+\bibitem{predictors}
+Masoud Hessami, Philippe Gachon, Taha~B.M.J. Ouarda, and André St-Hilaire.
+\newblock Automated regression-based statistical downscaling tool.
+\newblock {\em Environmental Modelling & Software}, 23(6):813--834, 2008.
+
+\bibitem{PCA}
+Mohammad~Taghi Sattari, Anca Avram, Halit Apaydin, and Oliviu Matei.
+\newblock Evaluation of feature selection methods in estimation of
+  precipitation based on deep learning artificial neural networks.
+\newblock {\em Water Resources Management}, 37(15):5871--5891, 2023.
+
+\bibitem{geopotentialselection}
+Pablo~Rozas Larraondo, Luigi~J. Renzullo, Inaki Inza, and Jose~A. Lozano.
+\newblock A data-driven approach to precipitation parameterizations using
+  convolutional encoder-decoder neural networks, 2019.
+
+\bibitem{dry_adiabatic_lapse_rate}
+Dry adiabatic lapse rate.
+\newblock \url{https://www.tpub.com/weather3/7.htm}, n.d.
+\newblock Archived from the original on 2016-06-03.
+
+\bibitem{landau1987fluid}
+L.~D. Landau and E.~M. Lifshitz.
+\newblock {\em Fluid Mechanics}, volume~6 of {\em Course of Theoretical
+  Physics}.
+\newblock Butterworth-Heinemann, Oxford, 1987.
+
+\bibitem{glickman2000glossary}
+Todd~S Glickman.
+\newblock {\em Glossary of meteorology}.
+\newblock American Meteorological Soc., 2000.
+
+\bibitem{feynman1963thermodynamics}
+Richard~P. Feynman.
+\newblock Illustrations of thermodynamics.
+\newblock In {\em The Feynman Lectures on Physics, Vol. I}. California
+  Institute of Technology, Pasadena, CA, 1963.
+
+\bibitem{pippard1964elements}
+Alfred~Brian Pippard.
+\newblock {\em Elements of classical thermodynamics: for advanced students of
+  physics}.
+\newblock Cambridge University Press, 1964.
+
+\bibitem{SupersaturationofWaterVaporinClouds}
+Alexei~V. Korolev and Ilia~P. Mazin.
+\newblock Supersaturation of water vapor in clouds.
+\newblock {\em Journal of the Atmospheric Sciences}, 60(24):2957 -- 2974, 2003.
+
+\bibitem{houze2014cloud}
+Robert~A Houze~Jr.
+\newblock {\em Cloud dynamics}, volume 104.
+\newblock Academic press, 2014.
+
+\bibitem{pidwirny2006cloud}
+Michael Pidwirny.
+\newblock Cloud formation processes.
+\newblock In {\em physicalgeography. net}. 2006.
+
+\bibitem{nws_cloud_development}
+{National Weather Service}.
+\newblock Cloud development.
+\newblock NOAA/National Weather Service.
+
+\bibitem{geerts2002convective}
+B~Geerts.
+\newblock Convective and stratiform rainfall in the tropics.
+\newblock {\em University of Wyoming}, 2002.
+
+\bibitem{atmosferica1986viento}
+CULACION ATMOSFERICA.
+\newblock El viento.
+\newblock {\em Agroclimatologi{\'a} tropical}, page 143, 1986.
+
+\bibitem{herrera2017descripcion}
+JL~Herrera.
+\newblock Descripci{\'o}n clim{\'a}tica de los departamentos de guatemala.
+\newblock {\em Guatemala, Guatemala}, 2017.
+
+\bibitem{whiteman2000mountain}
+C~David Whiteman.
+\newblock {\em Mountain meteorology: fundamentals and applications}.
+\newblock Oxford University Press, 2000.
+
+\bibitem{makgabutlane_convergence_metservice}
+Mmathapelo Makgabutlane.
+\newblock Convergence.
+\newblock About MetService.
+
+\bibitem{iglesias2010temperatura}
+I~Iglesias, MN~Lorenzo, M~G{\'o}mez-Gesteira, and JJ~Taboada.
+\newblock La temperatura superficial del mar como herramienta de predicci{\'o}n
+  clim{\'a}tica.
+\newblock {\em Av. Cienc. Tierra}, 11:95--108, 2010.
+
+\bibitem{cabos2002influencia}
+William Cabos, Francisco~Jos{\'e} {\'A}lvarez~Garc{\'\i}a, Emilia
+  S{\'a}nchez~G{\'o}mez, and Mar{\'\i}a~Jos{\'e} Ortiz~Bevia.
+\newblock Influencia de las temperaturas superficiales del mar sobre la
+  precipitaci{\'o}n en el atl{\'a}ntico tropical.
+\newblock {\em Publicaciones de la Asociaci{\'o}n Espa{\~n}ola de
+  Climatolog{\'\i}a. Serie A; 3}, 2002.
+
+\bibitem{neelin1998enso}
+J~David Neelin, David~S Battisti, Anthony~C Hirst, Fei-Fei Jin, Yoshinobu
+  Wakata, Toshio Yamagata, and Stephen~E Zebiak.
+\newblock Enso theory.
+\newblock {\em Journal of Geophysical Research: Oceans}, 103(C7):14261--14290,
+  1998.
+
+\bibitem{pierrehumbert2007relative}
+Raymond~T Pierrehumbert, H{\'e}l{\`e}ne Brogniez, and R{\'e}my Roca.
+\newblock On the relative humidity of the atmosphere.
+\newblock {\em The global circulation of the atmosphere}, 143:185, 2007.
+
+\bibitem{peixoto1996climatology}
+Jos{\'e}P Peixoto and Abraham~H Oort.
+\newblock The climatology of relative humidity in the atmosphere.
+\newblock {\em Journal of climate}, 9(12):3443--3463, 1996.
+
+\bibitem{trenberth2003changing}
+Kevin~E Trenberth, Aiguo Dai, Roy~M Rasmussen, and David~B Parsons.
+\newblock The changing character of precipitation.
+\newblock {\em Bulletin of the American Meteorological Society},
+  84(9):1205--1218, 2003.
+
+\bibitem{frei1998heavy}
+Christoph Frei, Christoph Sch{\"a}r, Daniel L{\"u}thi, and Huw~C Davies.
+\newblock Heavy precipitation processes in a warmer climate.
+\newblock {\em Geophysical Research Letters}, 25(9):1431--1434, 1998.
+
+\bibitem{yim2014comparison}
+So-Young Yim, Bin Wang, Jian Liu, and Zhiwei Wu.
+\newblock A comparison of regional monsoon variability using monsoon indices.
+\newblock {\em Climate dynamics}, 43(5):1423--1437, 2014.
+
+\bibitem{sodemann2013moisture}
+Harald Sodemann and Andreas Stohl.
+\newblock Moisture origin and meridional transport in atmospheric rivers and
+  their association with multiple cyclones.
+\newblock {\em Monthly Weather Review}, 141(8):2850--2868, 2013.
+
+\bibitem{duran2010revision}
+AM~Dur{\'a}n-Quesada and L~Gimeno.
+\newblock Revisi{\'o}n de los campos medios caracter{\'\i}sticos del jet de
+  bajo nivel del caribe y algunas evaluaciones energ{\'e}ticas.
+\newblock {\em Av. en Cienc. la Tierra}, 1:1--38, 2010.
+
+\bibitem{raymond2006dynamics}
+David~J Raymond, Christopher~S Bretherton, and John Molinari.
+\newblock Dynamics of the intertropical convergence zone of the east pacific.
+\newblock {\em Journal of the atmospheric sciences}, 63(2):582--597, 2006.
+
+\bibitem{raible2003precipitation}
+Christoph~C Raible, Ute Luksch, and Klaus Fraedrich.
+\newblock Precipitation and northern hemisphere regimes.
+\newblock {\em Atmospheric Science Letters}, 5(1-4):43--55, 2003.
+
+\bibitem{dai2000global}
+Aiguo Dai and TML Wigley.
+\newblock Global patterns of enso-induced precipitation.
+\newblock {\em Geophysical Research Letters}, 27(9):1283--1286, 2000.
+
+\bibitem{van2005searching}
+Geert~Jan Van~Oldenborgh and Gerrit Burgers.
+\newblock Searching for decadal variations in enso precipitation
+  teleconnections.
+\newblock {\em Geophysical Research Letters}, 32(15), 2005.
+
+\bibitem{sun2015global}
+Xun Sun, Benjamin Renard, Mark Thyer, Seth Westra, and Michel Lang.
+\newblock A global analysis of the asymmetric effect of enso on extreme
+  precipitation.
+\newblock {\em Journal of Hydrology}, 530:51--65, 2015.
+
+\bibitem{lin2022atlantic}
+Jialin Lin and Taotao Qian.
+\newblock The atlantic multi-decadal oscillation.
+\newblock {\em Atmosphere-Ocean}, 60(3-4):307--337, 2022.
+
+\bibitem{wyatt2012atlantic}
+Marcia~Glaze Wyatt, Sergey Kravtsov, and Anastasios~A Tsonis.
+\newblock Atlantic multidecadal oscillation and northern hemisphere’s climate
+  variability.
+\newblock {\em Climate dynamics}, 38(5):929--949, 2012.
+
+\bibitem{maldonado2017early}
+Tito Maldonado, Eric Alfaro, Anna Rutgersson, and Jorge~A Amador.
+\newblock The early rainy season in central america: the role of the tropical
+  north atlantic ssts.
+\newblock {\em International Journal of Climatology}, 37(9):3731--3742, 2017.
+
+\bibitem{perez2021combined}
+Albenis P{\'e}rez-Alarc{\'o}n, Jos{\'e}~C Fern{\'a}ndez-Alvarez, Rogert
+  Sor{\'\i}, Raquel Nieto, and Luis Gimeno.
+\newblock The combined effects of sst and the north atlantic subtropical
+  high-pressure system on the atlantic basin tropical cyclone interannual
+  variability.
+\newblock {\em Atmosphere}, 12(3):329, 2021.
+
+\bibitem{trenberth2005relationships}
+Kevin~E Trenberth and Dennis~J Shea.
+\newblock Relationships between precipitation and surface temperature.
+\newblock {\em Geophysical Research Letters}, 32(14), 2005.
+
+\bibitem{spengler2011does}
+Thomas Spengler, Joseph Egger, and Stephen~T Garner.
+\newblock How does rain affect surface pressure in a one-dimensional framework?
+\newblock {\em Journal of the atmospheric sciences}, 68(2):347--360, 2011.
+
+\bibitem{dyer1976meridional}
+TGJ Dyer.
+\newblock Meridional interactions between rainfall and surface pressure.
+\newblock {\em Nature}, 264(5581):48--49, 1976.
+
+\bibitem{ramos2022influencia}
+Paris Francisco~Rivera Ramos and Marvin Roberto~Salguero Barahona.
+\newblock Influencia de la oscilaci{\'o}n madden-julian en la lluvia de la
+  regi{\'o}n sur de guatemala durante el periodo de 1980--2015.
+\newblock {\em Revista de la Escuela de Estudios de Postgrado}, (1):35--42,
+  2022.
+
+\bibitem{marshall2015madden}
+Andrew~G Marshall, Harry~H Hendon, Tom~H Durrant, and Mark~A Hemer.
+\newblock Madden julian oscillation impacts on global ocean surface waves.
+\newblock {\em Ocean Modelling}, 96:136--147, 2015.
+
+\bibitem{zhang2005madden}
+Chidong Zhang.
+\newblock Madden-julian oscillation.
+\newblock {\em Reviews of Geophysics}, 43(2), 2005.
+
+\bibitem{cli14020038}
+Timothy G.~F. Kittel and Kelly Ferron.
+\newblock Nonlinear earth system dynamics determine biospheric structure and
+  function: I—a primer on how the climate system functions as a heat engine
+  and structures the biosphere.
+\newblock {\em Climate}, 14(2), 2026.
+
+\bibitem{lopez2006incertidumbre}
+Luis Antonio~V{\'a}zquez L{\'o}pez.
+\newblock La incertidumbre de las cat{\'a}strofes clim{\'a}ticas.
+\newblock {\em INGENIER{\'I}A Y TERRITORIO{\textperiodcentered} 74}, page~36,
+  2006.
+
+\bibitem{dunkel2015_navier_stokes}
+J{\"o}rn Dunkel.
+\newblock The navier-stokes equations.
+\newblock Lecture notes for 18.354J Nonlinear Dynamics II: Continuum Systems,
+  MIT OpenCourseWare, 2015.
+\newblock Accessed: 2026-04-27.
+
+\bibitem{ellacott2012mathematics}
+Stephen~W Ellacott, John~C Mason, and Iain~J Anderson.
+\newblock {\em Mathematics of neural networks: models, algorithms and
+  applications}, volume~8.
+\newblock Springer Science \& Business Media, 2012.
+
+\bibitem{medsker2001recurrent}
+Larry~R Medsker, Lakhmi Jain, et~al.
+\newblock Recurrent neural networks.
+\newblock {\em Design and applications}, 5(64-67):2, 2001.
+
+\bibitem{VanishingGradient}
+John~F. Kolen and Stefan~C. Kremer.
+\newblock {\em Gradient Flow in Recurrent Nets: The Difficulty of Learning
+  LongTerm Dependencies}, pages 237--243.
+\newblock 2001.
+
+\bibitem{koreanLSTM}
+Soonchan Park and Heechan Han.
+\newblock Application of lstm and climate index for prediction of
+  meteorological drought in south korea.
+\newblock {\em Water}, 17(12), 2025.
+
+\bibitem{alonso2024mathematics}
+Noguer~I Alonso et~al.
+\newblock The mathematics of recurrent neural networks.
+\newblock {\em The Mathematics of Recurrent Neural Networks (October 27,
+  2024)}, 2024.
+
+\bibitem{HYNDMAN2006679}
+Rob~J. Hyndman and Anne~B. Koehler.
+\newblock Another look at measures of forecast accuracy.
+\newblock {\em International Journal of Forecasting}, 22(4):679--688, 2006.
+
+\bibitem{lalinde2018uso}
+Juan Diego~Hern{\'a}ndez Lalinde, Franklin~Espinosa Castro, Johel~E
+  Rodr{\'\i}guez, Jos{\'e} Gerardo~Chac{\'o}n Rangel, Cristian
+  Andr{\'e}s~Toloza Sierra, Marlly Karina~Arenas Torrado, Sandra
+  Milena~Carrillo Sierra, and Valmore Jos{\'e}~Berm{\'u}dez Pirela.
+\newblock Sobre el uso adecuado del coeficiente de correlaci{\'o}n de pearson:
+  definici{\'o}n, propiedades y suposiciones.
+\newblock {\em Archivos venezolanos de Farmacolog{\'\i}a y Terap{\'e}utica},
+  37(5):587--595, 2018.
+
+\bibitem{RITTER201333}
+Axel Ritter and Rafael Muñoz-Carpena.
+\newblock Performance evaluation of hydrological models: Statistical
+  significance for reducing subjectivity in goodness-of-fit assessments.
+\newblock {\em Journal of Hydrology}, 480:33--45, 2013.
+
+\bibitem{Kling-Gupta}
+Hoshin~Vijai Gupta and Harald Kling.
+\newblock On typical range, sensitivity, and normalization of mean squared
+  error and nash-sutcliffe efficiency type metrics.
+\newblock {\em Water Resources Research}, 47(10), 2011.
+
+\bibitem{JMLR:dropout}
+Nitish Srivastava, Geoffrey Hinton, Alex Krizhevsky, Ilya Sutskever, and Ruslan
+  Salakhutdinov.
+\newblock Dropout: A simple way to prevent neural networks from overfitting.
+\newblock {\em Journal of Machine Learning Research}, 15(56):1929--1958, 2014.
+
+\bibitem{NeuralNetworkArchitectures}
+Federico Girosi, Michael Jones, and Tomaso Poggio.
+\newblock Regularization theory and neural networks architectures.
+\newblock {\em Neural Computation}, 7(2):219--269, 03 1995.
+
+\bibitem{acosta2005contribucion}
+Mart{\'\i}nez Acosta et~al.
+\newblock Contribuci{\'o}n econ{\'o}mica del componente forestal en diferentes
+  tipos de fincas cafetaleras en la bocacosta pac{\'\i}fica de guatemala.
+\newblock 2005.
+
+\bibitem{morales2007acceso}
+Cesar Eduardo~Ord{\'o}{\~n}ez Morales, Enrique~Loras Castillo, Marco
+  Alirio~Ochoa Galicia, Herbert~Loarca Moreira, and Irina Reyes.
+\newblock Acceso a la tierra y organizaci{\'o}n productiva en la boca costa
+  quetzalteca, guatemala.
+\newblock {\em Cuadernos Geogr{\'a}ficos}, 41:149--172, 2007.
+
+\bibitem{islam2019overview}
+Mohaiminul Islam, Guorong Chen, and Shangzhu Jin.
+\newblock An overview of neural network.
+\newblock {\em American Journal of Neural Networks and Applications},
+  5(1):7--11, 2019.
+
+\bibitem{hochreiter1998recurrent}
+Sepp Hochreiter.
+\newblock Recurrent neural net learning and vanishing gradient.
+\newblock {\em International Journal Of Uncertainity, Fuzziness and
+  Knowledge-Based Systems}, 6(2):107--116, 1998.
+
+\bibitem{ortiz2002modelos}
+Juan Antonio~P{\'e}rez Ortiz.
+\newblock Modelos predictivos basados en redes neuronales recurrentes de tiempo
+  discreto.
+\newblock {\em Universidad de Alicante. Departamento de lenguaje y sistemas
+  inform{\'a}ticos.[Documento en l{\i}nea http://www. conicyt. cIl573 Modelos
+  predictivos basados en redes neuronales recurrentes de tiempo discreto.
+  pdf][22/07/08]}, 2002.
+
+\bibitem{grossberg2013recurrent}
+Stephen Grossberg.
+\newblock Recurrent neural networks.
+\newblock {\em Scholarpedia}, 8(2):1888, 2013.
+
+\bibitem{yu2019review}
+Yong Yu, Xiaosheng Si, Changhua Hu, and Jianxun Zhang.
+\newblock A review of recurrent neural networks: Lstm cells and network
+  architectures.
+\newblock {\em Neural computation}, 31(7):1235--1270, 2019.
+
+\bibitem{song2020time}
+Xuanyi Song, Yuetian Liu, Liang Xue, Jun Wang, Jingzhe Zhang, Junqiang Wang,
+  Long Jiang, and Ziyan Cheng.
+\newblock Time-series well performance prediction based on long short-term
+  memory (lstm) neural network model.
+\newblock {\em Journal of Petroleum Science and Engineering}, 186:106682, 2020.
+
+\bibitem{karevan2020transductive}
+Zahra Karevan and Johan~AK Suykens.
+\newblock Transductive lstm for time-series prediction: An application to
+  weather forecasting.
+\newblock {\em Neural Networks}, 125:1--9, 2020.
+
+\bibitem{rew1990netcdf}
+Russ Rew and Glenn Davis.
+\newblock Netcdf: an interface for scientific data access.
+\newblock {\em IEEE computer graphics and applications}, 10(4):76--82, 1990.
+
+\bibitem{riishojgaard2021intercambio}
+Lars~Peter Riishojgaard, John~W Zillman, Adrian Simmons, and John Eyre.
+\newblock Intercambio de datos en la organizaci{\'o}n meteorol{\'o}gica
+  mundial: contexto, historia e impacto.
+\newblock 2021.
+
+\bibitem{HDFGroup2024HDF5}
+{The HDF Group}.
+\newblock Hdf5, 2024.
+\newblock Accessed: 2024-12-19.
+
+\bibitem{nws_divergence}
+{National Weather Service}.
+\newblock Divergence and convergence.
+\newblock
+  \url{https://www.weather.gov/source/zhu/ZHU_Training_Page/Miscellaneous/Divergence/divergence.html},
+  n.d.
+\newblock NOAA/National Weather Service. Accessed: 2026-04-27.
+
+\bibitem{trenberth1987global}
+Kevin~E Trenberth, Johan~R Christy, and Jerry~G Olson.
+\newblock Global atmospheric mass, surface pressure, and water vapor
+  variations.
+\newblock {\em Journal of Geophysical Research: Atmospheres},
+  92(D12):14815--14826, 1987.
+
+\bibitem{nash-sutcliffe}
+Richard~H. McCuen, Zachary Knight, and A.~Gillian Cutter.
+\newblock Evaluation of the nash–sutcliffe efficiency index.
+\newblock {\em Journal of Hydrologic Engineering}, 11(6):597--602, 2006.
+
+\bibitem{avalosanalisis}
+Enrique~Pazos Avalos.
+\newblock An{\'a}lisis de la precipitaci{\'o}n sobre el territorio guatemalteco
+  utilizando un modelo clim{\'a}tico regional.
+\newblock {\em Biblioteca de la Universidad de San Carlos de Guatemala}, 2018.
+
+\end{thebibliography}

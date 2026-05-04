@@ -8,6 +8,7 @@ COMBINACIONES DE PREDICTORES
 4.sst,tp,mjo
 5.sst,sp,z,r,q,tp,u,v
 6.sst,sp,z,r,q,tp,u,v,mjo
+7.sst,tp
 
 COMBINACIÓN 1
 

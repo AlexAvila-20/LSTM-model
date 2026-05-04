@@ -1,9 +1,63 @@
-\documentclass[titlepage,11pt]{report}
+\documentclass[11pt,letterpaper,oneside]{report}
+
+% ------------------------------------------------------------
+% Idioma y codificación
+% ------------------------------------------------------------
 \usepackage[provide=*, spanish]{babel}
-\usepackage[utf8]{inputenc}%
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ------------------------------------------------------------
+% Márgenes y formato general
+% ------------------------------------------------------------
+\usepackage[
+  letterpaper,
+  top=30mm,
+  bottom=30mm,
+  left=32mm,
+  right=32mm,
+  headheight=14pt,
+  headsep=10mm
+]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{microtype}
+\usepackage{indentfirst}
+
+% ------------------------------------------------------------
+% Matemática y física
+% ------------------------------------------------------------
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{latexsym}
+\usepackage{physics}
+\usepackage[amssymb]{SIunits}
+
+% ------------------------------------------------------------
+% Figuras, tablas y captions
+% ------------------------------------------------------------
+\usepackage{graphicx}
 \usepackage{float}
-\usepackage{listings}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multicol}
+
+\usepackage[font=small,labelfont=bf,labelsep=colon]{caption}
+
+% Para que diga "Fig." en vez de "Figura"
+\addto\captionsspanish{
+  \renewcommand{\figurename}{Fig.}
+  \renewcommand{\tablename}{Tabla}
+}
+
+% ------------------------------------------------------------
+% Colores y código
+% ------------------------------------------------------------
 \usepackage{xcolor}
+\usepackage{listings}
+\usepackage[many]{tcolorbox}
+
 \lstdefinelanguage{Mathematica}{
   morekeywords={
     Module, Table, Plot, Integrate, Sum, If, Do, While, For, Return,
@@ -13,6 +67,7 @@
   morecomment=[l](\*),
   morestring=[b]",
 }
+
 \lstset{
   language=Mathematica,
   basicstyle=\ttfamily\small,
@@ -24,102 +79,173 @@
   postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space}
 }
 
-\usepackage{graphicx}
-\usepackage{latexsym}
-\usepackage{amsmath, amssymb, graphics, setspace}
-\usepackage{xcolor}
-\usepackage{listings} % Para mostrar código
-\usepackage[many]{tcolorbox} % Para cajas con estilo
-\usepackage{geometry} % Para ajustar márgenes
-\usepackage{amsfonts, amsmath}%
-\usepackage{physics}
-\usepackage[amssymb]{SIunits}%
-\usepackage[letterpaper, bottom=25mm, top=25mm]{geometry}
-\usepackage{longtable}
-\usepackage{array}
+% ------------------------------------------------------------
+% Bibliografía
+% ------------------------------------------------------------
 \usepackage{natbib}
-\usepackage[bookmarksnumbered, breaklinks={true},%
-pdfauthor={Miguel Avila miguelavila.c@icloud.com},%
-pdftitle={Desarrollo de un modelo predictivo de precipitación para la región Bocacosta de Guatemala mediante redes neuronales LSTM},%
-pdfsubject={Informe final de ejercicio profesional supervisado},%
-pdfkeywords={meteorology, climate physics}]{hyperref}
 
+% ------------------------------------------------------------
+% Encabezados tipo paper
+% ------------------------------------------------------------
+\usepackage{fancyhdr}
 
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\thepage}
+\fancyhead[R]{\small\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0pt}
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyhead[L]{\small\thepage}
+  \fancyhead[R]{\small\nouppercase{\leftmark}}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% ------------------------------------------------------------
+% Estilo de títulos
+% ------------------------------------------------------------
+\usepackage{titlesec}
+
+\titleformat{\chapter}
+  {\normalfont\Large\bfseries}
+  {\thechapter}
+  {1em}
+  {}
+
+\titlespacing*{\chapter}
+  {0pt}
+  {-10pt}
+  {24pt}
+
+\titleformat{\section}
+  {\normalfont\large\bfseries}
+  {\thesection}
+  {1em}
+  {}
+
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}
+  {\thesubsection}
+  {1em}
+  {}
+
+% ------------------------------------------------------------
+% Hipervínculos
+% ------------------------------------------------------------
+\usepackage[
+  bookmarksnumbered,
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdfauthor={Miguel Avila miguelavila.c@icloud.com},
+  pdftitle={Desarrollo de un modelo de pronóstico de precipitación para la región Bocacosta de Guatemala mediante redes neuronales LSTM},
+  pdfsubject={Informe final de ejercicio profesional supervisado},
+  pdfkeywords={meteorology, climate physics}
+]{hyperref}
+
+% ------------------------------------------------------------
+% Datos del documento
+% ------------------------------------------------------------
+\title{
+  \LARGE\bfseries
+  Desarrollo de un modelo de pronóstico de precipitación\\
+  para la región Bocacosta de Guatemala\\
+  mediante redes neuronales LSTM
+}
+
+\author{
+  Miguel Alexander Avila Chacón\\[0.4em]
+  \small Universidad de San Carlos de Guatemala\\
+  \small Escuela de Ciencias Físicas y Matemáticas\\[0.4em]
+  \small Supervisado por Ing. Klaus Hermann Aldo Johannes Zúñiga Kaufmann\\
+  \small y Dr. Giovanni Ramírez
+}
+
+\date{\small Guatemala, junio de 2026}
+
+% ------------------------------------------------------------
+% Documento
+% ------------------------------------------------------------
 \begin{document}
-% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
-% aquí se define la página de la portada, las distancias y tamaños son
-% relativos al tamaño de la fuente que se define al inicio en documentclass
+
+% ------------------------------------------------------------
+% Portada tipo paper
+% ------------------------------------------------------------
 \begin{titlepage}
-  % esto es para que no ponga número a la página
-  \pagestyle{empty}
-  % esto agrega el título a los bookmarks
-  \pdfbookmark[0]{Title}{title}
-  \begin{center}
-    % esto es para los logos
-    \begin{minipage}{\textwidth}
-      \begin{minipage}[c]{0.45\textwidth}
-        \centering \includegraphics[width=.8\textwidth]{usacAzul}
-      \end{minipage}%
-      \hfill
-      \begin{minipage}[c]{0.45\textwidth}
-        \vspace{-1em}\includegraphics[width=.85\textwidth]{ecfmAzul}
-      \end{minipage}
-    \end{minipage}
+\thispagestyle{empty}
 
-    % esto pone los nombres de las instituciones
-    \vspace{2em}
-    \begin{minipage}[t]{.95\textwidth}
-      \centering\large
-      \textsc{Universidad de San Carlos de Guatemala\\
-        Escuela de Ciencias Físicas y Matemáticas}
-    \end{minipage}
+\vspace*{1.5cm}
 
-    % esto pone la línea horizontal
-    \vspace{1em}\noindent\rule{\textwidth}{1px}\vfill
-    % esto pone el título
-    \begin{minipage}[t]{.95\textwidth}
-      \centering\Huge
-      \textsc{Desarrollo de un modelo predictivo de precipitación para la región Bocacosta de Guatemala mediante redes neuronales LSTM}
-    \end{minipage}
+\begin{center}
 
-    % esto pone los datos 
-    \vfill
-    \begin{minipage}[t]{.75\textwidth}
-      \centering
-      Informe final de ejercicio profesional supervisado elaborado por:\\%
-      \textbf{Miguel Alexander Avila Chacón}\\
-      presentado ante el Departamento de Física
-    \end{minipage}
+{\LARGE\bfseries
+Desarrollo de un modelo de pronóstico de precipitación\\
+para la región Bocacosta de Guatemala\\
+mediante redes neuronales LSTM
+\par}
 
-    % esto pone más datos
-    \vfill
-    \begin{minipage}[t]{.95\textwidth}
-      \centering
-      Supervisado por \\%
-      Ing. Klaus Hermann Aldo Johannes Zúñiga Kaufmann \\ Dr. Giovanni Ramírez
-    \end{minipage}
+\vspace{1.5cm}
 
-    \vfill\noindent\rule{\textwidth}{1px}
-    \begin{minipage}[t]{.95\textwidth}
-      \centering
-      Guatemala, junio de 2026
-    \end{minipage}
-  \end{center}
-\end{titlepage}
-\pagestyle{empty}
-\setcounter{page}{0}
+{\large Miguel Alexander Avila Chacón\par}
 
-\section*{Resumen}
-\label{sec:resumen}
+\vspace{0.5cm}
 
-% ver metadatos
-\vspace{2em}
-\textbf{Palabras clave:} parton distribution functions \& phenomenology \& high energy physics.
+{\small
+Universidad de San Carlos de Guatemala\\
+Escuela de Ciencias Físicas y Matemáticas\\
+Departamento de Física
+\par}
 
-% esto es para terminar la página del resumen y pasar a la nueva página con el
-% número uno
+\vspace{0.5cm}
+
+{\small
+Informe final de ejercicio profesional supervisado
+\par}
+
+\vspace{0.5cm}
+
+{\small
+Supervisado por\\
+Ing. Klaus Hermann Aldo Johannes Zúñiga Kaufmann\\
+Dr. Giovanni Ramírez
+\par}
+
+\vspace{1.5cm}
+
+{\small Guatemala, junio de 2026\par}
+
+\end{center}
+
+\vfill
+
 \newpage
-\pagestyle{plain}
+
+\begin{center}
+\begin{minipage}{0.82\textwidth}
+\begin{center}
+\textbf{Resumen}
+\end{center}
+
+Aquí va el resumen del trabajo. Este formato reproduce una presentación más sobria,
+con márgenes amplios, texto centrado en una columna y una primera página similar
+a un manuscrito académico.
+
+\vspace{1em}
+
+\noindent\textbf{Palabras clave:} precipitación; Bocacosta; Guatemala; redes neuronales LSTM; pronóstico climático.
+\end{minipage}
+\end{center}
+
+\end{titlepage}
+
+% ------------------------------------------------------------
+% Numeración y contenido
+% ------------------------------------------------------------
+\pagenumbering{arabic}
+\setcounter{page}{1}
 
 \chapter{Introducción}
 \label{sec:introduccion}
@@ -140,15 +266,305 @@ pdfkeywords={meteorology, climate physics}]{hyperref}
 \chapter{Resultados}
 \label{sec:resultados}
 
+\chapter{Discusión de resultados}
+\label{sec:discusiónderesultados}
+
 \chapter{Conclusiones}
 \label{sec:conclusiones}
 
 \chapter{Recomendaciones}
 \label{sec:recomendaciones}
 
-% adjunto con el nombre referencias.bib.  Hay varios estilos, los básicos son:
-% abbrv, acm, alpha, apalike, ieeetr, plain, siam, unsrt
+% ------------------------------------------------------------
+% Bibliografía
+% ------------------------------------------------------------
 \nocite{*}
-\bibliographystyle{unsrt}% otras opciones {plain}
+\bibliographystyle{unsrt}
 \bibliography{biblio}
+
+\end{document}
+
+
+\documentclass[11pt,letterpaper,oneside]{report}
+
+% ------------------------------------------------------------
+% Idioma y codificación
+% ------------------------------------------------------------
+\usepackage[provide=*, spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% ------------------------------------------------------------
+% Márgenes y formato general
+% ------------------------------------------------------------
+\usepackage[
+  letterpaper,
+  top=30mm,
+  bottom=30mm,
+  left=32mm,
+  right=32mm,
+  headheight=14pt,
+  headsep=10mm
+]{geometry}
+
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{microtype}
+\usepackage{indentfirst}
+
+% ------------------------------------------------------------
+% Matemática y física
+% ------------------------------------------------------------
+\usepackage{amsmath, amssymb, amsfonts}
+\usepackage{latexsym}
+\usepackage{physics}
+\usepackage[amssymb]{SIunits}
+
+% ------------------------------------------------------------
+% Figuras, tablas y captions
+% ------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multicol}
+
+\usepackage[font=small,labelfont=bf,labelsep=colon]{caption}
+
+% Para que diga "Fig." en vez de "Figura"
+\addto\captionsspanish{
+  \renewcommand{\figurename}{Fig.}
+  \renewcommand{\tablename}{Tabla}
+}
+
+% ------------------------------------------------------------
+% Colores y código
+% ------------------------------------------------------------
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage[many]{tcolorbox}
+
+\lstdefinelanguage{Mathematica}{
+  morekeywords={
+    Module, Table, Plot, Integrate, Sum, If, Do, While, For, Return,
+    Function, Set, SetDelayed, Rule, RuleDelayed, Block, With, True, False
+  },
+  sensitive=true,
+  morecomment=[l](\*),
+  morestring=[b]",
+}
+
+\lstset{
+  language=Mathematica,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  showstringspaces=false,
+  breaklines=true,
+  postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space}
+}
+
+% ------------------------------------------------------------
+% Bibliografía
+% ------------------------------------------------------------
+\usepackage{natbib}
+
+% ------------------------------------------------------------
+% Encabezados tipo paper
+% ------------------------------------------------------------
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\thepage}
+\fancyhead[R]{\small\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0pt}
+
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \fancyhead[L]{\small\thepage}
+  \fancyhead[R]{\small\nouppercase{\leftmark}}
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% ------------------------------------------------------------
+% Estilo de títulos
+% ------------------------------------------------------------
+\usepackage{titlesec}
+
+\titleformat{\chapter}
+  {\normalfont\Large\bfseries}
+  {\thechapter}
+  {1em}
+  {}
+
+\titlespacing*{\chapter}
+  {0pt}
+  {-10pt}
+  {24pt}
+
+\titleformat{\section}
+  {\normalfont\large\bfseries}
+  {\thesection}
+  {1em}
+  {}
+
+\titleformat{\subsection}
+  {\normalfont\normalsize\bfseries}
+  {\thesubsection}
+  {1em}
+  {}
+
+% ------------------------------------------------------------
+% Hipervínculos
+% ------------------------------------------------------------
+\usepackage[
+  bookmarksnumbered,
+  breaklinks=true,
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdfauthor={Miguel Avila miguelavila.c@icloud.com},
+  pdftitle={Desarrollo de un modelo de pronóstico de precipitación para la región Bocacosta de Guatemala mediante redes neuronales LSTM},
+  pdfsubject={Informe final de ejercicio profesional supervisado},
+  pdfkeywords={meteorology, climate physics}
+]{hyperref}
+
+% ------------------------------------------------------------
+% Datos del documento
+% ------------------------------------------------------------
+\title{
+  \LARGE\bfseries
+  Desarrollo de un modelo de pronóstico de precipitación\\
+  para la región Bocacosta de Guatemala\\
+  mediante redes neuronales LSTM
+}
+
+\author{
+  Miguel Alexander Avila Chacón\\[0.4em]
+  \small Universidad de San Carlos de Guatemala\\
+  \small Escuela de Ciencias Físicas y Matemáticas\\[0.4em]
+  \small Supervisado por Ing. Klaus Hermann Aldo Johannes Zúñiga Kaufmann\\
+  \small y Dr. Giovanni Ramírez
+}
+
+\date{\small Guatemala, junio de 2026}
+
+% ------------------------------------------------------------
+% Documento
+% ------------------------------------------------------------
+\begin{document}
+
+% ------------------------------------------------------------
+% Portada tipo paper
+% ------------------------------------------------------------
+\begin{titlepage}
+\thispagestyle{empty}
+
+\vspace*{1.5cm}
+
+\begin{center}
+
+{\LARGE\bfseries
+Desarrollo de un modelo de pronóstico de precipitación\\
+para la región Bocacosta de Guatemala\\
+mediante redes neuronales LSTM
+\par}
+
+\vspace{1.5cm}
+
+{\large Miguel Alexander Avila Chacón\par}
+
+\vspace{0.5cm}
+
+{\small
+Universidad de San Carlos de Guatemala\\
+Escuela de Ciencias Físicas y Matemáticas\\
+Departamento de Física
+\par}
+
+\vspace{0.5cm}
+
+{\small
+Informe final de ejercicio profesional supervisado
+\par}
+
+\vspace{0.5cm}
+
+{\small
+Supervisado por\\
+Ing. Klaus Hermann Aldo Johannes Zúñiga Kaufmann\\
+Dr. Giovanni Ramírez
+\par}
+
+\vspace{1.5cm}
+
+{\small Guatemala, junio de 2026\par}
+
+\end{center}
+
+\vfill
+
+\begin{center}
+\begin{minipage}{0.82\textwidth}
+\begin{center}
+\textbf{Resumen}
+\end{center}
+
+Aquí va el resumen del trabajo. Este formato reproduce una presentación más sobria,
+con márgenes amplios, texto centrado en una columna y una primera página similar
+a un manuscrito académico.
+
+\vspace{1em}
+
+\noindent\textbf{Palabras clave:} precipitación; Bocacosta; Guatemala; redes neuronales LSTM; pronóstico climático.
+\end{minipage}
+\end{center}
+
+\end{titlepage}
+
+% ------------------------------------------------------------
+% Numeración y contenido
+% ------------------------------------------------------------
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\chapter{Introducción}
+\label{sec:introduccion}
+\input{introducción.tex}
+
+\chapter{Objetivos}
+\label{sec:objetivos}
+\input{objetivos.tex}
+
+\chapter{Marco teórico}
+\label{sec:marco}
+\input{theory.tex}
+
+\chapter{Metodología}
+\label{sec:metodologia}
+\input{metodología.tex}
+
+\chapter{Resultados}
+\label{sec:resultados}
+
+\chapter{Discusión de resultados}
+\label{sec:discusiónderesultados}
+
+\chapter{Conclusiones}
+\label{sec:conclusiones}
+
+\chapter{Recomendaciones}
+\label{sec:recomendaciones}
+
+% ------------------------------------------------------------
+% Bibliografía
+% ------------------------------------------------------------
+\nocite{*}
+\bibliographystyle{unsrt}
+\bibliography{biblio}
+
 \end{document}

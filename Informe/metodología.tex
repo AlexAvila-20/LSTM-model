@@ -15,8 +15,22 @@ Los datos de precipitación observada fueron obtenidos del Instituto Nacional de
     \item Humedad relativa y específica (r y q) a 500 hPa. 
     \item Geopotencial (z) a 500 hPa. 
     \item Velocidades zonal y meridional (u, v) a 850 hPa. 
-    \item Índices de Madden-Julian Oscillation (RMM1, RMM2).
+    \item Índices de Madden-Julian Oscillation (MJO) (RMM1, RMM2).
+    \item Precipitación global (tp).
 \end{itemize}
+
+Se asume que determinadas combinaciones de predictores tendrán mejores resultados que otras, tanto para el país en general, como para regiones y departamentos específicos de este. Las combinaciones propuestas fueron:
+\begin{enumerate}
+    \item SST, z, r, q, tp, u, v.
+    \item SST, SP, tp.
+    \item SST, SP, tp, MJO.
+    \item SST, tp, MJO. 
+    \item SST, SP, z, r, q, tp, u, v.
+    \item SST, SP, z, r, q, tp, u, v, MJO.
+    \item SST, tp.
+\end{enumerate}
+
+La efectividad de cada predictor será evaluada mediante diagnósticos descritos más adelante.
 
 \subsection{Normalización espacio-temporal}
 Todos los archivos de entrada (NetCDF4) fueron procesados para garantizar consistencia dimensional y nomenclatura:
@@ -80,8 +94,8 @@ donde cada $X_{\tau}$ es un vector de características (predictores normalizados
 Para evaluar la capacidad de generalización del modelo sin contaminación temporal (data leakage), el conjunto de datos se dividió de manera cronológica en dos subconjuntos:
 
 \begin{itemize}
-    \item \textbf{Entrenamiento:} Años iniciales (~70-80\% del período total). Utilizado para ajustar los pesos $\mathbf{W}$ y sesgos $\mathbf{b}$ de la red mediante retropropagación del error.
-    \item \textbf{Validación:} Período intermedio (~30-20\%). Monitorea el desempeño fuera de muestra durante el entrenamiento, permitiendo la detención temprana (\textit{early stopping}) para evitar sobreajuste.
+    \item \textbf{Entrenamiento:} Años iniciales (80\% del período total). Utilizado para ajustar los pesos $\mathbf{W}$ y sesgos $\mathbf{b}$ de la red mediante retropropagación del error.
+    \item \textbf{Validación:} Período intermedio (20\%). Monitorea el desempeño fuera de muestra durante el entrenamiento, permitiendo la detención temprana (\textit{early stopping}) para evitar sobreajuste.
 \end{itemize}
 
 Esta partición respeta la estructura temporal inherente a los datos climáticos, donde la dependencia estadística es más fuerte entre observaciones cercanas en tiempo.
@@ -150,7 +164,7 @@ Para mitigar sobreajuste en esta red profunda se aplicaron:
 \end{enumerate}
 
 \subsection{Acumulación de gradientes}
-Para facilitar el entrenamiento con lotes grandes (que mejora estabilidad del gradiente), se implementó acumulación de gradientes: cada paso acumula gradientes de múltiples minilotes (típicamente 4-8) antes de actualizar pesos. Esto efectivamente incrementa el tamaño de lote sin aumentar uso de memoria GPU.
+Para facilitar el entrenamiento con lotes grandes (que mejora estabilidad del gradiente), se implementó acumulación de gradientes: cada paso acumula gradientes de múltiples minilotes (típicamente 4-8) antes de actualizar pesos. Esto efectivamente incrementa el tamaño del lote sin aumentar el uso de memoria GPU.
 
 \section{Evaluación del modelo}
 \label{sec:evaluacion_modelo}
@@ -166,7 +180,7 @@ El desempeño predictivo se cuantificó mediante:
 \end{enumerate}
 
 \subsection{Métricas de eficiencia de modelos hidrológicos}
-Se incluyeron métricas estándar en predicción de precipitación:
+Se incluyeron las métricas estándar en la predicción de precipitación:
 
 \begin{enumerate}
     \item Nash-Sutcliffe Efficiency (NSE).
@@ -175,7 +189,7 @@ Se incluyeron métricas estándar en predicción de precipitación:
     \begin{equation}
         \text{PBIAS} = 100 \cdot \frac{\sum (\hat{y}_i - y_i)}{\sum y_i}
     \end{equation}
-    Cuantifica si el modelo tiende a subestimar o sobrestimar la precipitación.
+    Cuantifica si el modelo tiende a subestimar o sobreestimar la precipitación.
 \end{enumerate}
 
 \subsection{Análisis temporal y espacial}
@@ -200,10 +214,10 @@ Con el propósito de complementar, se consideró lo siguiente:
 \section{Diagnósticos ejecutados}
 \label{sec:diagnosticos}
 
-Se desarrolló un programa de diagnósticos exhaustivos (\texttt{DIAGNÓSTICOS.py}) generando figuras y reportes estadísticos completos. Entre los diagnósticos clave se encuentran:
+Se desarrolló un programa de diagnósticos (\texttt{DIAGNÓSTICOS.py}) generando figuras y reportes estadísticos completos. Entre los diagnósticos clave se encuentran:
 
 \begin{itemize}
-    \item Dispersión (hexbin + scatter con regresión lineal) de predicciones vs observaciones.
+    \item Dispersión de predicciones vs observaciones.
     \item Mapas espaciales de bias medio, RMSE, y correlación por píxel.
     \item Series temporales agregadas (promedio espacial) con intervalos intercuartílicos.
     \item Ciclo anual (promedio mensual climatológico).
@@ -216,16 +230,18 @@ Se desarrolló un programa de diagnósticos exhaustivos (\texttt{DIAGNÓSTICOS.p
 
 Los resultados se exportan tanto a figuras PNG (si se especifica \texttt{--save}) como a un archivo NetCDF con métricas espaciales (\texttt{*\_diagnosticos.nc}) para análisis posterior.
 
+Cada una de las combinaciones de predictores descritas anteriormente fue evaluada múltiples veces mediante estas métricas, aleatorizando los meses de entrenamiento y validación, con el fin de concluir cuál era el conjunto de predictores más efectivo para el pronóstico. La elección de la alineación óptima se infirió con base en el script \texttt{COMPARACIÓN.py}.
+
 \section{Procedimiento de Predicción operativa}
 \label{sec:prediccion_operativa}
 
 Una vez entrenado y validado un modelo, se utiliza en modo predicción mediante el script \texttt{PRONÓSTICO.py}. El procedimiento es:
 
 \begin{enumerate}
-    \item \textbf{Cargar metadatos:} Se leen los parámetros de entrenamiento (normalización, PCA, transformación objetivo, etc.) desde \texttt{metadata.json} y modelos PCA desde cache.
-    \item \textbf{Validar predictores:} Se verifican que los archivos NetCDF nuevos posean la misma grilla, dimensionalidad y cobertura temporal que los datos de entrenamiento.
+    \item \textbf{Cargar metadatos:} Se leen los parámetros de entrenamiento (normalización, PCA, transformación objetivo, etc.) desde \texttt{metadata.json} y los modelos PCA desde cache.
+    \item \textbf{Validar predictores:} Se verifica que los archivos NetCDF nuevos posean la misma grilla, dimensionalidad y cobertura temporal que los datos de entrenamiento.
     \item \textbf{Procesar ventanas:} Para cada mes objetivo, se extrae una ventana de $L$ días previos, se normaliza, se aplica PCA, y se forma el tensor de entrada.
-    \item \textbf{Predicción:} El modelo LSTM infiere sobre las secuencias procesadas, generando valores en espacio transformado.
+    \item \textbf{Predicción:} El modelo LSTM infiere sobre las secuencias procesadas, generando valores en el espacio transformado.
     \item \textbf{Inversión y clipping:} Las predicciones se transforman inversamente a milímetros, se clipean a rangos físicos plausibles, y se reconstruye la grilla 2D.
     \item \textbf{Exportación:} El resultado se guarda en formato NetCDF4 con metadatos descriptivos.
 \end{enumerate}
@@ -236,10 +252,11 @@ Una vez entrenado y validado un modelo, se utiliza en modo predicción mediante 
 Para análisis geográficos específicos (ej. desempeño en un departamento o región específica, mediante el paquete gtMapTools que incluye los shapes específicos del país utilizados en los análisis de INSIVUMEH), se implementó el script \texttt{DEP.py}, que:
 \begin{enumerate}
     \item Carga un archivo de predicciones NetCDF (típicamente \texttt{modelo\_pixel\_predictions.nc}).
-    \item Utiliza un shapefile de departamentos de Guatemala para definir polígonos.
+    \item Utiliza un archivo \textit{shape} de departamentos de Guatemala para definir polígonos.
     \item Construye una máscara espacial (píxel dentro/fuera del polígono) usando geometría computacional.
-    \item Aplica la máscara a todas las timesteps de predicciones y observaciones.
+    \item Aplica la máscara a todos los pasos de tiempo de predicciones y observaciones.
     \item Exporta un NetCDF recortado conservando la dimensión temporal completa.
 \end{enumerate}
 
-Este tipo de recorte geográfico es útil para validación regional y para productos operativos específicos de una zona. Por ejemplo, para propósitos de este documento, se considera el shape asociado a Bocacosta y se realizan los diagnósticos de acuerdo a las variables de esa región.
+\textbf{Este tipo de recorte geográfico es útil para validación regional y para productos operativos específicos de una zona. Por ejemplo, para propósitos de este documento, se consideró el \textit{shape} asociado a Bocacosta y se realizaron los diagnósticos de acuerdo a las variables de esa región. Y se utilizaron las métricas locales para elegir la combinación óptima de predictores para pronóstico de precipitación en la zona. 
+}

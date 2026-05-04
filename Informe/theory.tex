@@ -22,12 +22,12 @@ donde \(L_v\) es el calor latente de vaporización y \(R_v\) es la constante esp
 La formación de gotas de lluvia requiere el crecimiento de las partículas de condensación de nube hasta alcanzar un tamaño crítico. En nubes cálidas (temperatura \(> 0^\circ\)C), predomina el proceso de \textbf{colisión-coalescencia}, donde gotas de diferente tamaño y velocidad terminal colisionan y se fusionan. En nubes frías o mixtas, opera el \textbf{proceso de Bergeron-Findeisen}, relacionada con la diferencia de presión de vapor de saturación sobre el agua líquida y el hielo. En un ambiente mixto saturado respecto al agua, existe sobresaturación respecto al hielo, lo que induce la deposición de vapor sobre los cristales de hielo a expensas de las partículas subfundidas \citep{SupersaturationofWaterVaporinClouds}.
 
 \subsection{Ascenso de masas de aire}
-Para que se produzca precipitación significativa, es indispensable el ascenso de masas de aire húmedo que enfríen la parcela hasta la saturación. Los mecanismos de ascenso principales son:
+Para que se produzca precipitación significativa, es indispensable el ascenso de masas de aire húmedo que enfríen la parcela hasta la saturación \cite{houze2014cloud, pidwirny2006cloud, nws_cloud_development}. Los mecanismos de ascenso principales son:
 \begin{itemize}
-    \item \textbf{Convección libre:} Calentamiento diferencial de la superficie que genera burbujas de aire cálido menos denso que ascienden.
-    \item \textbf{Ascenso orográfico:} El viento horizontal se aproxima a una barrera montañosa y es forzado a elevarse, enfriándose adiabáticamente. Este mecanismo es crítico en la Bocacosta guatemalteca.
-    \item \textbf{Convergencia en niveles bajos:} La fricción superficial o la dinámica de ondas del este generan zonas de acumulación de masa que fuerzan el movimiento vertical ascendente.
-    \item \textbf{Frentes:} Superficies de discontinuidad entre masas de aire de distinta densidad generan mecanismos de ascenso.
+    \item \textbf{Convección libre:} Calentamiento diferencial de la superficie que genera burbujas de aire cálido menos denso que ascienden \citep{houze2014cloud, geerts2002convective, pidwirny2006cloud}.
+    \item \textbf{Ascenso orográfico:} El viento horizontal se aproxima a una barrera montañosa y es forzado a elevarse, enfriándose adiabáticamente. Este mecanismo es crítico en la Bocacosta guatemalteca \citep{houze2014cloud, atmosferica1986viento, herrera2017descripcion, whiteman2000mountain}.
+    \item \textbf{Convergencia en niveles bajos:} La fricción superficial o la dinámica de ondas del este generan zonas de acumulación de masa que fuerzan el movimiento vertical ascendente \citep{houze2014cloud, pidwirny2006cloud, makgabutlane_convergence_metservice}.
+    \item \textbf{Ascenso frontal:} Superficies de discontinuidad entre masas de aire de distinta densidad generan mecanismos de ascenso \citep{houze2014cloud, nws_cloud_development}.
 \end{itemize}
 
 \section{Variables físicas relevantes para la predicción de precipitación local}
@@ -35,34 +35,34 @@ Para que se produzca precipitación significativa, es indispensable el ascenso d
 La selección de predictores (características de entrada) para un modelo de precipitación debe basarse en su conexión causal con los procesos de condensación y ascenso.
 
 \subsection{Temperatura superficial del mar (SST)}
-La SST es la variable oceánica más influyente en el clima tropical. Anomalías cálidas en la SST incrementan el flujo de calor latente y sensible hacia la atmósfera, reduciendo la estabilidad estática e incrementando la humedad en la capa límite. En el contexto del Pacífico Oriental, la SST modula la intensidad de la Zona de Convergencia Intertropical (ZCIT) y la convección asociada a ondas del este.
+La SST es la variable oceánica más influyente en el clima tropical. Anomalías cálidas en la SST incrementan el flujo de calor latente y sensible hacia la atmósfera, reduciendo la estabilidad estática e incrementando la humedad en la capa límite. En el contexto del Pacífico Oriental, la SST modula la intensidad de la Zona de Convergencia Intertropical (ZCIT) y la convección asociada a ondas del este \citep{iglesias2010temperatura, cabos2002influencia, neelin1998enso}.
 
 \subsection{Humedad relativa y específica}
-La humedad específica (\(q\)) en niveles medios (500 hPa) es un indicador directo de la materia prima disponible para la convección. La humedad relativa (\(HR\)) proporciona información sobre qué tan cerca de la saturación se encuentra una columna atmosférica, siendo crucial para activar la convección. 
+La humedad específica (\(q\)) en niveles medios (500 hPa) es un indicador directo de la materia prima disponible para la convección. La humedad relativa (\(HR\)) proporciona información sobre qué tan cerca de la saturación se encuentra una columna atmosférica, siendo crucial para activar la convección \citep{pierrehumbert2007relative, peixoto1996climatology, trenberth2003changing, frei1998heavy}. 
 
 \subsection{Viento (componentes zonal y meridional)}
-El viento zonal (\(u\)) en niveles bajos (850 hPa) es fundamental para el transporte de humedad desde las fuentes oceánicas (el Jet de Bajo Nivel del Caribe o el flujo del Pacífico). La componente meridional (\(v\)) está asociada a la convergencia/divergencia y a la posición de la ZCIT. La cizalladura vertical del viento puede tanto inhibir como organizar los sistemas convectivos.
+El viento zonal (\(u\)) en niveles bajos (850 hPa) es fundamental para el transporte de humedad desde las fuentes oceánicas (el Jet de Bajo Nivel del Caribe o el flujo del Pacífico). La componente meridional (\(v\)) está asociada a la convergencia/divergencia y a la posición de la ZCIT. La cizalladura vertical del viento puede tanto inhibir como organizar los sistemas convectivos \citep{houze2014cloud, yim2014comparison, sodemann2013moisture, duran2010revision, raymond2006dynamics}.
 
 \subsection{Geopotencial}
-La altura geopotencial (\(Z\)) en niveles de 500 hPa permite identificar la presencia de vaguadas y dorsales en la tropósfera media. Una vaguada profunda sobre Centroamérica se asocia con ascenso de gran escala y enfriamiento en la tropósfera superior, lo que desestabiliza la columna atmosférica y favorece tormentas.
+La altura geopotencial (\(Z\)) en niveles de 500 hPa permite identificar la presencia de vaguadas y dorsales en la tropósfera media. Una vaguada profunda sobre Centroamérica se asocia con ascenso de gran escala y enfriamiento en la tropósfera superior, lo que desestabiliza la columna atmosférica y favorece tormentas \citep{houze2014cloud, raible2003precipitation}.
 
 \subsection{Teleconexiones climáticas (ENSO, AMO, TNA)}
 El sistema climático presenta modos de variabilidad de baja frecuencia que modulan las condiciones medias de precipitación en Guatemala.
 \begin{itemize}
-    \item \textbf{ENSO (El Niño-Southern Oscillation):} La fase cálida (El Niño) se asocia típicamente con déficit de precipitación en la vertiente del Pacífico guatemalteco debido al debilitamiento de los vientos alisios y al desplazamiento de la convección profunda hacia el Pacífico Central. La fase fría (La Niña) se correlaciona con excesos de lluvia.
-    \item \textbf{AMO (Atlantic Multidecadal Oscillation):} Afecta la SST del Atlántico Norte y modula la fuerza del transporte de humedad desde el Caribe hacia el Pacífico a través del istmo.
-    \item \textbf{TNA (Tropical North Atlantic Index):} Anomalías cálidas en el Atlántico tropical intensifican la corriente de humedad hacia Centroamérica, compitiendo con la influencia del Pacífico.
+    \item \textbf{ENSO (El Niño-Southern Oscillation):} La fase cálida (El Niño) se asocia típicamente con déficit de precipitación en la vertiente del Pacífico guatemalteco debido al debilitamiento de los vientos alisios y al desplazamiento de la convección profunda hacia el Pacífico Central. La fase fría (La Niña) se correlaciona con excesos de lluvia \citep{raible2003precipitation, dai2000global, van2005searching, sun2015global}.
+    \item \textbf{AMO (Atlantic Multidecadal Oscillation):} Afecta la SST del Atlántico Norte y modula la fuerza del transporte de humedad desde el Caribe hacia el Pacífico a través del istmo \citep{lin2022atlantic, wyatt2012atlantic}.
+    \item \textbf{TNA (Tropical North Atlantic Index):} Anomalías cálidas en el Atlántico tropical intensifican la corriente de humedad hacia Centroamérica, compitiendo con la influencia del Pacífico \citep{maldonado2017early, perez2021combined}.
 \end{itemize}
 
 Todos estos indicadores se encuentran codificados en la evolución de la temperatura superficial del mar (SST).
 
 \subsection{Presión atmosférica en la superficie}
 
-Refleja directamente la dinámica de los sistemas meteorológicos en niveles bajos, donde se inician muchos de los procesos que conducen al ascenso de aire. Las zonas de baja presion suelen estar asociadas con convergencia, ascenso y desarrollo de nubosidad, mientras que los gradientes de presión determinan la intensidad y dirección del viento, influyendo en la organización del flujo atmosférico. Además, las variaciones temporales de la presión permiten identificar el desarrollo o debilitamiento de estos sistemas, aportando información sobre la evolución de los eventos de lluvia.
+Refleja directamente la dinámica de los sistemas meteorológicos en niveles bajos, donde se inician muchos de los procesos que conducen al ascenso de aire. Las zonas de baja presion suelen estar asociadas con convergencia, ascenso y desarrollo de nubosidad, mientras que los gradientes de presión determinan la intensidad y dirección del viento, influyendo en la organización del flujo atmosférico. Además, las variaciones temporales de la presión permiten identificar el desarrollo o debilitamiento de estos sistemas, aportando información sobre la evolución de los eventos de lluvia \citep{houze2014cloud, trenberth2005relationships, spengler2011does, dyer1976meridional}.
 
 \subsection{Oscilación Madden-Julian (MJO)} 
 
-Relevante en la precipitación global, porque representa una variabilidad organizada de la convección tropical que se propaga a lo largo del planeta, modulando la distribución espacial y temporal de las lluvias. A través de las fases de la onda, se activan regiones de convección activa y suprimida, afectando la circulación atmosférica, los patrones de viento y la disponibilidad de humedad.
+Relevante en la precipitación guatemalteca (especialmente en el sur del país), porque representa una variabilidad organizada de la convección tropical que se propaga a lo largo del planeta, modulando la distribución espacial y temporal de las lluvias. A través de las fases de la onda, se activan regiones de convección activa y suprimida, afectando la circulación atmosférica, los patrones de viento y la disponibilidad de humedad \citep{ramos2022influencia, marshall2015madden, zhang2005madden}.
 
 \subsection{Precipitación global}
 
@@ -83,12 +83,12 @@ La función de autocorrelación (ACF) mide la dependencia lineal entre los valor
 \section{Relación entre procesos físicos y aprendizaje automático}
 
 \subsection{Naturaleza no lineal del sistema climático}
-La atmósfera es un fluido geofísico turbulento gobernado por las ecuaciones no lineales de Navier-Stokes. Los procesos de retroalimentación, como el acoplamiento entre la radiación de onda larga y la nubosidad, o la liberación de calor latente en función de la convergencia de humedad, generan una respuesta altamente no lineal del sistema. Esta no linealidad implica que pequeños errores en las condiciones iniciales crecen exponencialmente (caos determinista), limitando la predictibilidad de los modelos dinámicos más allá de unos pocos días para el detalle convectivo.
+La atmósfera es un fluido geofísico turbulento gobernado por las ecuaciones no lineales de Navier-Stokes. Los procesos de retroalimentación, como el acoplamiento entre la radiación de onda larga y la nubosidad, o la liberación de calor latente en función de la convergencia de humedad, generan una respuesta altamente no lineal del sistema. Esta no linealidad implica que pequeños errores en las condiciones iniciales crecen exponencialmente (caos determinista), limitando la predictibilidad de los modelos dinámicos más allá de unos pocos días para el detalle convectivo \citep{cli14020038, lopez2006incertidumbre, dunkel2015_navier_stokes}.
 
 \subsection{Limitaciones de modelos físicos tradicionales}
 Los Modelos de Circulación General (GCM) y los Modelos de Predicción Numérica del Tiempo (NWP) resuelven las ecuaciones primitivas en una malla discreta. Sin embargo, enfrentan dificultades inherentes en regiones de terreno complejo como la Bocacosta, donde la resolución espacial es insuficiente para resolver la orografía escarpada y los procesos de convección sub-malla deben ser parametrizados (aproximados empíricamente). Estas parametrizaciones introducen sesgos sistemáticos y errores en el pronóstico de precipitación orográfica.
 
-\subsection{Justificación del Uso de Machine Learning}
+\subsection{Justificación del uso de Machine Learning}
 El Aprendizaje Automático (ML), y en particular las redes neuronales profundas, ofrecen un enfoque complementario puramente basado en datos. Una red neuronal puede aprender empíricamente la función de mapeo \(f: \mathbb{R}^n \to \mathbb{R}\) que relaciona un conjunto de predictores físicos de gran escala (resueltos por reanálisis) con la precipitación local observada. Este enfoque permite capturar relaciones estadísticas no lineales y dependencias temporales complejas que son difíciles de formular explícitamente en un modelo físico.
 
 \subsection{Interpretabilidad física de los predictores}
@@ -97,11 +97,11 @@ Si bien las redes neuronales son a menudo criticadas como \textit{cajas negras},
 \section{Redes neuronales artificiales}
 
 \subsection{Definición y modelo matemático}
-Una red neuronal artificial es un modelo computacional inspirado en el sistema nervioso biológico, compuesto por unidades de procesamiento interconectadas llamadas neuronas. Formalmente, una neurona artificial recibe un vector de entrada \(\mathbf{x} = (x_1, x_2, ..., x_n)\), calcula una suma ponderada de estas entradas y aplica una función de activación no lineal \(g(\cdot)\):
+Una red neuronal artificial es un modelo computacional inspirado en el sistema nervioso biológico, compuesto por unidades de procesamiento interconectadas llamadas neuronas \citep{salas2004redes, izaurieta2000redes}. Formalmente, una neurona artificial recibe un vector de entrada \(\mathbf{x} = (x_1, x_2, ..., x_n)\), calcula una suma ponderada de estas entradas y aplica una función de activación no lineal \(g(\cdot)\):
 \begin{equation}
     y = g\left( \sum_{i=1}^{n} w_i x_i + b \right) = g(\mathbf{w}^T \mathbf{x} + b)
 \end{equation}
-donde \(\mathbf{w}\) son los pesos sinápticos (parámetros ajustables que determinan la importancia de cada entrada) y \(b\) es el sesgo o \textit{bias}.
+donde \(\mathbf{w}\) son los pesos sinápticos (parámetros ajustables que determinan la importancia de cada entrada) y \(b\) es el sesgo o \textit{bias} \citep{ellacott2012mathematics}.
 
 \subsection{Funciones de activación}
 La no linealidad \(g(\cdot)\) es esencial para que la red pueda aproximar funciones complejas. Las funciones más comunes en modelos LSTM son:
@@ -113,8 +113,8 @@ La no linealidad \(g(\cdot)\) es esencial para que la red pueda aproximar funcio
 
 \section{Redes Neuronales Recurrentes (RNN)}
 
-\subsection{Concepto de Memoria Temporal}
-Las redes neuronales \textit{feedforward} estándar asumen independencia entre muestras, lo cual es inadecuado para series de tiempo donde \(X_t\) depende de \(X_{t-1}\). Las Redes Neuronales Recurrentes (RNN) introducen conexiones de retroalimentación que forman un ciclo dirigido, permitiendo que la información persista. El estado oculto \(\mathbf{h}_t\) actúa como una \textit{memoria} que resume la historia pasada de la secuencia:
+\subsection{Concepto de memoria temporal}
+Las redes neuronales \textit{feedforward} estándar asumen independencia entre muestras, lo cual es inadecuado para series de tiempo donde \(X_t\) depende de \(X_{t-1}\). Las Redes Neuronales Recurrentes (RNN) introducen conexiones de retroalimentación que forman un ciclo dirigido, permitiendo que la información persista \citep{medsker2001recurrent}. El estado oculto \(\mathbf{h}_t\) actúa como una \textit{memoria} que resume la historia pasada de la secuencia:
 \begin{equation}
     \mathbf{h}_t = g(\mathbf{W}_{xh} \mathbf{x}_t + \mathbf{W}_{hh} \mathbf{h}_{t-1} + \mathbf{b}_h)
 \end{equation}
@@ -126,7 +126,7 @@ El entrenamiento de RNNs mediante retropropagación a través del tiempo (BPTT) 
 \section{Redes LSTM (Long Short-Term Memory)}
 
 \subsection{Justificación de su uso}
-La arquitectura LSTM fue diseñada específicamente para superar el problema del gradiente evanescente y aprender dependencias temporales de largo alcance. Dado que los fenómenos atmosféricos operan en múltiples escalas temporales (desde pequeños cambios locales en la altura geopotencial a una presión específica hasta la oscilación interanual del ENSO), la LSTM es la elección óptima para modelar la precipitación acumulada. Su capacidad para recordar y olvidar información selectivamente permite a la red mantener un estado que refleje la condición climática de fondo (fase de La Niña, Niño o Neutro) mientras reacciona a perturbaciones sinópticas de corta duración.
+La arquitectura LSTM fue diseñada específicamente para superar el problema del gradiente evanescente y aprender dependencias temporales de largo alcance. Dado que los fenómenos atmosféricos operan en múltiples escalas temporales (desde pequeños cambios locales en la altura geopotencial a una presión específica hasta la oscilación interanual del ENSO), la LSTM es la elección óptima para modelar la precipitación acumulada. Su capacidad para recordar y olvidar información selectivamente permite a la red mantener un estado que refleje la condición climática de fondo (fase de La Niña, Niño o Neutro) mientras reacciona a perturbaciones sinópticas de corta duración \citep{koreanLSTM, alonso2024mathematics}.
 
 \subsection{Arquitectura interna y ecuaciones fundamentales}
 La celda LSTM reemplaza la neurona recurrente simple por un módulo que contiene una \textbf{celda de estado} (\(C_t\)) y tres compuertas que regulan el flujo de información \citep{koreanLSTM}.
@@ -162,14 +162,14 @@ La celda LSTM reemplaza la neurona recurrente simple por un módulo que contiene
 
 \section{Preprocesamiento de datos climáticos}
       
-\subsection{Normalización y Estandarización}
+\subsection{Normalización y estandarización}
 Las variables climáticas poseen escalas y unidades físicas dispares (por ejemplo geopotencial en \(m^2 s^{-2}\), humedad relativa en \%). Para que el optimizador por gradiente converja eficientemente y las funciones de activación operen en su rango sensible, es necesario escalar los datos. La estandarización se utiliza comúnmente en climatología para preservar las anomalías relativas:
 \begin{equation}
     X_{std} = \frac{X - \mu}{\sigma}
 \end{equation}
 donde \(\mu\) es la media y \(\sigma\) la desviación estándar del período de entrenamiento.
 
-\subsection{Manejo de Datos Faltantes}
+\subsection{Manejo de datos faltantes}
 Los conjuntos de datos observacionales (pluviómetros) o satelitales contienen lagunas. Se aplican técnicas de imputación como la interpolación lineal temporal o la sustitución por la mediana climatológica del mes correspondiente. Para mantener la consistencia física, es preferible eliminar segmentos cortos de reanálisis en lugar de interpolar valores espurios de viento.
 
 \subsection{Construcción de ventanas temporales}
@@ -188,25 +188,25 @@ Para evaluar la capacidad de generalización del modelo, el conjunto de datos se
 La bondad del ajuste y la precisión del pronóstico se cuantifican mediante métricas de error y correlación.
 
 \subsection{RMSE (Raíz del error cuadrático medio)}
-Mide la desviación estándar de los residuos (errores de predicción). Penaliza fuertemente los errores grandes debido al término cuadrático (llegando a valores altos cuando se presentan eventos extremos). Es útil para cuantificar la magnitud media del error en las mismas unidades que la variable observada (mm/día).
+Mide la desviación estándar de los residuos (errores de predicción). Penaliza fuertemente los errores grandes debido al término cuadrático (llegando a valores altos cuando se presentan eventos extremos). Es útil para cuantificar la magnitud media del error en las mismas unidades que la variable observada (mm/día) \citep{HYNDMAN2006679}.
 \begin{equation}
     RMSE = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
 \end{equation}
 
 \subsection{MAE (Error Absoluto Medio)}
-Mide la magnitud promedio de los errores en un conjunto de predicciones, sin considerar la dirección. Es menos sensible a valores atípicos extremos que el RMSE.
+Mide la magnitud promedio de los errores en un conjunto de predicciones, sin considerar la dirección. Es menos sensible a valores atípicos extremos que el RMSE \citep{HYNDMAN2006679}.
 \begin{equation}
     MAE = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
 \end{equation}
 
 \subsection{Correlación de Pearson (\(r\))}
-Evalúa la relación lineal entre los valores predichos (\(\hat{y}\)) y los observados (\(y\)). Un valor cercano a 1 indica que el modelo captura correctamente la fase y la tendencia de la variabilidad de la precipitación, aunque pudiera tener un sesgo sistemático en la magnitud.
+Evalúa la relación lineal entre los valores predichos (\(\hat{y}\)) y los observados (\(y\)). Un valor cercano a 1 indica que el modelo captura correctamente la fase y la tendencia de la variabilidad de la precipitación, aunque pudiera tener un sesgo sistemático en la magnitud \citep{lalinde2018uso}.
 \begin{equation}
     r = \frac{\sum (y_i - \bar{y})(\hat{y}_i - \bar{\hat{y}})}{\sqrt{\sum (y_i - \bar{y})^2 \sum (\hat{y}_i - \bar{\hat{y}})^2}}
 \end{equation}
 
 \subsection{Índice de eficiencia de Nash-Sutcliffe (NSE)}
-Índice ampliamente utilizado para evaluar la bondad de ajuste de un modelo hidrológico. Un valor cercano a 1 indica una coincidencia perfecta entre el modelo y los datos observados. Un valor entre 0 y 1 indica valores aceptables, donde una mejor presición se asocia a valores cercanos a 1. Un valor de NSE igual que cero indica que la capacidad predictiva del modelo es igual a la de la media de los datos observados. Y un valor negativo indica que la media es un mejor predictor que el modelo propuesto.
+Índice ampliamente utilizado para evaluar la bondad de ajuste de un modelo hidrológico. Un valor cercano a 1 indica una coincidencia perfecta entre el modelo y los datos observados. Un valor entre 0 y 1 indica valores aceptables, donde una mejor presición se asocia a valores cercanos a 1. Un valor de NSE igual que cero indica que la capacidad predictiva del modelo es igual a la de la media de los datos observados. Y un valor negativo indica que la media es un mejor predictor que el modelo propuesto \citep{RITTER201333}.
 
 Se calcula como la relación entre la varianza del error del modelo y la varianza de los datos observados.
 \begin{equation}
@@ -217,7 +217,7 @@ Donde $Q_0$ es el valor observado, $Q_m$ el valor simulado y $\bar{Q}_0$ la medi
 
 Es matemáticamente idéntico al cálculo del coeficiente de correlación, sin embargo, se diferencia de este por su interpretabilidad y rango, pues NSE puede ser cualquier número negativo. 
 
-Mientras que el coeficiente de correlación mide la linealidad y co-variación, el NSE mide la precisión del modelo.
+Mientras que el coeficiente de correlación mide la linealidad y co-variación, el NSE mide la precisión del modelo .
 
 \subsection{Eficiencia de Kling-Gupta (KGE)}
 
@@ -226,7 +226,7 @@ Es un indicador de la bondad de ajuste de un modelo, utilizado comúnmente en la
     KGE = 1 -\sqrt{(r-1)^2+(\alpha-1)^2+(\beta-1)^2}.
 \end{equation}
 
-Donde $r$ es el coeficiente de correlación de Pearson, $\alpha$ representa la variabilidad de los errores de predicción, esto es, $\alpha=\sigma_s/\sigma_o$, donde $\sigma_s^2$ es la varianza de la serie temporal simulada y $\sigma_o^2$ es la varianza de la serie temporal observada. Finalmente $\beta$ es el sesgo del modelo, entendido como $\beta=\mu_s/\mu_o$, siendo $\mu_s$ la media de los datos simulados y $\mu_o$ la media de los datos observados.
+Donde $r$ es el coeficiente de correlación de Pearson, $\alpha$ representa la variabilidad de los errores de predicción, esto es, $\alpha=\sigma_s/\sigma_o$, donde $\sigma_s^2$ es la varianza de la serie temporal simulada y $\sigma_o^2$ es la varianza de la serie temporal observada. Finalmente $\beta$ es el sesgo del modelo, entendido como $\beta=\mu_s/\mu_o$, siendo $\mu_s$ la media de los datos simulados y $\mu_o$ la media de los datos observados \citep{Kling-Gupta}.
 
 \section{Problemas en el entrenamiento de modelos}
 
@@ -246,13 +246,13 @@ Para combatir el sobreajuste en redes LSTM profundas se emplean:
 \section{Contexto climático de Guatemala y región de Bocacosta}
 
 \subsection{Estacionalidad de la precipitación}
-La región Bocacosta se ubica en la vertiente sur de la cadena volcánica de Guatemala, descendiendo hacia la llanura costera del Pacífico. El régimen de precipitación es marcado y estacional, definido por el monzón de América del norte y la migración latitudinal de la Zona de Convergencia Intertropical. La temporada lluviosa se extiende típicamente de mayo a octubre, presentando un doble máximo característico: un primer pico en junio asociado al inicio de la época lluviosa y al paso de ondas del este, una canícula en julio-agosto debido a la intensificación de los vientos alisios y subsidencia, y un segundo máximo en septiembre-octubre coincidiendo con el pico de actividad de la Zona de Convergencia Intertropical en el Pacífico Oriental y la temporada de ciclones tropicales.
+La región Bocacosta se ubica en la vertiente sur de la cadena volcánica de Guatemala, descendiendo hacia la llanura costera del Pacífico. El régimen de precipitación es marcado y estacional, definido por el monzón de América del norte y la migración latitudinal de la Zona de Convergencia Intertropical. Como en el resto del país, la temporada lluviosa se extiende típicamente de mayo a octubre, presentando un doble máximo característico: un primer pico en junio asociado al inicio de la época lluviosa y al paso de ondas del este, una canícula en julio-agosto debido a la intensificación de los vientos alisios y subsidencia, y un segundo máximo en septiembre-octubre coincidiendo con el pico de actividad de la Zona de Convergencia Intertropical en el Pacífico Oriental y la temporada de ciclones tropicales \citep{atmosferica1986viento, herrera2017descripcion}.
 
 \subsection{Influencia del pacífico y rol de la orografía}
-La Bocacosta está directamente expuesta al flujo de humedad del Océano Pacífico tropical nororiental. La interacción entre el flujo de bajo nivel del suroeste y la pronunciada orografía de la Sierra Madre guatemalteca es el principal mecanismo forzante de la precipitación en la zona. El ascenso forzado (efecto Föehn) condensa la abundante humedad oceánica, generando núcleos de precipitación convectiva\begin{comment}y estratiforme que superan los 4000 mm anuales en las laderas de barlovento\end{comment}. Pequeñas variaciones en la dirección del viento o en la temperatura superficial del Pacífico pueden traducirse en grandes anomalías de precipitación local, exacerbando el riesgo de deslizamientos e inundaciones.
+La Bocacosta está directamente expuesta al flujo de humedad del Océano Pacífico tropical nororiental. La interacción entre el flujo de bajo nivel del suroeste y la pronunciada orografía de la Sierra Madre guatemalteca es el principal mecanismo forzante de la precipitación en la zona. El ascenso forzado (efecto Föehn) condensa la abundante humedad oceánica, generando núcleos de precipitación convectiva\begin{comment}y estratiforme que superan los 4000 mm anuales en las laderas de barlovento\end{comment}. Pequeñas variaciones en la dirección del viento o en la temperatura superficial del Pacífico pueden traducirse en grandes anomalías de precipitación local, exacerbando el riesgo de deslizamientos e inundaciones \citep{herrera2017descripcion, ramos2022influencia, avalosanalisis}.
 
 \subsection{Importancia de la predicción en la región}
-La Bocacosta es una de las zonas con más producción agrícola del país (café, caña de azúcar, hule), pero también una de las más vulnerables a eventos hidrometeorológicos extremos. La predicción precisa de la precipitación a corto y mediano plazo es un insumo fundamental para:
+La Bocacosta es una de las zonas con más producción agrícola del país (café, caña de azúcar, hule) \citep{acosta2005contribucion, morales2007acceso}, pero también una de las más vulnerables a eventos hidrometeorológicos extremos. La predicción precisa de la precipitación a corto y mediano plazo es un insumo fundamental para:
 \begin{itemize}
     \item Sistemas de Alerta Temprana (SAT) ante deslizamientos y crecidas de ríos.
     \item Planificación de siembra y cosecha en el sector agrícola.

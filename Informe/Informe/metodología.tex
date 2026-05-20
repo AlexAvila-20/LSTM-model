@@ -6,7 +6,7 @@ El modelo predictivo se construyó siguiendo un enfoque de aprendizaje automáti
 \section{Adquisición y preprocesamiento de datos}
 \label{sec:adquisicion_datos}
 
-\subsection{Fuentes de datos}
+\subsection{Fuentes de datos}\label{subsec:fuentes_de_datos}
 Los datos de precipitación observada fueron obtenidos del Instituto Nacional de Sismología, Vulcanología, Meteorología e Hidrología (INSIVUMEH) de Guatemala, consistiendo en series de tiempo diarias de precipitación medida en estaciones pluviométricas calibradas distribuidas a lo largo del país. Los predictores climáticos fueron adquiridos de fuentes globales de reanálisis (Copernicus Climate Data Store: ERA5 post-processed daily statistics on single [and pressure] levels from 1940 to present) considerados en la cuadrícula de latitudes de $[-165, 0]$ en longitud y $[-15, 75]$ en latitud, para poder considerar las teleconexiones que dominan el escenario climático guatemalteco, sin considerar ruido proveniente de otras regiones climáticas lejos de Centroamérica:
 
 \begin{itemize}
@@ -17,6 +17,7 @@ Los datos de precipitación observada fueron obtenidos del Instituto Nacional de
     \item Velocidades zonal y meridional (u, v) a 850 hPa. 
     \item Índices de Madden-Julian Oscillation (MJO) (RMM1, RMM2).
     \item Precipitación global (tp).
+    \item Temperatura a 2 metros de la superficie (2m).
 \end{itemize}
 
 Se asume que determinadas combinaciones de predictores tendrán mejores resultados que otras, tanto para el país en general, como para regiones y departamentos específicos de este. Las combinaciones propuestas fueron:
@@ -28,6 +29,10 @@ Se asume que determinadas combinaciones de predictores tendrán mejores resultad
     \item SST, SP, z, r, q, tp, u, v.
     \item SST, SP, z, r, q, tp, u, v, MJO.
     \item SST, tp.
+    \item SST, sp, tp, 2t
+    \item SST, tp, 2t
+    \item SST, tp, MJO, 2t
+    \item SST, z, r, q, tp, u, v, 2t.
 \end{enumerate}
 
 La efectividad de cada predictor será evaluada mediante diagnósticos descritos más adelante.
@@ -165,6 +170,241 @@ Para mitigar sobreajuste en esta red profunda se aplicaron:
 
 \subsection{Acumulación de gradientes}
 Para facilitar el entrenamiento con lotes grandes (que mejora estabilidad del gradiente), se implementó acumulación de gradientes: cada paso acumula gradientes de múltiples minilotes (típicamente 4-8) antes de actualizar pesos. Esto efectivamente incrementa el tamaño del lote sin aumentar el uso de memoria GPU.
+
+\subsection{Función de Pérdida Compuesta y Argumentos de Entrenamiento}
+
+El modelo utiliza una función de pérdida compuesta que integra múltiples componentes diseñados para capturar diferentes aspectos del problema de predicción de precipitación. A continuación se describen las funciones de pérdida implementadas y los parámetros principales utilizados durante el entrenamiento.
+
+\subsubsection{Componentes de la Función de Pérdida}
+
+La pérdida total es una combinación ponderada de cuatro componentes principales:
+
+\begin{equation}
+\mathcal{L}_{\text{total}} = w_H \cdot \mathcal{L}_{\text{Huber}} + w_Q \cdot \mathcal{L}_{\text{Quantil}} + w_T \cdot \mathcal{L}_{\text{Tweedie}} + w_C \cdot \mathcal{L}_{\text{Correlación}} + \mathcal{L}_{\text{Suavizado}}
+\end{equation}
+
+donde $w_H$, $w_Q$, $w_T$ y $w_C$ son los pesos relativos de cada componente, relacionados mediante:
+\begin{equation}
+w_H = 1.0 - w_Q - w_T - w_C
+\end{equation}
+
+\paragraph{1. Pérdida de Huber Focal} 
+La función de Huber es robusta ante valores atípicos. Se define como:
+\begin{equation}
+\mathcal{L}_{\text{Huber}}(y, \hat{y}) = \begin{cases}
+\frac{1}{2}(y - \hat{y})^2 & \text{si } |y - \hat{y}| \leq \delta \\
+\delta \left(|y - \hat{y}| - \frac{\delta}{2}\right) & \text{si } |y - \hat{y}| > \delta
+\end{cases}
+\end{equation}
+
+El parámetro delta (\texttt{--huber\_delta}) controla el punto de transición entre comportamiento cuadrático y lineal. La versión focal amplifica el error en eventos extremos mediante un factor $w_{\text{focal}}$ que depende de la intensidad de precipitación:
+
+\begin{equation}
+w_{\text{focal}} = 1.0 + (\text{extreme\_boost} - 1.0) \cdot \sigma\left(\frac{y_{\text{mm}} - h_{\text{high}}}{h_{\text{width}}}\right)
+\end{equation}
+
+donde $\sigma$ es la función sigmoide, $h_{\text{high}}$ es el umbral superior en mm, y \texttt{--extreme\_boost} controla la amplificación.
+
+\paragraph{2. Pérdida de Cuantil Adaptativa}
+La pérdida de cuantil se adapta según la intensidad de precipitación, utilizando tres regímenes:
+
+\begin{equation}
+\mathcal{L}_{\text{Quantil}} = \mathbb{E}\left[w_{\text{low}} \cdot \ell_{\tau=0.50} + w_{\text{mid}} \cdot \ell_{\tau=0.60} + w_{\text{high}} \cdot \ell_{\tau_{\text{user}}}\right]
+\end{equation}
+
+donde $\ell_\tau(y, \hat{y}) = \max(\tau(y - \hat{y}), (\tau - 1)(y - \hat{y}))$ es la pérdida de cuantil estándar.
+
+Las regiones se definen mediante transiciones suaves (sigmoide):
+\begin{itemize}
+    \item \textbf{Zona baja} ($y < \texttt{--low\_threshold}$ mm): $\tau = 0.50$ (mediana), captura eventos débiles
+    \item \textbf{Zona media} ($\texttt{--low\_threshold} \leq y \leq \texttt{--high\_threshold}$): $\tau = 0.60$, transición intermedia
+    \item \textbf{Zona alta} ($y > \texttt{--high\_threshold}$ mm): $\tau = \texttt{--quantile\_tau}$, captura eventos extremos
+\end{itemize}
+
+Los pesos $w_{\text{low}}$, $w_{\text{mid}}$, $w_{\text{high}}$ se calculan mediante normalización softmax de las salidas sigmoides para garantizar $\sum w_i = 1$.
+
+\paragraph{3. Pérdida de Tweedie}
+La distribución Tweedie es una distribución compuesta Poisson-Gamma natural para datos de precipitación. La pérdida es:
+
+\begin{equation}
+\mathcal{L}_{\text{Tweedie}} = \mathbb{E}\left[-y_{\text{mm}} \cdot \hat{y}_{\text{mm}}^{-(1-p)} / (1-p) + \hat{y}_{\text{mm}}^{(2-p)} / (2-p)\right] / s_{\text{tw}}
+\end{equation}
+
+donde $p = \texttt{--tweedie\_power} \in (1, 2)$ interpola entre Poisson ($p=1$) y Gamma ($p=2$). El parámetro $s_{\text{tw}} = 1.0 / (2 - p)$ normaliza la escala cuando \texttt{--tweedie\_scale\_norm} es verdadero, mejorando la estabilidad numérica.
+
+\paragraph{4. Pérdida de Correlación de Pearson}
+Maximiza la correlación espacial entre predicciones y observaciones:
+
+\begin{equation}
+\mathcal{L}_{\text{Correlación}} = 1.0 - r_{\text{Pearson}}
+\end{equation}
+
+donde:
+\begin{equation}
+r_{\text{Pearson}} = \frac{\text{Cov}(\hat{y}, y)}{\sigma_{\hat{y}} \cdot \sigma_y}
+\end{equation}
+
+\paragraph{5. Pérdida de Suavizado Espacial}
+Penaliza diferencias grandes entre predicciones de píxeles adyacentes, promoviendo coherencia espacial:
+
+\begin{equation}
+\mathcal{L}_{\text{Suavizado}} = \texttt{--smooth\_weight} \cdot \mathbb{E}\left[\sum_{\text{pares vecinos}} (\hat{y}_i - \hat{y}_j)^2\right]
+\end{equation}
+
+\subsubsection{Normalización EMA de componentes}
+
+Durante el entrenamiento, las magnitudes relativas de cada componente pueden variar significativamente. Para mantener equilibrio automático, el modelo utiliza medias móviles exponenciales (EMA) que se actualizan solo durante los primeros 50 pasos de entrenamiento (fase de \textit{warmup}):
+
+\begin{equation}
+\text{EMA}_i^{(t)} = \begin{cases}
+\mathcal{L}_i & \text{si } t = 0 \\
+\alpha \cdot \text{EMA}_i^{(t-1)} + (1 - \alpha) \cdot \mathcal{L}_i & \text{si } 0 < t \leq 50 \\
+\text{EMA}_i^{(50)} & \text{si } t > 50
+\end{cases}
+\end{equation}
+
+donde $\alpha = 0.95$ es el momentum. Cada componente se normaliza dividiéndola por su EMA estática:
+
+\begin{equation}
+\mathcal{L}_{\text{total}} = w_H \cdot \frac{\mathcal{L}_{\text{Huber}}}{\text{EMA}_H} + w_Q \cdot \frac{\mathcal{L}_{\text{Quantil}}}{\text{EMA}_Q} + \cdots
+\end{equation}
+
+Esto garantiza que componentes de escalas muy diferentes contribuyan equitativamente a los gradientes.
+
+\subsubsection{Argumentos principales de entrenamiento}
+
+A continuación se describen los argumentos de línea de comandos más relevantes que controlan el entrenamiento del modelo:
+
+\subsection*{Pérdida -- Componente Huber}
+
+\begin{itemize}
+    \item \texttt{--huber\_delta}: Punto de transición del criterio de Huber entre pérdida cuadrática y lineal (en unidades transformadas). Valor por defecto: $1.0$.
+    
+    \item \texttt{--extreme\_boost}: Factor multiplicativo para amplificar gradientes en eventos extremos. Valor por defecto: $3.5$.
+\end{itemize}
+
+\subsection*{Pérdida -- Componente Quantil}
+
+\begin{itemize}
+    \item \texttt{--quantile\_weight}: Peso relativo de la pérdida de cuantil en la pérdida total. Valor por defecto: $0.30$.
+    
+    \item \texttt{--quantile\_tau}: Valor de cuantil $\tau$ usado en la zona de intensidad alta. Valor por defecto: $0.72$.
+    
+    \item \texttt{--low\_threshold}: Umbral inferior de precipitación en mm (frontera zona baja/media). Valor por defecto: $50.0$.
+    
+    \item \texttt{--high\_threshold}: Umbral superior de precipitación en mm (frontera zona media/alta). Valor por defecto: $250.0$.
+\end{itemize}
+
+\subsection*{Pérdida -- Componente Tweedie}
+
+\begin{itemize}
+    \item \texttt{--tweedie\_weight}: Peso relativo de la pérdida de Tweedie. Valor por defecto: $0.40$.
+    
+    \item \texttt{--tweedie\_power}: Parámetro $p \in (1,2)$ de la distribución Tweedie. Valor por defecto: $1.30$.
+    
+    \item \texttt{--tweedie\_scale\_norm}: Si verdadero, normaliza la escala de Tweedie por el factor $1/(2-p)$. Valor por defecto: \texttt{true}.
+\end{itemize}
+
+\subsection*{Pérdida -- Componentes Adicionales}
+
+\begin{itemize}
+    \item \texttt{--corr\_weight}: Peso relativo de la pérdida de correlación de Pearson. Valor por defecto: $0.10$.
+    
+    \item \texttt{--smooth\_weight}: Peso relativo de la pérdida de suavizado espacial. Valor por defecto: $0.005$.
+\end{itemize}
+
+\subsection*{Arquitectura y Entrenamiento}
+
+\begin{itemize}
+    \item \texttt{--spatial\_embed}: Dimensionalidad inicial de proyección espacial en cada torre. Valor por defecto: $256$.
+    
+    \item \texttt{--temporal\_dim}: Dimensionalidad de las capas BiLSTM. Valor por defecto: $128$.
+    
+    \item \texttt{--hidden\_dim}: Dimensionalidad de las capas Dense del decodificador. Valor por defecto: $256$.
+    
+    \item \texttt{--n\_attn\_heads}: Número de cabezas en el mecanismo de multi-head attention. Valor por defecto: $8$.
+    
+    \item \texttt{--pixel\_embed\_dim}: Dimensionalidad del embedding por píxel para ajuste fino. Valor por defecto: $64$.
+    
+    \item \texttt{--coord\_embed\_dim}: Dimensionalidad de modulación por coordenadas geográficas. Valor por defecto: $32$.
+\end{itemize}
+
+\subsection*{Datos y Preprocesamiento}
+
+\begin{itemize}
+    \item \texttt{--input\_days}: Número de días históricos como entrada temporal. Valor por defecto: $31$.
+    
+    \item \texttt{--batch\_size}: Tamaño de batch para entrenamiento (ajustado automáticamente si excede RAM). Valor por defecto: $64$.
+    
+    \item \texttt{--epochs}: Número máximo de épocas de entrenamiento. Valor por defecto: $500$.
+    
+    \item \texttt{--target\_transform}: Transformación del target: \texttt{log1p}, \texttt{cbrt}, \texttt{pow025}, \texttt{pow05}, \texttt{standard}, \texttt{none}. Valor por defecto: \texttt{log1p}.
+    
+    \item \texttt{--pca\_components}: Componentes PCA: $>0$ = fijo, $0$ = automático (retiene varianza), $-1$ = sin PCA. Valor por defecto: $1500$.
+    
+    \item \texttt{--pca\_variance}: Varianza explicada objetivo para PCA automático. Valor por defecto: $0.999$.
+\end{itemize}
+
+\subsection*{Regularización y aumento de datos \textit{(data augmentation}}
+
+\begin{itemize}
+    \item \texttt{--noise\_std}: Desviación estándar del ruido gaussiano aditivo en augmentation. Valor por defecto: $0.05$.
+    
+    \item \texttt{--mixup\_alpha}: Parámetro $\alpha$ de la distribución Beta para mixup. Valor por defecto: $0.40$.
+    
+    \item \texttt{--l2\_output}: Regularización L2 en la capa de salida. Valor por defecto: $10^{-5}$.
+    
+    \item \texttt{--grad\_accum\_steps}: Pasos de acumulación de gradientes (simula batch mayor). Valor por defecto: $1$.
+\end{itemize}
+
+\subsection*{Optimización y aprendizaje}
+
+\begin{itemize}
+    \item \texttt{--use\_swa}: Activar Stochastic Weight Averaging en la última fase de entrenamiento. Valor por defecto: \texttt{false}.
+    
+    \item \texttt{--prefetch}: Número de batches a precargar \texttt{tf.data}. Valor por defecto: $2$.
+    
+    \item \texttt{--max\_ram\_gb}: Límite de RAM para el proceso (control de bajo nivel). Valor por defecto: $4.0$.
+\end{itemize}
+
+\subsection*{Reproducibilidad}
+
+\begin{itemize}
+    \item \texttt{--seed}: Semilla para reproducibilidad global (Python, NumPy y TensorFlow). Valor por defecto: $42$.
+    
+    \item \texttt{--seed\_split}: Semilla independiente para la división train/validation. Valor por defecto: igual a \texttt{--seed}.
+\end{itemize}
+\subsubsection{Interacción de parámetros y recomendaciones}
+
+\begin{itemize}
+    
+    \item \textbf{Balance de la pérdida}: Si se ajustan $w_Q$, $w_T$ o $w_C$, la suma $w_Q + w_T + w_C$ debe ser estrictamente menor a 1.0 para garantizar $w_H > 0$. El código genera un error si esta condición no se cumple.
+    
+    \item \textbf{Umbrales de quantil}: Los valores de \texttt{--low\_threshold} y \texttt{--high\_threshold} deben ser representativos del rango de precipitación esperado. Valores típicos están en el rango 30-150 mm (baja), 100-300 mm (alta). Las transiciones suaves (sigmoide) garantizan cambios continuos.
+    
+    \item \textbf{Potencia de distribución Tweedie}: El valor $p \in (1, 2)$ controla el sesgo entre Poisson ($p \approx 1$, enfatiza ceros) y Gamma ($p \approx 2$, enfatiza cola).
+    
+    \item \textbf{Auto-batch}: Si \texttt{--batch\_size} excede la memoria disponible calculada por el monitor RAM, se reduce automáticamente y se incrementa \texttt{--grad\_accum\_steps} para mantener un batch efectivo similar. 
+    
+    \item \textbf{Spatial embed $\gg$ PCA}: Si $w_Q + w_T + w_C < 0.5$, la pérdida de Huber domina. En ese caso, aumentar \texttt{--huber\_delta} (más tolerancia a valores atípicos) o \texttt{--extreme\_boost} (más énfasis en valores extremos).
+\end{itemize}
+
+\subsubsection{Implementación de Control de Memoria (Low-RAM)}
+
+El modelo implementa un monitoreo dinámico de RAM en tiempo real mediante \texttt{RAMMonitor}:
+
+\begin{itemize}
+    \item \textbf{Límite configurable}: El argumento \texttt{--max\_ram\_gb} especifica la RAM máxima que el proceso puede usar. El monitor mantiene un margen de seguridad del 20\%.
+    
+    \item \textbf{Lectura desde disco}: Los predictores y target nunca se cargan completamente en RAM. Se utilizan memmap de NumPy en modo lectura que aprovechan el \textit{page cache} del sistema operativo.
+    
+    \item \textbf{Procesamiento por chunks}: Las operaciones de estadística, PCA, y predicción se procesan en chunks temporales cuyo tamaño se ajusta dinámicamente según la RAM disponible.
+    
+    \item \textbf{Liberado de memoria}: Se ejecuta \texttt{gc.collect()} después de cada etapa intensiva para liberar memoria inmediatamente.
+\end{itemize}
+
+Esta arquitectura permite entrenar modelos con predictores de cientos de miles de píxeles incluso en máquinas con 4 GB de RAM, repartiendo la carga entre procesamiento en disco (I/O rápido) y cálculo (GPU/CPU).
+
 
 \section{Evaluación del modelo}
 \label{sec:evaluacion_modelo}

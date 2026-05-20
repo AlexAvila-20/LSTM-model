@@ -68,6 +68,10 @@ Relevante en la precipitación guatemalteca (especialmente en el sur del país),
 
 La precipitación entendida como el campo espacial a una escala planetaria, aporta información clave porque encapsula la organización espacial de los sistemas convectivos y sinópticos, así como la interacción entre diferentes escalas de movimiento atmosférico. Esta variable codifica patrones de bandas de convección, zonas de convergencia o sistemas que evolucionan y se desplazan en el tiempo y espacio.
 
+\subsection{Temperatura a 2 metros de la superficie}
+
+Se le conoce formalmente como temperatura del aire en superficie y es el valor principal que muestran las aplicaciones del clima o los informes meteorológicos. Esta medida es utilizada como referencia global pues representa la altura aproximada en que los seres humanos respiran, evitando que el calor directo del suelo afecte la medición.
+
 \section{Series de tiempo en climatología}
 
 \subsection{Definición y componentes}
@@ -206,7 +210,7 @@ Evalúa la relación lineal entre los valores predichos (\(\hat{y}\)) y los obse
 \end{equation}
 
 \subsection{Índice de eficiencia de Nash-Sutcliffe (NSE)}
-Índice ampliamente utilizado para evaluar la bondad de ajuste de un modelo hidrológico. Un valor cercano a 1 indica una coincidencia perfecta entre el modelo y los datos observados. Un valor entre 0 y 1 indica valores aceptables, donde una mejor presición se asocia a valores cercanos a 1. Un valor de NSE igual que cero indica que la capacidad predictiva del modelo es igual a la de la media de los datos observados. Y un valor negativo indica que la media es un mejor predictor que el modelo propuesto \citep{RITTER201333}.
+Índice ampliamente utilizado para evaluar la bondad de ajuste de un modelo hidrológico. Un valor de 1 indica una coincidencia perfecta entre el modelo y los datos observados. Un valor entre 0 y 1 indica valores aceptables, donde una mejor presición se asocia a valores cercanos a 1. Un valor de NSE igual que cero indica que la capacidad predictiva del modelo es igual a la de la media de los datos observados. Y un valor negativo indica que la media es un mejor predictor que el modelo propuesto \citep{RITTER201333}.
 
 Se calcula como la relación entre la varianza del error del modelo y la varianza de los datos observados.
 \begin{equation}
@@ -221,7 +225,7 @@ Mientras que el coeficiente de correlación mide la linealidad y co-variación, 
 
 \subsection{Eficiencia de Kling-Gupta (KGE)}
 
-Es un indicador de la bondad de ajuste de un modelo, utilizado comúnmente en las ciencias hidrológicas. Creado con el objetivo de mejorar las métricas ampliamente utilizadas, como el coeficiente de determinación y el coeficiente de eficiencia de Nash-Sutcliffe.
+Es un indicador de la bondad de ajuste de un modelo, utilizado comúnmente en las ciencias hidrológicas. Creado con el objetivo de mejorar las métricas ampliamente utilizadas, como el coeficiente de determinación y el coeficiente de eficiencia de Nash-Sutcliffe. Un valor de 1 indica una coincidencia perfecta entre el modelo y los datos observados. Un valor entre $1-\sqrt{2}$ y 1 indica valores aceptables, donde una mejor precisión se asocia a valores cercanos a 1. Un valor de NSE igual que $1-\sqrt{2}$ indica que la capacidad predictiva del modelo es igual a la de la media de los datos observados. Y un valor menor a $1-\sqrt{2}$ indica que la media es un mejor predictor que el modelo propuesto. Se define como:
 \begin{equation}
     KGE = 1 -\sqrt{(r-1)^2+(\alpha-1)^2+(\beta-1)^2}.
 \end{equation}

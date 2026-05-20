@@ -120,7 +120,6 @@ def plot_comparison(summary: pd.DataFrame, savepath: str = "comparacion_combinac
     Genera una figura con varias métricas por combinación.
     """
     combos = summary["Combinacion"].astype(str).tolist()
-
     metrics_to_plot = [
         ("RMSE", "RMSE"),
         ("MAE", "MAE"),

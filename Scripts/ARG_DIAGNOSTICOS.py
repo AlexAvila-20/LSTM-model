@@ -142,7 +142,7 @@ def main():
     # 2. DISPERSIÓN MEJORADA (hexbin + densidad)
     # =====================================================================
     fig, axes = plt.subplots(1, 2, figsize=(13, 5.5))
-    fig.suptitle("Dispersión Observado vs Predicho", fontsize=13)
+    fig.suptitle("Dispersión Observado vs Pronosticado", fontsize=13)
 
     ax = axes[0]
     hb = ax.hexbin(obs_flat, pred_flat, gridsize=60, cmap="YlOrRd",
@@ -150,7 +150,7 @@ def main():
     fig.colorbar(hb, ax=ax, label="Conteo")
     mx = max(obs_flat.max(), pred_flat.max()) * 1.05
     ax.plot([0, mx], [0, mx], "k--", lw=1, label="1:1")
-    ax.set(xlabel="Observado", ylabel="Predicho", title="Hexbin",
+    ax.set(xlabel="Observado", ylabel="Pronosticado", title="Hexbin",
            xlim=(0, mx), ylim=(0, mx))
     ax.legend(fontsize=9)
 
@@ -160,7 +160,7 @@ def main():
     coef = np.polyfit(obs_flat, pred_flat, 1)
     ax.plot([0, mx], [coef[1], coef[0] * mx + coef[1]], "b-", lw=1,
             label=f"Regresión (m={coef[0]:.2f})")
-    ax.set(xlabel="Observado", ylabel="Predicho", title="Scatter + regresión",
+    ax.set(xlabel="Observado", ylabel="Pronosticado", title="Scatter + regresión",
            xlim=(0, mx), ylim=(0, mx))
     ax.legend(fontsize=9)
     fig.tight_layout()
@@ -208,14 +208,14 @@ def main():
 
     ax = axes[0]
     ax.plot(times, obs_ts, label="Observado", color="k")
-    ax.plot(times, pred_ts, label="Predicho", color="dodgerblue", ls="--")
+    ax.plot(times, pred_ts, label="Pronosticado", color="dodgerblue", ls="--")
     ax.fill_between(
         times,
         (pred_da.quantile(0.25, dim=["lat", "lon"])).values,
         (pred_da.quantile(0.75, dim=["lat", "lon"])).values,
-        alpha=0.2, color="dodgerblue", label="IQR predicho"
+        alpha=0.2, color="dodgerblue", label="IQR Pronosticado"
     )
-    ax.set(ylabel="Precipitación (mm)", title="Observado vs Predicho")
+    ax.set(ylabel="Precipitación (mm)", title="Observado vs Pronosticado")
     ax.legend(fontsize=9)
 
     ax = axes[1]
@@ -224,7 +224,7 @@ def main():
     ax.bar(times, dif_ts, color=colors, width=20)
     ax.axhline(0, color="k", lw=0.5)
     ax.set(ylabel="Diferencia (mm)", xlabel="Tiempo",
-           title="Diferencia predicho − observado")
+           title="Diferencia Pronosticado − observado")
     fig.tight_layout()
     guardar_o_mostrar(fig, "04_series_temporales.png", GUARDAR, OUTDIR)
 
@@ -238,7 +238,7 @@ def main():
     meses = obs_month.month.values
     labels = [MESES_ES.get(m, m) for m in meses]
     ax.plot(meses, obs_month, "ko-", label="Observado")
-    ax.plot(meses, pred_month, "s--", color="dodgerblue", label="Predicho")
+    ax.plot(meses, pred_month, "s--", color="dodgerblue", label="Pronosticado")
     ax.fill_between(meses, obs_month, pred_month, alpha=0.15, color="gray")
     ax.set(xticks=meses, xlabel="Mes", ylabel="Precipitación (mm)",
            title="Ciclo anual medio")
@@ -344,7 +344,7 @@ def main():
     ax.plot(obs_q, pred_q, "o", ms=3, color="steelblue")
     mx = max(obs_q.max(), pred_q.max()) * 1.05
     ax.plot([0, mx], [0, mx], "r--", lw=1)
-    ax.set(xlabel="Quantiles observados", ylabel="Quantiles predichos",
+    ax.set(xlabel="Quantiles observados", ylabel="Quantiles Pronosticados",
            title="QQ-plot", xlim=(0, mx), ylim=(0, mx))
     ax.set_aspect("equal")
     fig.tight_layout()
@@ -360,9 +360,9 @@ def main():
     n = len(obs_sorted)
     cdf = np.arange(1, n + 1) / n
     ax.plot(obs_sorted, cdf, label="Observado", color="k")
-    ax.plot(pred_sorted, cdf, label="Predicho", color="dodgerblue", ls="--")
-    ax.set(xlabel="Precipitación (mm)", ylabel="CDF",
-           title="Distribución acumulada")
+    ax.plot(pred_sorted, cdf, label="Pronosticado", color="dodgerblue", ls="--")
+    ax.set(xlabel="Precipitación (mm)", ylabel="Probabilidad acumulada",
+           title="Función de distribución acumulada (CDF)")
     ax.legend()
     fig.tight_layout()
     guardar_o_mostrar(fig, "12_cdf.png", GUARDAR, OUTDIR)

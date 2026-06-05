@@ -47,14 +47,14 @@ import sys as _sys
 
 _SEED_ENV_KEY = 'PYTHONHASHSEED'
 _default_seed = '42'
-# Buscar si el usuario pasa --seed por CLI para usarla también como PYTHONHASHSEED
+# Buscar si el usuario pasa --seed por CLI para usarla también como PYTHONHASHSEED.
 for _i, _arg in enumerate(_sys.argv):
     if _arg == '--seed' and _i + 1 < len(_sys.argv):
         _default_seed = _sys.argv[_i + 1]
         break
 
 # Si PYTHONHASHSEED no coincide con la semilla deseada, re-lanzar el proceso
-# con la variable de entorno correcta (debe fijarse ANTES de que Python arranque)
+# con la variable de entorno correcta (debe fijarse ANTES de que Python arranque).
 if _os.environ.get(_SEED_ENV_KEY) != _default_seed:
     _os.environ[_SEED_ENV_KEY] = _default_seed
     if __name__ == '__main__':
@@ -66,57 +66,57 @@ if _os.environ.get(_SEED_ENV_KEY) != _default_seed:
         _sys.exit(_result.returncode)
 
 # ─── Imports principales ────────────────────────────────────────────
-import argparse          # Parseo de argumentos de línea de comandos
-import os                # Operaciones de sistema de archivos
-import gc                # Recolector de basura manual (crítico para control de RAM)
-import json              # Lectura/escritura de metadatos y estadísticas
-import pickle            # Serialización de objetos PCA como fallback
-import time              # Cronómetro para medir tiempos de cada fase
-import concurrent.futures  # Paralelización de la Fase 2 (cacheo por chunks)
-import multiprocessing   # Contexto forkserver para workers seguros
-import random            # Semilla de Python nativo
-from datetime import timedelta  # Aritmética de fechas para ventanas temporales
+import argparse          # Parseo de argumentos de línea de comandos.
+import os                # Operaciones de sistema de archivos.
+import gc                # Recolector de basura manual (crítico para control de RAM).
+import json              # Lectura/escritura de metadatos y estadísticas.
+import pickle            # Serialización de objetos PCA como fallback.
+import time              # Cronómetro para medir tiempos de cada fase.
+import concurrent.futures  # Paralelización de la Fase 2 (cacheo por chunks).
+import multiprocessing   # Contexto forkserver para workers seguros.
+import random            # Semilla de Python nativo.
+from datetime import timedelta  # Aritmética de fechas para ventanas temporales.
 
-import numpy as np       # Operaciones numéricas y memmap en disco
-import xarray as xr      # Lectura de archivos NetCDF (predictores y target)
-import pandas as pd      # Manejo de índices temporales y fechas
-import tensorflow as tf  # Framework de deep learning para el modelo
+import numpy as np       # Operaciones numéricas y memmap en disco.
+import xarray as xr      # Lectura de archivos NetCDF (predictores y target).
+import pandas as pd      # Manejo de índices temporales y fechas.
+import tensorflow as tf  # Framework de deep learning para el modelo.
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import (
-    Input, Dense, Dropout, TimeDistributed,   # Capas básicas
-    BatchNormalization, LSTM, Concatenate,     # Normalización, recurrencia, fusión
-    Multiply, Permute, RepeatVector, Flatten, Softmax,  # Mecanismo de atención
-    Bidirectional,                             # LSTM bidireccional
+    Input, Dense, Dropout, TimeDistributed,   # Capas básicas.
+    BatchNormalization, LSTM, Concatenate,     # Normalización, recurrencia, fusión.
+    Multiply, Permute, RepeatVector, Flatten, Softmax,  # Mecanismo de atención.
+    Bidirectional,                             # LSTM bidireccional.
 )
-from tensorflow.keras.layers import Add, Lambda  # Conexiones residuales y ops custom
-from scipy.stats import pearsonr               # Correlación de Pearson para métricas
+from tensorflow.keras.layers import Add, Lambda  # Conexiones residuales y ops custom.
+from scipy.stats import pearsonr               # Correlación de Pearson para métricas.
 
-# Imports opcionales — el script funciona sin ellos pero con capacidad reducida
+# Imports opcionales — el script funciona sin ellos pero con capacidad reducida.
 try:
     from sklearn.decomposition import IncrementalPCA, PCA as SklearnPCA, TruncatedSVD
-    HAS_SKLEARN = True  # Necesario para reducción de dimensionalidad PCA
+    HAS_SKLEARN = True  # Necesario para reducción de dimensionalidad PCA.
 except ImportError:
     HAS_SKLEARN = False
 
 try:
     import joblib
-    HAS_JOBLIB = True  # Serialización eficiente de modelos PCA
+    HAS_JOBLIB = True  # Serialización eficiente de modelos PCA.
 except ImportError:
     HAS_JOBLIB = False
 
 try:
     import psutil
-    HAS_PSUTIL = True  # Monitoreo preciso de RAM del proceso
+    HAS_PSUTIL = True  # Monitoreo preciso de RAM del proceso.
 except ImportError:
     HAS_PSUTIL = False
 
 try:
-    import matplotlib.pyplot as plt  # Gráficos (no usado directamente aquí)
+    import matplotlib.pyplot as plt  # Gráficos (no usado directamente aquí).
 except Exception:
     plt = None
 
 # ─── GPU memory growth ──────────────────────────────────────────────
-# Evita que TensorFlow reserve toda la VRAM de golpe; crece según necesidad
+# Evita que TensorFlow reserve toda la VRAM de golpe; crece según necesidad.
 try:
     for gpu in tf.config.list_physical_devices('GPU'):
         tf.config.experimental.set_memory_growth(gpu, True)
@@ -145,12 +145,12 @@ class RAMMonitor:
                 return psutil.Process(os.getpid()).memory_info().rss
             except Exception:
                 pass
-        # Fallback: leer /proc/self/status en Linux
+        # Fallback: leer /proc/self/status en Linux.
         try:
             with open('/proc/self/status', 'r') as f:
                 for line in f:
                     if line.startswith('VmRSS:'):
-                        return int(line.split()[1]) * 1024  # kB → bytes
+                        return int(line.split()[1]) * 1024  # kB → bytes.
         except Exception:
             pass
         return 0
@@ -162,6 +162,7 @@ class RAMMonitor:
                 return psutil.virtual_memory().available
             except Exception:
                 pass
+        # Fallback: leer /proc/meminfo en Linux.
         try:
             with open('/proc/meminfo', 'r') as f:
                 for line in f:
@@ -179,7 +180,7 @@ class RAMMonitor:
         sys_avail = self._get_system_available()
         usable = min(budget_from_limit, sys_avail)
         safe = int(usable * (1.0 - self.safety_margin))
-        return max(safe, 1024 * 1024)  # mínimo 1 MB
+        return max(safe, 1024 * 1024)  # Mínimo 1 MB.
 
     def available_gb(self):
         return self.available_bytes() / (1024**3)
@@ -190,8 +191,8 @@ class RAMMonitor:
         Usado para determinar el tamaño de chunk al procesar predicciones,
         diagnósticos, etc. sin exceder la memoria."""
         avail = self.available_bytes() * fraction
-        row_bytes = cols * dtype_bytes  # Bytes por fila de la matriz
-        rows = max(1, int(avail / row_bytes))  # Mínimo 1 fila siempre
+        row_bytes = cols * dtype_bytes  # Bytes por fila de la matriz.
+        rows = max(1, int(avail / row_bytes))  # Mínimo 1 fila siempre.
         return rows
 
     def safe_chunk_time(self, n_valid, dtype_bytes=4, fraction=0.3):
@@ -212,7 +213,7 @@ class RAMMonitor:
               f"Límite={limit_gb:.2f} GB")
 
 
-# Instancia global — se inicializa en main()
+# Instancia global — se inicializa en main().
 _RAM: RAMMonitor = None
 
 
@@ -230,6 +231,7 @@ GLOBAL_SEED: int = 42
 
 
 def set_global_seeds(seed: int) -> None:
+    """Fija todas las semillas relevantes: Python, NumPy, TensorFlow y CUDA."""
     global GLOBAL_SEED
     GLOBAL_SEED = int(seed)
     random.seed(GLOBAL_SEED)
@@ -246,10 +248,12 @@ def set_global_seeds(seed: int) -> None:
 
 
 def _worker_seed(pred_idx: int) -> int:
+    """Deriva una semilla única para cada worker basada en el índice del predictor."""
     return GLOBAL_SEED + int(pred_idx) + 1
 
 
 def _init_worker_seeds(seed: int) -> None:
+    """Inicializa semillas dentro de un worker hijo."""
     random.seed(seed)
     np.random.seed(seed)
     try:
@@ -265,6 +269,8 @@ def _init_worker_seeds(seed: int) -> None:
 
 _PRECIP_MAX_MM = 2000.0
 
+# Rangos de clip según transformación, usados para limitar las predicciones
+# a valores físicamente plausibles (en el espacio transformado).
 CLIP_RANGES = {
     'log1p':    (-0.5,  float(np.log1p(_PRECIP_MAX_MM))),
     'cbrt':     (0.0,   float(_PRECIP_MAX_MM ** (1/3))),
@@ -280,9 +286,9 @@ def detect_variable_domain(da, varname):
     """Detecta automáticamente si una variable es oceánica, terrestre o global.
     Primero busca palabras clave en el nombre de la variable;
     si no encuentra coincidencia, analiza el patrón de NaN:
-      - >90% NaN → probablemente oceánico (tierra enmascarada)
-      - >30% NaN → probablemente terrestre (océano enmascarado)
-      - <30% NaN → global (cobertura completa)
+      - >90% NaN → probablemente oceánico (tierra enmascarada).
+      - >30% NaN → probablemente terrestre (océano enmascarado).
+      - <30% NaN → global (cobertura completa).
     """
     ocean_kw = ['sst', 'sea_surface', 'ocean', 'sss', 'salinity']
     land_kw  = ['soil', 'vegetation', 'ndvi', 'sm', 'lst']
@@ -293,7 +299,7 @@ def detect_variable_domain(da, varname):
     for lv in land_kw:
         if lv in vl:
             return 'land'
-    # Fallback: inferir por proporción de NaN en una muestra temporal
+    # Fallback: inferir por proporción de NaN en una muestra temporal.
     try:
         sample = (da.isel(time=slice(0, min(10, len(da['time']))))
                   if 'time' in da.dims else da)
@@ -337,12 +343,12 @@ def _normalize_spatial_dims(da):
     a (time, lat, lon). Si faltan dimensiones espaciales, las añade
     como dimensiones unitarias para que el código downstream sea uniforme."""
     rename = {}
-    # Buscar variantes de latitud
+    # Buscar variantes de latitud.
     for name in ['latitude', 'y', 'Y']:
         if name in da.dims or name in da.coords:
             rename[name] = 'lat'
             break
-    # Buscar variantes de longitud
+    # Buscar variantes de longitud.
     for name in ['longitude', 'x', 'X']:
         if name in da.dims or name in da.coords:
             rename[name] = 'lon'
@@ -352,14 +358,14 @@ def _normalize_spatial_dims(da):
             da = da.rename(rename)
         except Exception:
             pass
-    # Expandir dimensiones faltantes (e.g. datos de 1 punto)
+    # Expandir dimensiones faltantes (e.g., datos de 1 punto).
     if 'lat' not in da.dims and 'lon' not in da.dims:
         da = da.expand_dims({'lat': [0.0], 'lon': [0.0]})
     elif 'lat' not in da.dims:
         da = da.expand_dims({'lat': [0.0]})
     elif 'lon' not in da.dims:
         da = da.expand_dims({'lon': [0.0]})
-    # Asegurar orden canónico de dimensiones
+    # Asegurar orden canónico de dimensiones.
     try:
         if all(d in da.dims for d in ('time', 'lat', 'lon')):
             da = da.transpose('time', 'lat', 'lon')
@@ -390,6 +396,7 @@ def estimate_predictor_ram_gb(pinfo):
 
 
 def _get_clip_range(target_transform):
+    """Devuelve el rango (mínimo, máximo) de clip para la transformación dada."""
     return CLIP_RANGES.get(target_transform, (-10.0, 1e6))
 
 
@@ -414,7 +421,7 @@ def parse_args():
     p.add_argument('--no_pca', action='store_true',
                    help='Equivalente a --pca_components -1. '
                         'Usa TODA la información espacial sin reducción.')
-    p.add_argument('--pca_variance', type=float, default=0.999,
+    p.add_argument('--pca_variance', type=float, default=0.99999,
                    help='Varianza explicada objetivo cuando pca_components=0. Default 0.999')
     p.add_argument('--pca_samples', type=int, default=2000)
     p.add_argument('--stats_chunk_time', type=int, default=64)
@@ -464,7 +471,7 @@ def parse_args():
                    help='Seed para division aleatoria de años (train/val). '
                         'Si no se especifica, usa --seed')
     args = p.parse_args()
-    # --no_pca equivale a --pca_components -1
+    # --no_pca equivale a --pca_components -1.
     if args.no_pca:
         args.pca_components = -1
     return args
@@ -479,10 +486,10 @@ def parse_predictor_str(pred_str):
         raise ValueError(
             f"Formato inválido: '{pred_str}'  →  archivo.nc:var1[,var2,...][:dominio]"
         )
-    filepath = parts[0]                        # Ruta al archivo NetCDF
-    varnames = parts[1].split(',')             # Lista de variables a extraer
-    domain   = parts[2] if len(parts) > 2 else 'auto'  # Dominio explícito o auto
-    # Intentar añadir extensión .nc si el archivo no existe tal cual
+    filepath = parts[0]                        # Ruta al archivo NetCDF.
+    varnames = parts[1].split(',')             # Lista de variables a extraer.
+    domain   = parts[2] if len(parts) > 2 else 'auto'  # Dominio explícito o auto.
+    # Intentar añadir extensión .nc si el archivo no existe tal cual.
     if not os.path.isfile(filepath) and os.path.isfile(filepath + '.nc'):
         filepath = filepath + '.nc'
     if not os.path.isfile(filepath):
@@ -501,7 +508,7 @@ def _open_predictor_da(filepath, varname):
     ds = _normalize_time_dim(ds)
     da = ds[varname]
     da = _normalize_spatial_dims(da)
-    # Convertir tiempos no-datetime64 (e.g. cftime) a datetime64
+    # Convertir tiempos no-datetime64 (e.g., cftime) a datetime64.
     if not np.issubdtype(da['time'].dtype, np.datetime64):
         da['time'] = pd.to_datetime(da['time'].values)
     return da, ds
@@ -520,19 +527,19 @@ def compute_neighbor_pairs(flat_indices, target_h, target_w):
     Retorna (pairs_i, pairs_j): arrays donde pairs_i[k] y pairs_j[k]
     son índices (en el espacio land-only) de dos píxeles vecinos.
     """
-    flat_set = set(int(fi) for fi in flat_indices)     # Búsqueda O(1)
-    flat_to_land = {int(fi): li for li, fi in enumerate(flat_indices)}  # flat → land idx
+    flat_set = set(int(fi) for fi in flat_indices)     # Búsqueda O(1).
+    flat_to_land = {int(fi): li for li, fi in enumerate(flat_indices)}  # flat → land idx.
     pairs_i, pairs_j = [], []
     for li, fi in enumerate(flat_indices):
         fi = int(fi)
         row, col = fi // target_w, fi % target_w
-        # Vecino derecho
+        # Vecino derecho.
         if col + 1 < target_w:
             right_fi = row * target_w + (col + 1)
             if right_fi in flat_set:
                 pairs_i.append(li)
                 pairs_j.append(flat_to_land[right_fi])
-        # Vecino inferior
+        # Vecino inferior.
         if row + 1 < target_h:
             bottom_fi = (row + 1) * target_w + col
             if bottom_fi in flat_set:
@@ -558,6 +565,7 @@ def make_adaptive_loss(huber_delta=1.0,
                        smooth_weight=0.0,
                        corr_weight=0.0,
                        extreme_boost=1.0):
+    """Construye la función de pérdida compuesta y devuelve (loss_fn, training_flag)."""
     total_named = quantile_weight + tweedie_weight + corr_weight
     if not (0.0 <= quantile_weight < 1.0):
         raise ValueError(f"quantile_weight debe estar en [0, 1), got {quantile_weight}")
@@ -580,12 +588,12 @@ def make_adaptive_loss(huber_delta=1.0,
             f"low_threshold ({low_threshold}) debe ser < high_threshold ({high_threshold})"
         )
 
-    # Peso implícito de Huber = 1 - (quantile + tweedie + corr)
+    # Peso implícito de Huber = 1 - (quantile + tweedie + corr).
     huber_weight = 1.0 - quantile_weight - tweedie_weight - corr_weight
-    # Anchos de transición suave (sigmoide) para las regiones quantil
+    # Anchos de transición suave (sigmoide) para las regiones quantil.
     low_width  = max(low_threshold  * 0.10, 1.0)
     high_width = max(high_threshold * 0.10, 1.0)
-    # Factor de normalización de Tweedie para estabilidad numérica
+    # Factor de normalización de Tweedie para estabilidad numérica.
     _tw_scale = float(1.0 / max(2.0 - tweedie_power, 1e-3)) \
                 if tweedie_scale_norm else 1.0
 
@@ -621,9 +629,9 @@ def make_adaptive_loss(huber_delta=1.0,
     # ── Variables EMA para normalizar las escalas de cada componente ──
     # Durante el warmup, se actualizan las medias móviles exponenciales
     # de cada pérdida cruda. Después del warmup, las escalas se congelan.
-    _ema_mom    = 0.95     # Momentum de la media móvil
-    _ema_eps    = 1e-8     # Epsilon para evitar división por cero
-    _ema_warmup = 50       # Pasos de calentamiento para estabilizar escalas
+    _ema_mom    = 0.95     # Momentum de la media móvil.
+    _ema_eps    = 1e-8     # Epsilon para evitar división por cero.
+    _ema_warmup = 50       # Pasos de calentamiento para estabilizar escalas.
     _ema_h    = tf.Variable(0.0, trainable=False, dtype=tf.float32, name='ema_huber')
     _ema_q    = tf.Variable(0.0, trainable=False, dtype=tf.float32, name='ema_quant')
     _ema_t    = tf.Variable(0.0, trainable=False, dtype=tf.float32, name='ema_tweed')
@@ -634,11 +642,11 @@ def make_adaptive_loss(huber_delta=1.0,
 
     @tf.function
     def triple_loss(y_true, y_pred):
-        # Invertir a mm reales para calcular pesos adaptativos
+        # Invertir a mm reales para calcular pesos adaptativos.
         y_mm_true = _invert_transform(y_true)
         mean_y_mm = tf.reduce_mean(y_mm_true) + 1e-6
 
-        # Pesos focales: aumentar importancia de eventos extremos
+        # Pesos focales: aumentar importancia de eventos extremos.
         if _extreme_boost > 1.0:
             focal_w = 1.0 + (_extreme_boost - 1.0) * tf.nn.sigmoid(
                 (y_mm_true - high_threshold) / high_width
@@ -647,7 +655,7 @@ def make_adaptive_loss(huber_delta=1.0,
             focal_w = tf.ones_like(y_mm_true)
 
         # ========== Componente 1: Huber focal ==========
-        # Huber es robusta a outliers; focal_w amplifica el error en extremos
+        # Huber es robusta a outliers; focal_w amplifica el error en extremos.
         huber_fn     = tf.keras.losses.Huber(delta=huber_delta, reduction='none')
         huber_per_px = huber_fn(tf.expand_dims(y_true, -1),
                                 tf.expand_dims(y_pred, -1))
@@ -655,10 +663,10 @@ def make_adaptive_loss(huber_delta=1.0,
 
         # ========== Componente 2: Quantil adaptativo ==========
         # Usa diferentes cuantiles según la intensidad de lluvia:
-        #   - Zona baja  (< low_threshold mm):  tau=0.50 (mediana)
-        #   - Zona media (entre umbrales):       tau=0.60
-        #   - Zona alta  (> high_threshold mm):  tau=quantile_tau (asimétrica)
-        # Los pesos w_high, w_low, w_mid son suaves (sigmoide)
+        #   - Zona baja  (< low_threshold mm):  tau=0.50 (mediana).
+        #   - Zona media (entre umbrales):       tau=0.60.
+        #   - Zona alta  (> high_threshold mm):  tau=quantile_tau (asimétrica).
+        # Los pesos w_high, w_low, w_mid son suaves (sigmoide).
         if quantile_weight > 0.0:
             w_high_raw = tf.sigmoid((y_mm_true - high_threshold) / high_width)
             w_low_raw  = tf.sigmoid((low_threshold - y_mm_true) / low_width)
@@ -685,7 +693,7 @@ def make_adaptive_loss(huber_delta=1.0,
         # ========== Componente 3: Tweedie ==========
         # Modela la distribución Tweedie compound Poisson-Gamma,
         # natural para precipitación (masa en cero + cola continua).
-        # p ∈ (1,2): p=1 → Poisson, p=2 → Gamma
+        # p ∈ (1,2): p=1 → Poisson, p=2 → Gamma.
         if tweedie_weight > 0.0:
             y_pred_mm = tf.maximum(_invert_transform(y_pred), 1e-6)
             p   = float(tweedie_power)
@@ -725,7 +733,7 @@ def make_adaptive_loss(huber_delta=1.0,
 
         def _ema_up(ema_var, raw):
             """Actualiza una variable EMA con el valor crudo actual."""
-            raw_sg  = tf.stop_gradient(raw)  # No propagar gradientes por la escala
+            raw_sg  = tf.stop_gradient(raw)  # No propagar gradientes por la escala.
             new_val = tf.where(is_first, raw_sg,
                                _ema_mom * ema_var
                                + (1.0 - _ema_mom) * raw_sg)
@@ -783,6 +791,7 @@ def make_adaptive_loss(huber_delta=1.0,
 
 
 def make_combined_loss(**kwargs):
+    """Wrapper para crear la pérdida combinada."""
     return make_adaptive_loss(**kwargs)
 
 
@@ -838,7 +847,7 @@ def _prepare_predictor_lowram(args_tuple):
     valid_idx = pinfo['valid_indices']
     times_p   = pinfo['times']
 
-    # train_years es una lista de años de entrenamiento
+    # train_years es una lista de años de entrenamiento.
     train_years_set = set(train_years) if train_years else None
     if train_years_set is not None:
         times_years = pd.DatetimeIndex(times_p).year
@@ -849,9 +858,9 @@ def _prepare_predictor_lowram(args_tuple):
         train_time_idx = np.arange(len(times_p))
 
     # ── Calcular chunk_time seguro basado en RAM ────────────────────
-    # Cada timestep ocupa n_valid * 4 bytes (float32)
+    # Cada timestep ocupa n_valid * 4 bytes (float32).
     # Usamos máximo 15% de max_ram_gb para este cálculo,
-    # dejando el resto para PCA y otros procesos
+    # dejando el resto para PCA y otros procesos.
     avail_bytes = int(max_ram_gb * 1024**3 * 0.15)
     step_bytes = n_valid * 4
     safe_chunk = max(1, int(avail_bytes / max(step_bytes, 1)))
@@ -868,7 +877,7 @@ def _prepare_predictor_lowram(args_tuple):
     da_train = da.isel(time=train_time_idx) if train_years_set else da
     n_t_train = len(da_train['time'])
 
-    # Muestreo para stats y PCA
+    # Muestreo para stats y PCA.
     rng = np.random.default_rng(worker_seed)
     n_sample_stats = min(n_t_train, pca_samples)
     if n_sample_stats < n_t_train:
@@ -876,24 +885,24 @@ def _prepare_predictor_lowram(args_tuple):
     else:
         sample_idx = np.arange(n_t_train)
 
-    acc_n = acc_sum = acc_sq = 0.0  # Acumuladores para media/std incremental
+    acc_n = acc_sum = acc_sq = 0.0  # Acumuladores para media/std incremental.
     for start in range(0, len(sample_idx), chunk):
         idx_c = sample_idx[start:start + chunk]
-        vals  = da_train.isel(time=idx_c).values  # Lee chunk desde disco
-        flat_c = vals.reshape(vals.shape[0], -1)[:, valid_idx]  # Extraer solo píxeles válidos
-        vv = flat_c[np.isfinite(flat_c)].astype(np.float64)  # Ignorar NaN
+        vals  = da_train.isel(time=idx_c).values  # Lee chunk desde disco.
+        flat_c = vals.reshape(vals.shape[0], -1)[:, valid_idx]  # Extraer solo píxeles válidos.
+        vv = flat_c[np.isfinite(flat_c)].astype(np.float64)  # Ignorar NaN.
         if vv.size > 0:
             acc_n  += vv.size
             acc_sum += float(np.sum(vv))
-            acc_sq  += float(np.sum(vv * vv))  # Para var = E[x²] - E[x]²
-        del vals, flat_c, vv  # Liberar inmediatamente
+            acc_sq  += float(np.sum(vv * vv))  # Para var = E[x²] - E[x]².
+        del vals, flat_c, vv  # Liberar inmediatamente.
         gc.collect()
 
-    # Calcular media y std a partir de las sumas acumuladas
+    # Calcular media y std a partir de las sumas acumuladas.
     mean_val = acc_sum / acc_n if acc_n > 0 else 0.0
     std_val  = float(np.sqrt(max((acc_sq / acc_n) - mean_val ** 2, 0.0))) \
                if acc_n > 0 else 1.0
-    if std_val < 1e-8:  # Evitar división por cero en normalización
+    if std_val < 1e-8:  # Evitar división por cero en normalización.
         std_val = 1.0
 
     stats  = {'mean': mean_val, 'std': std_val, 'varname': varname, 'domain': domain}
@@ -916,15 +925,15 @@ def _prepare_predictor_lowram(args_tuple):
             # y luego truncamos por varianza explicada.
             # Máximo componentes que caben en RAM:
             # IncrementalPCA necesita ~(n_components * n_valid * 4) bytes para components_
-            # + ~(batch_size * n_valid * 4) para cada batch
-            # Presupuesto: 20% de max_ram_gb
+            # + ~(batch_size * n_valid * 4) para cada batch.
+            # Presupuesto: 20% de max_ram_gb.
             budget_bytes = int(max_ram_gb * 1024**3 * 0.20)
-            # Máximo componentes factibles considerando RAM
+            # Máximo componentes factibles considerando RAM.
             max_comp_ram = max(1, int(budget_bytes / (n_valid * 4 * 2)))
-            # No más que min(n_samples, n_features) - 1
+            # No más que min(n_samples, n_features) - 1.
             max_comp_data = min(len(sample_idx) - 1, n_valid - 1)
             actual_n = min(max_comp_ram, max_comp_data)
-            # Piso mínimo razonable
+            # Piso mínimo razonable.
             actual_n = max(actual_n, 1)
             print(f"      [auto-PCA pred_{pred_idx}] n_valid={n_valid}, "
                   f"max_comp_ram={max_comp_ram}, max_comp_data={max_comp_data}, "
@@ -935,9 +944,9 @@ def _prepare_predictor_lowram(args_tuple):
 
         ipca = IncrementalPCA(n_components=actual_n)
 
-        # Chunk PCA: batch >= actual_n + 1
+        # Chunk PCA: batch >= actual_n + 1.
         pca_batch = max(actual_n + 1, chunk)
-        # Pero también limitado por RAM
+        # Pero también limitado por RAM.
         pca_batch_bytes = pca_batch * n_valid * 4
         if pca_batch_bytes > avail_bytes:
             pca_batch = max(actual_n + 1, int(avail_bytes / (n_valid * 4)))
@@ -954,7 +963,7 @@ def _prepare_predictor_lowram(args_tuple):
         for start in range(0, len(sample_idx), pca_batch):
             idx_c = sample_idx[start:start + pca_batch]
             if len(idx_c) <= actual_n:
-                # IncrementalPCA necesita batch > n_components
+                # IncrementalPCA necesita batch > n_components.
                 continue
             vals  = da2_train.isel(time=idx_c).values
             flat_c = vals.reshape(vals.shape[0], -1)[:, valid_idx].astype(np.float32)
@@ -970,7 +979,7 @@ def _prepare_predictor_lowram(args_tuple):
         gc.collect()
 
         if n_fitted == 0:
-            # Fallback: sin PCA si no pudimos ajustar
+            # Fallback: sin PCA si no pudimos ajustar.
             pca_model = None
             feat_size = n_valid
             print(f"      [auto-PCA pred_{pred_idx}] FALLBACK: sin PCA "
@@ -979,15 +988,15 @@ def _prepare_predictor_lowram(args_tuple):
             pca_model = ipca
 
             if auto_pca:
-                # Truncar por varianza explicada acumulada
+                # Truncar por varianza explicada acumulada.
                 var_ratio = ipca.explained_variance_ratio_
                 cumvar = np.cumsum(var_ratio)
-                # Encontrar mínimo componentes para alcanzar objetivo
+                # Encontrar mínimo componentes para alcanzar objetivo.
                 idx_ok = np.where(cumvar >= pca_variance_target)[0]
                 if len(idx_ok) > 0:
                     n_keep = int(idx_ok[0]) + 1
                 else:
-                    n_keep = actual_n  # no se alcanzó el objetivo, usar todos
+                    n_keep = actual_n  # No se alcanzó el objetivo, usar todos.
                 feat_size = n_keep
                 print(f"      [auto-PCA pred_{pred_idx}] Varianza acumulada: "
                       f"{cumvar[-1]:.4f} con {actual_n} comp | "
@@ -1008,7 +1017,7 @@ def _prepare_predictor_lowram(args_tuple):
             with open(pca_base + '.pkl', 'wb') as f:
                 pickle.dump(pca_model, f)
 
-        # Solo guardar los componentes que realmente usamos (truncados)
+        # Solo guardar los componentes que realmente usamos (truncados).
         comp = pca_model.components_[:feat_size].astype(np.float32)
         pca_comp_path = os.path.join(cache_dir, f'_pca_comp_{pred_idx}.npy')
         mm_c = np.lib.format.open_memmap(
@@ -1035,8 +1044,8 @@ def _prepare_predictor_lowram(args_tuple):
         'pred_idx':      pred_idx,
         'stats':         stats,
         'feat_size':     feat_size,
-        'use_ram':       False,  # Siempre False en low-ram
-        'data_ram_path': None,   # Nunca usamos RAM completa
+        'use_ram':       False,  # Siempre False en low-ram.
+        'data_ram_path': None,   # Nunca usamos RAM completa.
         'pca_comp_path': pca_comp_path,
         'pca_mean_path': pca_mean_path,
         'msg':           msg,
@@ -1088,9 +1097,9 @@ def _cache_months_chunk_lowram(args_tuple):
 
     for ci, mi in enumerate(range(mi_start, mi_end)):
         m_start, m_end_ts = valid_months_chunk[ci]
-        # Calcular ventana de entrada: input_days días ANTES del inicio del mes
-        input_end   = m_start - timedelta(days=1)       # Último día antes del mes
-        input_start = input_end - timedelta(days=input_days - 1)  # Primer día de la ventana
+        # Calcular ventana de entrada: input_days días ANTES del inicio del mes.
+        input_end   = m_start - timedelta(days=1)       # Último día antes del mes.
+        input_start = input_end - timedelta(days=input_days - 1)  # Primer día de la ventana.
         try:
             window = da.sel(time=slice(input_start, input_end)).values
         except Exception:
@@ -1103,24 +1112,24 @@ def _cache_months_chunk_lowram(args_tuple):
             window = np.repeat(window[np.newaxis], input_days, axis=0)
 
         T = window.shape[0]
-        # Rellenar con la media si hay menos días que input_days (e.g. inicio del dataset)
+        # Rellenar con la media si hay menos días que input_days (e.g., inicio del dataset).
         if T < input_days:
             pad = np.full((input_days - T,) + window.shape[1:],
                           p_mean, dtype=np.float32)
             window = np.concatenate([window, pad], axis=0)
-        elif T > input_days:  # Truncar si hay más días de los necesarios
+        elif T > input_days:  # Truncar si hay más días de los necesarios.
             window = window[:input_days]
 
-        # Aplanar grilla espacial y extraer solo píxeles válidos
+        # Aplanar grilla espacial y extraer solo píxeles válidos.
         flat = window.reshape(window.shape[0], -1)[:, valid_idx].astype(np.float32)
-        flat = np.nan_to_num(flat, nan=p_mean, posinf=p_mean, neginf=p_mean)  # NaN → media
-        flat = (flat - p_mean) / p_std  # Normalizar (z-score)
+        flat = np.nan_to_num(flat, nan=p_mean, posinf=p_mean, neginf=p_mean)  # NaN → media.
+        flat = (flat - p_mean) / p_std  # Normalizar (z-score).
 
-        # Proyectar a espacio PCA si hay componentes disponibles
+        # Proyectar a espacio PCA si hay componentes disponibles.
         if pca_comp is not None:
             if pca_mean_vec is not None:
-                flat = flat - pca_mean_vec  # Centrar con la media de PCA
-            flat = (flat @ pca_comp.T).astype(np.float32)  # Transformar: (T, n_valid) → (T, n_pca)
+                flat = flat - pca_mean_vec  # Centrar con la media de PCA.
+            flat = (flat @ pca_comp.T).astype(np.float32)  # Transformar: (T, n_valid) → (T, n_pca).
 
         out[mi] = flat
         del window, flat
@@ -1133,6 +1142,7 @@ def _cache_months_chunk_lowram(args_tuple):
 
 #  DataPreprocessor LOW-RAM
 class DataPreprocessor:
+    """Gestiona el preprocesamiento de datos en modo low-RAM."""
 
     def __init__(self, cache_dir, dtype='float32'):
         self.cache_dir = cache_dir
@@ -1143,13 +1153,13 @@ class DataPreprocessor:
         return os.path.isfile(os.path.join(self.cache_dir, 'metadata.json'))
     
     def is_base_cached(self):
-        """Verifica si existe cache base (P1-P4: stats + PCA + target, sin división de años)"""
+        """Verifica si existe cache base (P1-P4: stats + PCA + target, sin división de años)."""
         return os.path.isfile(os.path.join(self.cache_dir, 'base_config.json'))
     
     def _get_base_config_hash(self, precip_path, predictor_configs, input_days, 
                               pca_components, pca_samples, target_transform,
                               pca_variance_target, seed):
-        """Calcula hash de parámetros que determinan P1-P4"""
+        """Calcula hash de parámetros que determinan P1-P4."""
         import hashlib
         config_str = (
             f"{precip_path}|"
@@ -1216,7 +1226,7 @@ class DataPreprocessor:
                        if n_jobs == -1 else max(n_jobs, 1))
 
         # LOW-RAM: Procesar predictores UNO A UNO secuencialmente
-        # para evitar que múltiples workers compitan por RAM
+        # para evitar que múltiples workers compitan por RAM.
         print(f"\n[P4] Procesando {n_preds} predictores (LOW-RAM, secuencial)...")
         ram.report("antes P4")
 
@@ -1255,7 +1265,7 @@ class DataPreprocessor:
         t4a_elapsed = time.time() - t4_start
         print(f"\n   Fase 1 completa en {t4a_elapsed:.1f}s")
 
-        # Crear archivos memmap de salida
+        # Crear archivos memmap de salida.
         for i in range(n_preds):
             out_path = os.path.join(self.cache_dir, f'pred_{i}.npy')
             mm = np.lib.format.open_memmap(
@@ -1265,8 +1275,8 @@ class DataPreprocessor:
             del mm
         gc.collect()
 
-        # Fase 2: cachear ventanas mensuales
-        # LOW-RAM: Procesar UN predictor a la vez, con workers limitados
+        # Fase 2: cachear ventanas mensuales.
+        # LOW-RAM: Procesar UN predictor a la vez, con workers limitados.
         print(f"\n  Cacheando ventanas (secuencial por predictor, "
               f"{actual_jobs} workers/predictor)...")
         ram.report("antes P4b")
@@ -1281,7 +1291,7 @@ class DataPreprocessor:
             p_std_i  = max(r['stats']['std'], 1e-8)
             w_seed   = seed + i + 1
 
-            # Calcular chunks para este predictor
+            # Calcular chunks para este predictor.
             n_chunks_target = max(actual_jobs * 2, 8)
             chunk_sz = max(1, (n_months + n_chunks_target - 1) // n_chunks_target)
             tasks = []
@@ -1326,7 +1336,7 @@ class DataPreprocessor:
                             print(f"\n   Fallo en Fase 2 pred {i}: {exc}")
                             raise
 
-            # Limpiar temporales de este predictor
+            # Limpiar temporales de este predictor.
             for pattern in [f'_pca_comp_{i}.npy', f'_pca_mean_{i}.npy']:
                 tmp = os.path.join(self.cache_dir, pattern)
                 if os.path.exists(tmp):
@@ -1354,7 +1364,7 @@ class DataPreprocessor:
         gc.collect()
         ram.report("después P5")
 
-        # Calcular train_end como el timestamp del último mes de entrenamiento
+        # Calcular train_end como el timestamp del último mes de entrenamiento.
         train_end_idx = max(train_indices) if train_indices else 0
         train_end_timestamp = [str(ms) for ms, _ in valid_months][train_end_idx]
         
@@ -1395,7 +1405,7 @@ class DataPreprocessor:
         with open(os.path.join(self.cache_dir, 'metadata.json'), 'w') as f:
             json.dump(metadata, f, indent=2, default=str)
         
-        # Guardar base_config.json para reutilización con diferentes seed_split
+        # Guardar base_config.json para reutilización con diferentes seed_split.
         base_config = {
             'base_config_hash':     self._get_base_config_hash(precip_path, predictor_configs, 
                                                                input_days, pca_components, 
@@ -1447,13 +1457,13 @@ class DataPreprocessor:
         all_years = base_config['all_years']
         n_months = base_config['n_months']
         
-        # Recalcular división con nuevo seed_split
+        # Recalcular división con nuevo seed_split.
         rng_split = random.Random(seed_split)
         n_val_years = max(1, int(len(all_years) * (1.0 - split_frac)))
         val_years = set(rng_split.sample(all_years, n_val_years))
         train_years = set(all_years) - val_years
         
-        # Mapear años a índices
+        # Mapear años a índices.
         timestamps = [pd.Timestamp(t) for t in month_timestamps]
         train_indices = sorted([i for i, t in enumerate(timestamps) if t.year in train_years])
         val_indices = sorted([i for i, t in enumerate(timestamps) if t.year in val_years])
@@ -1468,7 +1478,7 @@ class DataPreprocessor:
         print(f"   Años train ({len(train_years)}): {sorted(train_years)}")
         print(f"   Años val   ({len(val_years)}): {sorted(val_years)}")
         
-        # Construir metadata con la nueva división
+        # Construir metadata con la nueva división.
         metadata = {
             'version':              6,
             'n_months':             n_months,
@@ -1510,6 +1520,7 @@ class DataPreprocessor:
         return metadata
 
     def _analyze_target(self, path, varname):
+        """Analiza la variable objetivo: dimensiones, máscara de tierra, índices válidos."""
         ds = xr.open_dataset(path)
         ds = _normalize_time_dim(ds)
         da = ds[varname]
@@ -1544,6 +1555,7 @@ class DataPreprocessor:
         }
 
     def _analyze_predictor(self, filepath, varname, domain):
+        """Analiza un predictor: dimensiones, píxeles válidos, dominio."""
         da, ds = _open_predictor_da(filepath, varname)
         times = da['time'].values
         h = len(da['lat']) if 'lat' in da.dims else da.shape[1]
@@ -1567,6 +1579,7 @@ class DataPreprocessor:
         }
 
     def _compute_valid_months(self, tinfo, pinfos, input_days):
+        """Determina qué meses tienen datos completos tanto en target como en todos los predictores."""
         times = tinfo['times']
         month_ranges = get_month_ranges(times)
         valid = []
@@ -1590,6 +1603,7 @@ class DataPreprocessor:
 
     def _cache_target(self, path, varname, tinfo,
                       valid_months, transform, train_indices):
+        """Procesa y almacena en memmap el target mensual, aplicando la transformación deseada."""
         n_months = len(valid_months)
         n_land   = tinfo['n_land']
         flat_idx = tinfo['flat_indices']
@@ -1657,23 +1671,23 @@ class DataPreprocessor:
 
 
 
-#  tf.data Dataset — baja RAM con lectura mínima desde memmap
+#  tf.data Dataset — baja RAM con lectura mínima desde memmap.
 def create_tf_dataset(cache_dir, metadata, indices, batch_size,
                       shuffle=True, prefetch_n=2, seed=42,
                       noise_std=0.0, mixup_alpha=0.0):
     """Crea un tf.data.Dataset que lee desde memmaps en disco.
     
     Args:
-        cache_dir: Directorio con los archivos .npy cacheados
-        metadata: Dict con configuración (n_predictors, input_days, etc.)
-        indices: Índices de meses a incluir (train o val)
-        batch_size: Tamaño de batch para el entrenamiento
-        shuffle: Si True, baraja los índices cada época
-        noise_std: Desviación del ruido gaussiano para augmentation
-        mixup_alpha: Parámetro alpha de distribución Beta para mixup
+        cache_dir: Directorio con los archivos .npy cacheados.
+        metadata: Dict con configuración (n_predictors, input_days, etc.).
+        indices: Índices de meses a incluir (train o val).
+        batch_size: Tamaño de batch para el entrenamiento.
+        shuffle: Si True, baraja los índices cada época.
+        noise_std: Desviación del ruido gaussiano para augmentation.
+        mixup_alpha: Parámetro alpha de distribución Beta para mixup.
     
     Returns:
-        (dataset, pred_mmaps, target_mmap) — el dataset y referencias a los memmaps
+        (dataset, pred_mmaps, target_mmap) — el dataset y referencias a los memmaps.
     """
     n_preds    = metadata['n_predictors']
     input_days = metadata['input_days']
@@ -1681,7 +1695,7 @@ def create_tf_dataset(cache_dir, metadata, indices, batch_size,
     feat_sizes = metadata['predictor_feat_sizes']
 
     # Abrir memmaps en modo read-only (no consume RAM extra;
-    # la OS maneja las páginas vía page cache de forma transparente)
+    # la OS maneja las páginas vía page cache de forma transparente).
     pred_mmaps = [
         np.load(os.path.join(cache_dir, f'pred_{i}.npy'), mmap_mode='r')
         for i in range(n_preds)
@@ -1692,8 +1706,8 @@ def create_tf_dataset(cache_dir, metadata, indices, batch_size,
     indices_arr   = np.array(indices, dtype=np.int32)
     epoch_counter = [0]
 
-    do_noise = shuffle and noise_std > 0.0   # Solo augmentation en train
-    do_mixup = shuffle and mixup_alpha > 0.0  # Mixup: mezcla dos muestras
+    do_noise = shuffle and noise_std > 0.0   # Solo augmentation en train.
+    do_mixup = shuffle and mixup_alpha > 0.0  # Mixup: mezcla dos muestras.
 
     x_spec = {
         f'pred_{k}': tf.TensorSpec(
@@ -1714,20 +1728,20 @@ def create_tf_dataset(cache_dir, metadata, indices, batch_size,
             epoch_counter[0] += 1
         for idx_pos in range(len(order)):
             mi = order[idx_pos]
-            # Lee directamente del memmap — la OS se encarga del page cache
+            # Lee directamente del memmap — la OS se encarga del page cache.
             x = {f'pred_{k}': np.array(pred_mmaps[k][mi], dtype=np.float32)
                  for k in range(n_preds)}
             y = np.array(target_mmap[mi], dtype=np.float32)
 
-            # Ruido gaussiano: pequeña perturbación para regularización
+            # Ruido gaussiano: pequeña perturbación para regularización.
             if do_noise:
                 for k in range(n_preds):
                     x[f'pred_{k}'] = x[f'pred_{k}'] + rng.normal(
                         0.0, noise_std, size=x[f'pred_{k}'].shape
                     ).astype(np.float32)
 
-            # Mixup: interpolación convexa de dos muestras (30% de probabilidad)
-            # Mejora generalización al crear muestras sintéticas intermedias
+            # Mixup: interpolación convexa de dos muestras (30% de probabilidad).
+            # Mejora generalización al crear muestras sintéticas intermedias.
             if do_mixup and len(order) > 1 and rng.random() < 0.3:
                 mi2 = order[rng.integers(len(order))]
                 lam = float(rng.beta(mixup_alpha, mixup_alpha))
@@ -1753,8 +1767,8 @@ def create_tf_dataset(cache_dir, metadata, indices, batch_size,
 #  LR Schedule y Gradient Accumulation
 class WarmupCosineDecayWarmRestarts(tf.keras.optimizers.schedules.LearningRateSchedule):
     """Learning rate schedule con 3 fases:
-    1. Warmup lineal: sube de 0 a initial_lr en warmup_steps pasos
-    2. Cosine decay: baja suavemente hacia min_lr siguiendo coseno
+    1. Warmup lineal: sube de 0 a initial_lr en warmup_steps pasos.
+    2. Cosine decay: baja suavemente hacia min_lr siguiendo coseno.
     3. Warm restarts: reinicia el ciclo, cada vez multiplicando la
        duración del ciclo por t_mult para una exploración más fina.
     """
@@ -1771,10 +1785,10 @@ class WarmupCosineDecayWarmRestarts(tf.keras.optimizers.schedules.LearningRateSc
 
     def __call__(self, step):
         step = tf.cast(step, tf.float32)
-        # Fase 1: warmup lineal (LR crece proporcional al paso)
+        # Fase 1: warmup lineal (LR crece proporcional al paso).
         warmup_lr = self.initial_lr * (step / self.warmup_steps)
 
-        # Fase 2+3: determinar en qué ciclo y posición dentro del ciclo estamos
+        # Fase 2+3: determinar en qué ciclo y posición dentro del ciclo estamos.
         t = step - self.warmup_steps
         if self.t_mult == 1.0:
             cycle_len = self.t0_steps
@@ -1999,19 +2013,19 @@ class SpatialRefinement(tf.keras.layers.Layer):
     def call(self, x, training=None):
         batch_size = tf.shape(x)[0]
         hw         = self.target_h * self.target_w
-        # Reconstruir grilla 2D dispersando los valores land a sus posiciones
+        # Reconstruir grilla 2D dispersando los valores land a sus posiciones.
         batch_idx  = tf.repeat(tf.range(batch_size), self.n_land)
         flat_idx   = tf.tile(self.flat_indices_tf, [batch_size])
         indices    = tf.stack([batch_idx, flat_idx], axis=1)
         values     = tf.reshape(x, [-1])
         grid       = tf.scatter_nd(indices, values, tf.stack([batch_size, hw]))
         grid_2d    = tf.reshape(grid, [-1, self.target_h, self.target_w, 1])
-        # Aplicar conv2D para suavizar/refinar espacialmente
+        # Aplicar conv2D para suavizar/refinar espacialmente.
         refined    = self.conv2(self.bn1(self.conv1(grid_2d), training=training))
         refined_fl = tf.reshape(refined, [-1, hw])
-        # Extraer solo los píxeles terrestres del resultado
+        # Extraer solo los píxeles terrestres del resultado.
         adjustment = tf.gather(refined_fl, self.flat_indices_tf, axis=1)
-        return x + adjustment  # Conexión residual
+        return x + adjustment  # Conexión residual.
 
     def get_config(self):
         cfg = super().get_config()
@@ -2051,35 +2065,36 @@ def build_multitower_model(input_days, predictor_sizes, n_land,
                            extreme_boost=1.0,
                            n_attn_heads=4,
                            seed=42):
+    """Construye el modelo multi-torre con BiLSTM, atención multi-cabeza y salida por píxel."""
     inputs  = []
-    towers  = []       # Salida de cada torre (vector temporal comprimido)
-    tower_stats = []   # Estadísticas temporales auxiliares (media, std, max)
+    towers  = []       # Salida de cada torre (vector temporal comprimido).
+    tower_stats = []   # Estadísticas temporales auxiliares (media, std, max).
 
     for i, (n_feat, vname) in enumerate(predictor_sizes):
         # ======== Torre i: procesa el predictor i ========
         inp = Input(shape=(input_days, n_feat), name=f'pred_{i}')
         inputs.append(inp)
 
-        # Reducción espacial: proyecta n_feat features a spatial_embed dims
+        # Reducción espacial: proyecta n_feat features a spatial_embed dims.
         x = TimeDistributed(Dense(spatial_embed, activation='relu'),
                             name=f'tower_{i}_{vname}_sp1')(inp)
         x = TimeDistributed(BatchNormalization(),
                             name=f'tower_{i}_{vname}_bn1')(x)
         x = TimeDistributed(Dropout(0.2),
                             name=f'tower_{i}_{vname}_do1')(x)
-        # Segunda capa de reducción: spatial_embed → spatial_embed//2
+        # Segunda capa de reducción: spatial_embed → spatial_embed//2.
         x = TimeDistributed(Dense(spatial_embed // 2, activation='relu'),
                             name=f'tower_{i}_{vname}_sp2')(x)
         x = TimeDistributed(BatchNormalization(),
                             name=f'tower_{i}_{vname}_bn2')(x)
 
-        # BiLSTM con conexión residual: captura dependencias temporales
+        # BiLSTM con conexión residual: captura dependencias temporales.
         x = Bidirectional(
             LSTM(temporal_dim // 2, return_sequences=True),
             name=f'tower_{i}_{vname}_bilstm1'
         )(x)
         x = BatchNormalization(name=f'tower_{i}_{vname}_lstm1_bn')(x)
-        x_res = x  # Guardar para conexión residual
+        x_res = x  # Guardar para conexión residual.
         x = Bidirectional(
             LSTM(temporal_dim // 2, return_sequences=True),
             name=f'tower_{i}_{vname}_bilstm2'
@@ -2090,7 +2105,7 @@ def build_multitower_model(input_days, predictor_sizes, n_land,
         # Cada cabeza calcula pesos de atención sobre la secuencia temporal,
         # luego proyecta a head_dim dimensiones. Se concatenan las cabezas.
         head_outputs = []
-        head_dim = temporal_dim // n_attn_heads  # Dims por cabeza
+        head_dim = temporal_dim // n_attn_heads  # Dims por cabeza.
         for h in range(n_attn_heads):
             att_score_h = TimeDistributed(
                 Dense(1, activation='tanh'),
@@ -2115,7 +2130,7 @@ def build_multitower_model(input_days, predictor_sizes, n_land,
             x = head_outputs[0]
 
         # Estadísticas temporales: capturan información global de la secuencia
-        # que la atención podría perder (e.g. variabilidad, extremos)
+        # que la atención podría perder (e.g., variabilidad, extremos).
         t_mean = Lambda(lambda t: tf.reduce_mean(t, axis=1),
                         name=f'tower_{i}_{vname}_tmean')(x_res)
         t_std  = Lambda(lambda t: tf.sqrt(tf.reduce_mean(
@@ -2124,7 +2139,7 @@ def build_multitower_model(input_days, predictor_sizes, n_land,
                         name=f'tower_{i}_{vname}_tstd')(x_res)
         t_max  = Lambda(lambda t: tf.reduce_max(t, axis=1),
                         name=f'tower_{i}_{vname}_tmax')(x_res)
-        tower_stats.extend([t_mean, t_std, t_max])  # Se usarán en la fusión
+        tower_stats.extend([t_mean, t_std, t_max])  # Se usarán en la fusión.
 
         x = BatchNormalization(name=f'tower_{i}_{vname}_out_bn')(x)
         x = Dropout(0.3, name=f'tower_{i}_{vname}_out_do')(x)
@@ -2141,7 +2156,7 @@ def build_multitower_model(input_days, predictor_sizes, n_land,
     else:
         fused = towers[0]
 
-    # Añadir estadísticas temporales como features complementarias
+    # Añadir estadísticas temporales como features complementarias.
     if tower_stats:
         stats_concat = Concatenate(name='stats_concat')(tower_stats)
         stats_proj   = Dense(hidden_dim // 4, activation='relu',
@@ -2150,27 +2165,27 @@ def build_multitower_model(input_days, predictor_sizes, n_land,
 
     # ======== Decodificador residual ========
     # 4 capas Dense con 2 conexiones residuales (skip connections)
-    # para facilitar el flujo de gradientes y prevenir degradación
+    # para facilitar el flujo de gradientes y prevenir degradación.
     x      = Dense(hidden_dim, activation='relu', name='dec_1')(fused)
     x      = BatchNormalization(name='dec_bn1')(x)
     x      = Dropout(0.2, name='dec_do1')(x)
-    x_res  = x  # Punto de conexión residual 1
+    x_res  = x  # Punto de conexión residual 1.
     x      = Dense(hidden_dim, activation='relu', name='dec_2')(x)
     x      = BatchNormalization(name='dec_bn2')(x)
     x      = Dropout(0.15, name='dec_do2')(x)
-    x      = Add(name='dec_res1')([x, x_res])   # Residual 1: x + skip
-    x_res2 = x  # Punto de conexión residual 2
+    x      = Add(name='dec_res1')([x, x_res])   # Residual 1: x + skip.
+    x_res2 = x  # Punto de conexión residual 2.
     x      = Dense(hidden_dim, activation='relu', name='dec_3')(x)
     x      = BatchNormalization(name='dec_bn3')(x)
     x      = Dropout(0.1, name='dec_do3')(x)
-    x      = Add(name='dec_res2')([x, x_res2])  # Residual 2: x + skip
+    x      = Add(name='dec_res2')([x, x_res2])  # Residual 2: x + skip.
     x      = Dense(hidden_dim, activation='relu', name='dec_4')(x)
     x      = BatchNormalization(name='dec_bn4')(x)
 
     l2_reg   = tf.keras.regularizers.l2(l2_output) if l2_output > 0 else None
 
     # ======== Capa de salida ========
-    # softplus garantiza predicciones ≥ 0 (natural para precipitación)
+    # softplus garantiza predicciones ≥ 0 (natural para precipitación).
     out_main = Dense(n_land, activation='softplus',
                      kernel_regularizer=l2_reg,
                      name='pixel_output')(x)
@@ -2403,12 +2418,12 @@ def main():
     # Si ya existe un cache válido y no se usa --force_preprocess, lo reutiliza.
     preprocessor = DataPreprocessor(args.cache_dir, args.dtype)
     
-    # Determinar seed_split (si no se especifica, usa seed)
+    # Determinar seed_split (si no se especifica, usa seed).
     seed_split_actual = args.seed_split if args.seed_split is not None else args.seed
     
     # Lógica inteligente de cache de dos niveles:
-    # 1. Base cache (P1-P4): stats + PCA + target — reutilizable si parámetros no cambian
-    # 2. Split cache (P5): división de años (train/val) — depende de seed_split únicamente
+    # 1. Base cache (P1-P4): stats + PCA + target — reutilizable si parámetros no cambian.
+    # 2. Split cache (P5): división de años (train/val) — depende de seed_split únicamente.
     
     base_config_hash = preprocessor._get_base_config_hash(
         args.precip, predictor_configs, args.input_days,
@@ -2421,7 +2436,7 @@ def main():
     has_full = preprocessor.is_cached()
     
     if not has_base or args.force_preprocess:
-        # No existe base o fuerza regeneración — preprocessing completo
+        # No existe base o fuerza regeneración — preprocessing completo.
         print(f"\n  Generando cache base (P1-P4: stats + PCA + target)...")
         metadata = preprocessor.preprocess(
             precip_path       = args.precip,
@@ -2441,15 +2456,15 @@ def main():
             pca_variance_target = args.pca_variance,
         )
     else:
-        # Existe base cache — verificar si solo cambió seed_split
+        # Existe base cache — verificar si solo cambió seed_split.
         with open(os.path.join(args.cache_dir, 'base_config.json')) as f:
             base_config = json.load(f)
         
         cached_base_hash = base_config.get('base_config_hash', 'unknown')
         
         if cached_base_hash == base_config_hash:
-            # ✓ Base cache válido (mismos parámetros P1-P4)
-            # Verificar si cambió seed_split
+            # ✓ Base cache válido (mismos parámetros P1-P4).
+            # Verificar si cambió seed_split.
             if has_full:
                 with open(os.path.join(args.cache_dir, 'metadata.json')) as f:
                     metadata = json.load(f)
@@ -2458,14 +2473,14 @@ def main():
                 cached_seed_split = None
             
             if cached_seed_split != seed_split_actual:
-                # Cambió seed_split — quick resplit (P5 simplificado)
+                # Cambió seed_split — quick resplit (P5 simplificado).
                 print(f"\n  ✓ Base cache válido, seed_split cambió: {cached_seed_split} → {seed_split_actual}")
                 print(f"  Ejecutando RAPIDISPLIT (mucho más rápido que preprocessing completo)...")
                 metadata = preprocessor._quick_resplit(
                     base_config, args.split_frac, seed_split_actual
                 )
             else:
-                # seed_split igual — reutilizar metadata completo
+                # seed_split igual — reutilizar metadata completo.
                 with open(os.path.join(args.cache_dir, 'metadata.json')) as f:
                     metadata = json.load(f)
                 print(f"\n  Usando cache existente: {args.cache_dir}/")
@@ -2473,7 +2488,7 @@ def main():
                       f"{metadata['n_predictors']} predictores, "
                       f"seed_split={seed_split_actual}")
         else:
-            # Base hash cambió — parámetros P1-P4 distintos, regenerar todo
+            # Base hash cambió — parámetros P1-P4 distintos, regenerar todo.
             print(f"\n  Parámetros de base (PCA/stats) cambiaron — regenerando...")
             metadata = preprocessor.preprocess(
                 precip_path       = args.precip,
@@ -2500,12 +2515,12 @@ def main():
     n_val         = metadata['n_val']
     n_land        = metadata['n_land']
 
-    # Compatibilidad con caches antiguos que no tienen train_indices/val_indices
+    # Compatibilidad con caches antiguos que no tienen train_indices/val_indices.
     if 'train_indices' in metadata and 'val_indices' in metadata:
         train_indices = metadata['train_indices']
         val_indices   = metadata['val_indices']
     else:
-        # Reconstruir desde años si están disponibles, sino desde n_train/n_val
+        # Reconstruir desde años si están disponibles, sino desde n_train/n_val.
         if 'train_years' in metadata and 'val_years' in metadata and 'month_timestamps' in metadata:
             import pandas as _pd
             val_year_set = set(metadata['val_years'])
@@ -2519,7 +2534,7 @@ def main():
         print(" Cache antiguo sin train_indices/val_indices — reconstruidos. "
               "Considere --force_preprocess para regenerar.")
 
-    # Compatibilidad con caches antiguos que no tienen train_end
+    # Compatibilidad con caches antiguos que no tienen train_end.
     if 'train_end' not in metadata:
         if train_indices and 'month_timestamps' in metadata:
             train_end_idx = max(train_indices)
@@ -2529,38 +2544,38 @@ def main():
 
     # ── Auto batch size — calcula batch seguro según features y RAM ──
     # Estima la RAM por muestra durante entrenamiento considerando:
-    # - Input data: input_days × total_features × 4 bytes
-    # - TF overhead: ~4× (input + activaciones + gradientes_out + gradientes_in)
+    # - Input data: input_days × total_features × 4 bytes.
+    # - TF overhead: ~4× (input + activaciones + gradientes_out + gradientes_in).
     # Si el batch solicitado excede la RAM, se reduce automáticamente
     # y se compensa con gradient accumulation.
     feat_sizes_list = metadata['predictor_feat_sizes']
     total_feat_size = sum(feat_sizes_list)
 
     # Estimar RAM por muestra durante entrenamiento:
-    #   Input: input_days × total_feat_size × 4 bytes
-    #   TF necesita ~4× para: input + activaciones + gradients_out + gradients_in
+    #   Input: input_days × total_feat_size × 4 bytes.
+    #   TF necesita ~4× para: input + activaciones + gradients_out + gradients_in.
     bytes_per_sample_train = args.input_days * total_feat_size * 4 * 4
 
-    # Costos fijos: pesos primera capa + gradientes + rest del modelo + TF overhead
+    # Costos fijos: pesos primera capa + gradientes + rest del modelo + TF overhead.
     first_layer_weight_bytes = sum(
-        fs * args.spatial_embed * 4 * 2  # peso + gradiente
+        fs * args.spatial_embed * 4 * 2  # peso + gradiente.
         for fs in feat_sizes_list
     )
-    # Modelo restante (LSTMs, attention, decoder) + overhead TF
-    fixed_overhead_bytes = 3 * 1024**3  # ~3 GB estimado
+    # Modelo restante (LSTMs, attention, decoder) + overhead TF.
+    fixed_overhead_bytes = 3 * 1024**3  # ~3 GB estimado.
     total_fixed = first_layer_weight_bytes + fixed_overhead_bytes
 
-    # RAM disponible para batches (60% de lo reportado por el monitor)
+    # RAM disponible para batches (60% de lo reportado por el monitor).
     available_for_batch = max(
         _RAM.available_bytes() * 0.60 - total_fixed,
-        256 * 1024**2  # mínimo 256 MB
+        256 * 1024**2  # mínimo 256 MB.
     )
     safe_batch = max(1, int(available_for_batch / max(bytes_per_sample_train, 1)))
 
     original_batch = args.batch_size
     if safe_batch < args.batch_size:
         args.batch_size = safe_batch
-        # Auto gradient accumulation para mantener batch efectivo similar
+        # Auto gradient accumulation para mantener batch efectivo similar.
         auto_accum = max(1, original_batch // args.batch_size)
         args.grad_accum_steps = max(args.grad_accum_steps, auto_accum)
 
@@ -2777,17 +2792,17 @@ def main():
     # Funciones inversas: deshacen la transformación del target
     # para recuperar precipitación en mm reales.
     if target_transform == 'log1p':
-        inv_fn = np.expm1            # expm1(x) = e^x - 1
+        inv_fn = np.expm1            # expm1(x) = e^x - 1.
     elif target_transform == 'cbrt':
-        inv_fn = lambda x: np.power(np.maximum(x, 0.0), 3.0)   # x³
+        inv_fn = lambda x: np.power(np.maximum(x, 0.0), 3.0)   # x³.
     elif target_transform == 'pow025':
-        inv_fn = lambda x: np.power(np.maximum(x, 0.0), 4.0)   # x⁴
+        inv_fn = lambda x: np.power(np.maximum(x, 0.0), 4.0)   # x⁴.
     elif target_transform == 'pow05':
-        inv_fn = lambda x: np.power(np.maximum(x, 0.0), 2.0)   # x²
+        inv_fn = lambda x: np.power(np.maximum(x, 0.0), 2.0)   # x².
     elif target_transform == 'standard' and target_mean is not None:
-        inv_fn = lambda x: x * target_std + target_mean         # desnormalizar
+        inv_fn = lambda x: x * target_std + target_mean         # desnormalizar.
     else:
-        inv_fn = lambda x: x  # identidad (sin transformación)
+        inv_fn = lambda x: x  # identidad (sin transformación).
 
     pred_ds, _, _ = create_tf_dataset(
         args.cache_dir, metadata,
@@ -2797,17 +2812,17 @@ def main():
     )
 
     # Predicción chunked en lugar de model.predict() que acumularía
-    # todas las predicciones en un solo array gigante
+    # todas las predicciones en un solo array gigante.
     Y_pred_mm, pred_tmp_path = predict_chunked(
         model, pred_ds, n_val, args.batch_size, n_land
     )
     gc.collect()
 
-    # Cargar target (observaciones) desde memmap en modo lectura
+    # Cargar target (observaciones) desde memmap en modo lectura.
     target_mmap = np.load(
         os.path.join(args.cache_dir, 'target.npy'), mmap_mode='r'
     )
-    Y_true_mmap = target_mmap[val_indices]  # Slice de validación
+    Y_true_mmap = target_mmap[val_indices]  # Slice de validación.
 
     n_val_actual = min(Y_pred_mm.shape[0], Y_true_mmap.shape[0])
 
@@ -2818,39 +2833,39 @@ def main():
         print(f"\n   FIX A1: clip en espacio {target_transform}: "
               f"[{clip_lo:.3f}, {clip_hi:.3f}] ≡ [0, {_PRECIP_MAX_MM:.0f} mm]")
 
-        # Procesar por chunks para no acumular arrays gigantes
+        # Procesar por chunks para no acumular arrays gigantes.
         chunk_months = max(1, _RAM.safe_chunk_rows(n_land, 4, 0.2))
         chunk_months = min(chunk_months, n_val_actual)
 
-        # Para diagnósticos, necesitamos estadísticas acumuladas
-        # Se calculan incrementalmente por chunks para no guardar todo en RAM
-        acc_pred_min = np.inf     # Mínimo predicho
-        acc_pred_max = -np.inf    # Máximo predicho
-        acc_pred_sum = 0.0        # Suma para media
-        acc_real_min = np.inf     # Mínimo observado
-        acc_real_max = -np.inf    # Máximo observado
-        acc_real_sum = 0.0        # Suma para media
-        acc_count = 0             # Total de píxeles procesados
-        acc_err_sum = 0.0         # Suma de errores (para bias)
-        acc_err_sq_sum = 0.0      # Suma de errores² (para RMSE)
-        acc_abs_err_sum = 0.0     # Suma de |error| (para MAE)
+        # Para diagnósticos, necesitamos estadísticas acumuladas.
+        # Se calculan incrementalmente por chunks para no guardar todo en RAM.
+        acc_pred_min = np.inf     # Mínimo predicho.
+        acc_pred_max = -np.inf    # Máximo predicho.
+        acc_pred_sum = 0.0        # Suma para media.
+        acc_real_min = np.inf     # Mínimo observado.
+        acc_real_max = -np.inf    # Máximo observado.
+        acc_real_sum = 0.0        # Suma para media.
+        acc_count = 0             # Total de píxeles procesados.
+        acc_err_sum = 0.0         # Suma de errores (para bias).
+        acc_err_sq_sum = 0.0      # Suma de errores² (para RMSE).
+        acc_abs_err_sum = 0.0     # Suma de |error| (para MAE).
 
         # Acumuladores para correlación de Pearson incremental:
-        # r = (n*Σxy - Σx*Σy) / sqrt((n*Σx² - (Σx)²) * (n*Σy² - (Σy)²))
-        acc_xy = 0.0   # Σ(pred * obs)
-        acc_x = 0.0    # Σ(pred)
-        acc_y = 0.0    # Σ(obs)
-        acc_x2 = 0.0   # Σ(pred²)
-        acc_y2 = 0.0   # Σ(obs²)
-        n_finite = 0    # Conteo de pares finitos
+        # r = (n*Σxy - Σx*Σy) / sqrt((n*Σx² - (Σx)²) * (n*Σy² - (Σy)²)).
+        acc_xy = 0.0   # Σ(pred * obs).
+        acc_x = 0.0    # Σ(pred).
+        acc_y = 0.0    # Σ(obs).
+        acc_x2 = 0.0   # Σ(pred²).
+        acc_y2 = 0.0   # Σ(obs²).
+        n_finite = 0    # Conteo de pares finitos.
 
         # Muestreo para percentiles: no guardamos todos los valores,
-        # solo submuestras aleatorias de cada chunk para estimar cuantiles
+        # solo submuestras aleatorias de cada chunk para estimar cuantiles.
         all_pred_vals = []
         all_real_vals = []
 
-        # NetCDF: crear memmaps temporales para la grilla 2D completa
-        # Se escriben píxel a píxel y luego se vuelcan al archivo final
+        # NetCDF: crear memmaps temporales para la grilla 2D completa.
+        # Se escriben píxel a píxel y luego se vuelcan al archivo final.
         target_h   = metadata['target_h']
         target_w   = metadata['target_w']
         flat_idx   = np.array(metadata['flat_indices'], dtype=np.int32)
@@ -2861,7 +2876,7 @@ def main():
         month_ts   = metadata['month_timestamps']
         val_ts = np.array([np.datetime64(month_ts[val_indices[t]]) for t in range(n_val_actual)])
 
-        # Crear arrays NetCDF por chunks también
+        # Crear arrays NetCDF por chunks también.
         import tempfile
         nc_pred_path = os.path.join(tempfile.gettempdir(), f'_ncpred_{os.getpid()}.npy')
         nc_real_path = os.path.join(tempfile.gettempdir(), f'_ncreal_{os.getpid()}.npy')
@@ -2883,18 +2898,18 @@ def main():
 
         for ci in range(0, n_val_actual, chunk_months):
             ce = min(ci + chunk_months, n_val_actual)
-            # Leer chunk de predicciones (desde memmap)
+            # Leer chunk de predicciones (desde memmap).
             yp_chunk = np.array(Y_pred_mm[ci:ce])
             yt_chunk = np.array(Y_true_mmap[ci:ce])
 
-            # Clip
+            # Clip.
             yp_chunk = np.clip(yp_chunk, clip_lo, clip_hi)
 
-            # Invertir
+            # Invertir.
             yp_inv = np.maximum(inv_fn(yp_chunk), 0.0).astype(np.float32)
             yt_inv = inv_fn(yt_chunk).astype(np.float32)
 
-            # Estadísticas acumuladas
+            # Estadísticas acumuladas.
             acc_pred_min = min(acc_pred_min, float(yp_inv.min()))
             acc_pred_max = max(acc_pred_max, float(yp_inv.max()))
             acc_pred_sum += float(yp_inv.sum())
@@ -2903,12 +2918,12 @@ def main():
             acc_real_sum += float(yt_inv.sum())
             acc_count += yp_inv.size
 
-            # Outliers
+            # Outliers.
             out_mask = yp_inv > outlier_thresh
             n_outlier_px += int(out_mask.sum())
             n_outlier_mon += int(out_mask.any(axis=1).sum())
 
-            # Error stats
+            # Error stats.
             diff = yp_inv.flatten() - yt_inv.flatten()
             mask_fin = np.isfinite(diff) & np.isfinite(yp_inv.flatten()) & np.isfinite(yt_inv.flatten())
             diff_fin = diff[mask_fin]
@@ -2919,7 +2934,7 @@ def main():
             acc_err_sq_sum += float((diff_fin ** 2).sum())
             acc_abs_err_sum += float(np.abs(diff_fin).sum())
 
-            # Correlación parcial
+            # Correlación parcial.
             acc_xy += float((yp_fin * yt_fin).sum())
             acc_x += float(yp_fin.sum())
             acc_y += float(yt_fin.sum())
@@ -2927,7 +2942,7 @@ def main():
             acc_y2 += float((yt_fin ** 2).sum())
             n_finite += len(yp_fin)
 
-            # Percentiles: muestrear para no guardar todo
+            # Percentiles: muestrear para no guardar todo.
             rng_p = np.random.default_rng(args.seed + ci)
             n_sample_p = min(10000, len(yp_fin))
             if n_sample_p > 0:
@@ -2935,7 +2950,7 @@ def main():
                 all_pred_vals.append(yp_fin[idx_s])
                 all_real_vals.append(yt_fin[idx_s])
 
-            # NetCDF grid
+            # NetCDF grid.
             for t_local in range(ce - ci):
                 t_global = ci + t_local
                 nc_pred_mm[t_global].ravel()[flat_idx] = yp_inv[t_local]
@@ -2953,7 +2968,7 @@ def main():
         print(f"Reales       — min: {acc_real_min:.2f}, "
               f"max: {acc_real_max:.2f}, mean: {real_mean:.2f}")
 
-        # FIX B2: outliers
+        # FIX B2: outliers.
         print("\n--- FIX B2: Diagnóstico de outliers ---")
         pct_px  = 100.0 * n_outlier_px / max(acc_count, 1)
         pct_mon = 100.0 * n_outlier_mon / max(n_val_actual, 1)
@@ -2974,7 +2989,7 @@ def main():
         else:
             print("  ✓ Sin outliers detectados.")
 
-        # Percentiles
+        # Percentiles.
         if all_pred_vals and all_real_vals:
             yp_d = np.concatenate(all_pred_vals)
             yr_d = np.concatenate(all_real_vals)
@@ -2989,16 +3004,16 @@ def main():
                       f"  Ratio: {ratio:.2f}  {flag}")
             del yp_d, yr_d, all_pred_vals, all_real_vals
 
-        # Umbrales
-        # Para esto necesitaríamos datos completos; usamos las estadísticas acumuladas
-        # Las métricas principales se calculan desde las sumas acumuladas
+        # Umbrales.
+        # Para esto necesitaríamos datos completos; usamos las estadísticas acumuladas.
+        # Las métricas principales se calculan desde las sumas acumuladas.
         print()
 
         # ── [7] NetCDF ────────────────────────────────────────────
         print("Creando NetCDF con predicciones...")
         ds_out = xr.Dataset({
             'predicted': xr.DataArray(
-                np.array(nc_pred_mm),  # lee de memmap
+                np.array(nc_pred_mm),  # lee de memmap.
                 dims=['time', lat_name, lon_name],
                 coords={'time': val_ts, lat_name: lat_coords, lon_name: lon_coords},
                 attrs={'long_name': 'Predicted monthly precipitation', 'units': 'mm'},
@@ -3048,7 +3063,7 @@ def main():
             raise RuntimeError("No se pudo guardar NetCDF.")
 
         del ds_out, nc_pred_mm, nc_real_mm
-        # Limpiar temporales
+        # Limpiar temporales.
         for tmp in [nc_pred_path, nc_real_path, pred_tmp_path]:
             try:
                 if os.path.exists(tmp):
@@ -3057,11 +3072,11 @@ def main():
                 pass
         gc.collect()
 
-        # Métricas 
+        # Métricas.
         print("\nMétricas de validación...")
         if n_finite >= 2:
             # Pearson desde sumas acumuladas:
-            # r = (n*Σxy - Σx*Σy) / sqrt((n*Σx² - (Σx)²) * (n*Σy² - (Σy)²))
+            # r = (n*Σxy - Σx*Σy) / sqrt((n*Σx² - (Σx)²) * (n*Σy² - (Σy)²)).
             N = float(n_finite)
             num = N * acc_xy - acc_x * acc_y
             den = np.sqrt(max((N * acc_x2 - acc_x**2) * (N * acc_y2 - acc_y**2), 1e-16))
@@ -3076,7 +3091,7 @@ def main():
 
     _RAM.report("final")
 
-    # Resumen final 
+    # Resumen final.
     print('\n' + '=' * 70)
     print(' Entrenamiento completado')
     print('  Pérdida: Huber focal + Quantil + Tweedie + Correlación')

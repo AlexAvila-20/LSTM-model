@@ -1,0 +1,15 @@
+python MODELO.py   --precip /home/alex/Downloads/TEST/rfe.nc --varname rfe   --predictor "/home/alex/Downloads/TEST/era5.sst.nc:sst"   --predictor "/home/alex/Downloads/TEST/era5.tp.nc:tp" --predictor "/home/alex/Downloads/TEST/mjo.nc:RMM1,RMM2"   --seed 100 --seed_split 101   --n_jobs 4 --max_ram_gb 8.0   --batch_size 64 --split_frac 0.6 --epochs 500   --pca_components 0   --spatial_embed 512 --temporal_dim 192 --hidden_dim 256   --dtype float32   --target_transform cbrt   --huber_delta 1.0   --quantile_weight 0.25 --quantile_tau 0.62   --low_threshold 30 --high_threshold 250   --tweedie_weight 0.4 --tweedie_power 1.5   --corr_weight 0.1   --extreme_boost 3.0   --smooth_weight 0.005   --use_swa   --noise_std 0.05 --mixup_alpha 0.4  --n_attn_heads 8   --input_days 31 --force_preprocess
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+   Total: 407 meses | Train: 251 | Val: 156
+   Años train (21): [1991, 1993, 1994, 1995, 1996, 1999, 2001, 2002, 2004, 2005, 2008, 2009, 2011, 2014, 2015, 2016, 2017, 2019, 2021, 2022, 2024]
+   Años val   (13): [1992, 1997, 1998, 2000, 2003, 2006, 2007, 2010, 2012, 2013, 2018, 2020, 2023]
+
+
+
+python PRONÓSTICO.py --model modelo_pixel.keras --cache_dir ./preprocessing_cache --predictor /home/alex/Downloads/TEST/era5.sst.nc:sst --predictor /home/alex/Downloads/TEST/era5.tp.nc:tp --predictor /home/alex/Downloads/TEST/mjo.nc:RMM1,RMM2 --target_months 2025-01:2025-12 --output predicciones.nc
+
+python MAPA_REG.py predicciones.nc \
+        --date 2025,$mes,1 \
+        --region 3 \ #bocacosta
+        --frequency monthly \
+        --pronostico

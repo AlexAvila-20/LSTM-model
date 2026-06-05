@@ -350,7 +350,7 @@ A continuación se describen los argumentos de línea de comandos más relevante
 \begin{itemize}
     \item \texttt{--noise\_std}: Desviación estándar del ruido gaussiano aditivo en augmentation. Valor por defecto: $0.05$.
     
-    \item \texttt{--mixup\_alpha}: Parámetro $\alpha$ de la distribución Beta para mixup. Valor por defecto: $0.40$.
+    \item \texttt{--mixup\_alpha}: Parámetro $\alpha$ de la distribución Beta para mezcla de datos. Valor por defecto: $0.40$.
     
     \item \texttt{--l2\_output}: Regularización L2 en la capa de salida. Valor por defecto: $10^{-5}$.
     
@@ -396,7 +396,7 @@ El modelo implementa un monitoreo dinámico de RAM en tiempo real mediante \text
 \begin{itemize}
     \item \textbf{Límite configurable}: El argumento \texttt{--max\_ram\_gb} especifica la RAM máxima que el proceso puede usar. El monitor mantiene un margen de seguridad del 20\%.
     
-    \item \textbf{Lectura desde disco}: Los predictores y target nunca se cargan completamente en RAM. Se utilizan memmap de NumPy en modo lectura que aprovechan el \textit{page cache} del sistema operativo.
+    \item \textbf{Lectura desde disco}: Los predictores y target nunca se cargan completamente en la memoria RAM. Se utilizan memmap de NumPy en modo lectura que aprovechan el \textit{page cache} del sistema operativo.
     
     \item \textbf{Procesamiento por chunks}: Las operaciones de estadística, PCA, y predicción se procesan en chunks temporales cuyo tamaño se ajusta dinámicamente según la RAM disponible.
     
@@ -472,7 +472,7 @@ Los resultados se exportan tanto a figuras PNG (si se especifica \texttt{--save}
 
 Cada una de las combinaciones de predictores descritas anteriormente fue evaluada múltiples veces mediante estas métricas, aleatorizando los meses de entrenamiento y validación, con el fin de concluir cuál era el conjunto de predictores más efectivo para el pronóstico. La elección de la alineación óptima se infirió con base en el script \texttt{COMPARACIÓN.py}.
 
-\section{Procedimiento de Predicción operativa}
+\section{Procedimiento de predicción operativa}
 \label{sec:prediccion_operativa}
 
 Una vez entrenado y validado un modelo, se utiliza en modo predicción mediante el script \texttt{PRONÓSTICO.py}. El procedimiento es:

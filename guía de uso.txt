@@ -1,0 +1,13 @@
+guía de uso
+
+Entrenamiento
+
+python MODELO.py
+
+Recortar .nc para una región específica
+
+python REGION.py
+
+Mapa de precipitación para una región específica
+
+python 

@@ -33,6 +33,7 @@ Se asume que determinadas combinaciones de predictores tendrán mejores resultad
     \item SST, tp, 2t
     \item SST, tp, MJO, 2t
     \item SST, z, r, q, tp, u, v, 2t.
+    \item SST, z, r, q, tp, u, v, 2t, MJO.
 \end{enumerate}
 
 La efectividad de cada predictor será evaluada mediante diagnósticos descritos más adelante.
@@ -72,7 +73,7 @@ Como los predictores climáticos típicamente presentan elevada colinealidad esp
 
 \begin{enumerate}
     \item Se calculó la matriz de covarianza de cada predictor estandarizado sobre el conjunto de entrenamiento en píxeles válidos.
-    \item Se seleccionaron las primeras $k_p$ componentes principales que acumulaban al menos el 95\% de la varianza explicada, siempre que fuera posible.
+    \item Se seleccionaron las primeras $k_p$ componentes principales que acumulaban al menos el 99.9\% de la varianza explicada, siempre que fuera posible.
     \item El modelo PCA se almacenó para transformación consistente durante predicción.
 \end{enumerate}
 
@@ -150,14 +151,87 @@ El modelo LSTM entrenó en el espacio transformado, y las predicciones se invirt
 \section{Entrenamiento del modelo}
 \label{sec:entrenamiento_modelo}
 
-\subsection{Función de pérdida y optimizador}
-Se empleó el error cuadrático medio (MSE) como función de pérdida en el espacio transformado:
+
+\subsection{Función de Pérdida Compuesta y Argumentos de Entrenamiento}
+
+El modelo utiliza una función de pérdida compuesta que integra múltiples componentes diseñados para capturar diferentes aspectos del problema de predicción de precipitación. A continuación se describen las funciones de pérdida implementadas y los parámetros principales utilizados durante el entrenamiento.
+
+\subsubsection{Componentes de la Función de Pérdida}
+
+La pérdida total es una combinación ponderada de cuatro componentes principales:
 
 \begin{equation}
-    \mathcal{L} = \text{MSE}(y_{\text{trans}}, \hat{y}_{\text{trans}}) = \frac{1}{n} \sum_{i=1}^{n} (y_{\text{trans}, i} - \hat{y}_{\text{trans}, i})^2
+	\mathcal{L}_{\text{total}} = w_H \cdot \mathcal{L}_{\text{Huber}} + w_Q \cdot \mathcal{L}_{\text{Quantil}} + w_T \cdot \mathcal{L}_{\text{Tweedie}} + w_C \cdot \mathcal{L}_{\text{Correlación}} + \mathcal{L}_{\text{Suavizado}}
 \end{equation}
 
-El modelo se optimizó usando Adam (Adaptive Moment Estimation) con un esquema de tasa de aprendizaje adaptativo: calentamiento lineal (warmup) durante los primeros pasos, seguido de decaimiento coseno con reinicios (cosine annealing with warm restarts). Este esquema equilibra convergencia rápida inicial con refinamiento fino tardío.
+donde $w_H$, $w_Q$, $w_T$ y $w_C$ son los pesos relativos de cada componente, relacionados mediante:
+\begin{equation}
+	w_H = 1.0 - w_Q - w_T - w_C
+\end{equation}
+
+
+\paragraph{1. Pérdida de Huber Focal} 
+La función de Huber es robusta ante valores atípicos. Se define como:
+\begin{equation}
+	\mathcal{L}_{\text{Huber}}(y, \hat{y}) = \begin{cases}
+		\frac{1}{2}(y - \hat{y})^2 & \text{si } |y - \hat{y}| \leq \delta \\
+		\delta \left(|y - \hat{y}| - \frac{\delta}{2}\right) & \text{si } |y - \hat{y}| > \delta
+	\end{cases}
+\end{equation}
+
+El parámetro delta (\texttt{--huber\_delta}) controla el punto de transición entre comportamiento cuadrático y lineal. La versión focal amplifica el error en eventos extremos mediante un factor $w_{\text{focal}}$ que depende de la intensidad de precipitación:
+
+\begin{equation}
+	w_{\text{focal}} = 1.0 + (\text{extreme\_boost} - 1.0) \cdot \sigma\left(\frac{y_{\text{mm}} - h_{\text{high}}}{h_{\text{width}}}\right)
+\end{equation}
+
+donde $\sigma$ es la función sigmoide, $h_{\text{high}}$ es el umbral superior en mm, y \texttt{--extreme\_boost} controla la amplificación.
+
+\paragraph{2. Pérdida de Cuantil Adaptativa}
+La pérdida de cuantil se adapta según la intensidad de precipitación, utilizando tres regímenes:
+
+\begin{equation}
+	\mathcal{L}_{\text{Quantil}} = \mathbb{E}\left[w_{\text{low}} \cdot \ell_{\tau=0.50} + w_{\text{mid}} \cdot \ell_{\tau=0.60} + w_{\text{high}} \cdot \ell_{\tau_{\text{user}}}\right]
+\end{equation}
+
+donde $\ell_\tau(y, \hat{y}) = \max(\tau(y - \hat{y}), (\tau - 1)(y - \hat{y}))$ es la pérdida de cuantil estándar.
+
+Las regiones se definen mediante transiciones suaves (sigmoide):
+\begin{itemize}
+	\item \textbf{Zona baja} ($y < \texttt{--low\_threshold}$ mm): $\tau = 0.50$ (mediana), captura eventos débiles
+	\item \textbf{Zona media} ($\texttt{--low\_threshold} \leq y \leq \texttt{--high\_threshold}$): $\tau = 0.60$, transición intermedia
+	\item \textbf{Zona alta} ($y > \texttt{--high\_threshold}$ mm): $\tau = \texttt{--quantile\_tau}$, captura eventos extremos
+\end{itemize}
+
+Los pesos $w_{\text{low}}$, $w_{\text{mid}}$, $w_{\text{high}}$ se calculan mediante normalización softmax de las salidas sigmoides para garantizar $\sum w_i = 1$.
+
+\paragraph{3. Pérdida de Tweedie}
+La distribución Tweedie es una distribución compuesta Poisson-Gamma natural para datos de precipitación. La pérdida es:
+
+\begin{equation}
+	\mathcal{L}_{\text{Tweedie}} = \mathbb{E}\left[-y_{\text{mm}} \cdot \hat{y}_{\text{mm}}^{-(1-p)} / (1-p) + \hat{y}_{\text{mm}}^{(2-p)} / (2-p)\right] / s_{\text{tw}}
+\end{equation}
+
+donde $p = \texttt{--tweedie\_power} \in (1, 2)$ interpola entre Poisson ($p=1$) y Gamma ($p=2$). El parámetro $s_{\text{tw}} = 1.0 / (2 - p)$ normaliza la escala cuando \texttt{--tweedie\_scale\_norm} es verdadero, mejorando la estabilidad numérica.
+
+\paragraph{4. Pérdida de Correlación de Pearson}
+Maximiza la correlación espacial entre predicciones y observaciones:
+
+\begin{equation}
+	\mathcal{L}_{\text{Correlación}} = 1.0 - r_{\text{Pearson}}
+\end{equation}
+
+donde:
+\begin{equation}
+	r_{\text{Pearson}} = \frac{\text{Cov}(\hat{y}, y)}{\sigma_{\hat{y}} \cdot \sigma_y}
+\end{equation}
+
+\paragraph{5. Pérdida de Suavizado Espacial}
+Penaliza diferencias grandes entre predicciones de píxeles adyacentes, promoviendo coherencia espacial:
+
+\begin{equation}
+	\mathcal{L}_{\text{Suavizado}} = \texttt{--smooth\_weight} \cdot \mathbb{E}\left[\sum_{\text{pares vecinos}} (\hat{y}_i - \hat{y}_j)^2\right]
+\end{equation}
 
 \subsection{Regularización y detención temprana}
 Para mitigar sobreajuste en esta red profunda se aplicaron:
@@ -170,86 +244,6 @@ Para mitigar sobreajuste en esta red profunda se aplicaron:
 
 \subsection{Acumulación de gradientes}
 Para facilitar el entrenamiento con lotes grandes (que mejora estabilidad del gradiente), se implementó acumulación de gradientes: cada paso acumula gradientes de múltiples minilotes (típicamente 4-8) antes de actualizar pesos. Esto efectivamente incrementa el tamaño del lote sin aumentar el uso de memoria GPU.
-
-\subsection{Función de Pérdida Compuesta y Argumentos de Entrenamiento}
-
-El modelo utiliza una función de pérdida compuesta que integra múltiples componentes diseñados para capturar diferentes aspectos del problema de predicción de precipitación. A continuación se describen las funciones de pérdida implementadas y los parámetros principales utilizados durante el entrenamiento.
-
-\subsubsection{Componentes de la Función de Pérdida}
-
-La pérdida total es una combinación ponderada de cuatro componentes principales:
-
-\begin{equation}
-\mathcal{L}_{\text{total}} = w_H \cdot \mathcal{L}_{\text{Huber}} + w_Q \cdot \mathcal{L}_{\text{Quantil}} + w_T \cdot \mathcal{L}_{\text{Tweedie}} + w_C \cdot \mathcal{L}_{\text{Correlación}} + \mathcal{L}_{\text{Suavizado}}
-\end{equation}
-
-donde $w_H$, $w_Q$, $w_T$ y $w_C$ son los pesos relativos de cada componente, relacionados mediante:
-\begin{equation}
-w_H = 1.0 - w_Q - w_T - w_C
-\end{equation}
-
-\paragraph{1. Pérdida de Huber Focal} 
-La función de Huber es robusta ante valores atípicos. Se define como:
-\begin{equation}
-\mathcal{L}_{\text{Huber}}(y, \hat{y}) = \begin{cases}
-\frac{1}{2}(y - \hat{y})^2 & \text{si } |y - \hat{y}| \leq \delta \\
-\delta \left(|y - \hat{y}| - \frac{\delta}{2}\right) & \text{si } |y - \hat{y}| > \delta
-\end{cases}
-\end{equation}
-
-El parámetro delta (\texttt{--huber\_delta}) controla el punto de transición entre comportamiento cuadrático y lineal. La versión focal amplifica el error en eventos extremos mediante un factor $w_{\text{focal}}$ que depende de la intensidad de precipitación:
-
-\begin{equation}
-w_{\text{focal}} = 1.0 + (\text{extreme\_boost} - 1.0) \cdot \sigma\left(\frac{y_{\text{mm}} - h_{\text{high}}}{h_{\text{width}}}\right)
-\end{equation}
-
-donde $\sigma$ es la función sigmoide, $h_{\text{high}}$ es el umbral superior en mm, y \texttt{--extreme\_boost} controla la amplificación.
-
-\paragraph{2. Pérdida de Cuantil Adaptativa}
-La pérdida de cuantil se adapta según la intensidad de precipitación, utilizando tres regímenes:
-
-\begin{equation}
-\mathcal{L}_{\text{Quantil}} = \mathbb{E}\left[w_{\text{low}} \cdot \ell_{\tau=0.50} + w_{\text{mid}} \cdot \ell_{\tau=0.60} + w_{\text{high}} \cdot \ell_{\tau_{\text{user}}}\right]
-\end{equation}
-
-donde $\ell_\tau(y, \hat{y}) = \max(\tau(y - \hat{y}), (\tau - 1)(y - \hat{y}))$ es la pérdida de cuantil estándar.
-
-Las regiones se definen mediante transiciones suaves (sigmoide):
-\begin{itemize}
-    \item \textbf{Zona baja} ($y < \texttt{--low\_threshold}$ mm): $\tau = 0.50$ (mediana), captura eventos débiles
-    \item \textbf{Zona media} ($\texttt{--low\_threshold} \leq y \leq \texttt{--high\_threshold}$): $\tau = 0.60$, transición intermedia
-    \item \textbf{Zona alta} ($y > \texttt{--high\_threshold}$ mm): $\tau = \texttt{--quantile\_tau}$, captura eventos extremos
-\end{itemize}
-
-Los pesos $w_{\text{low}}$, $w_{\text{mid}}$, $w_{\text{high}}$ se calculan mediante normalización softmax de las salidas sigmoides para garantizar $\sum w_i = 1$.
-
-\paragraph{3. Pérdida de Tweedie}
-La distribución Tweedie es una distribución compuesta Poisson-Gamma natural para datos de precipitación. La pérdida es:
-
-\begin{equation}
-\mathcal{L}_{\text{Tweedie}} = \mathbb{E}\left[-y_{\text{mm}} \cdot \hat{y}_{\text{mm}}^{-(1-p)} / (1-p) + \hat{y}_{\text{mm}}^{(2-p)} / (2-p)\right] / s_{\text{tw}}
-\end{equation}
-
-donde $p = \texttt{--tweedie\_power} \in (1, 2)$ interpola entre Poisson ($p=1$) y Gamma ($p=2$). El parámetro $s_{\text{tw}} = 1.0 / (2 - p)$ normaliza la escala cuando \texttt{--tweedie\_scale\_norm} es verdadero, mejorando la estabilidad numérica.
-
-\paragraph{4. Pérdida de Correlación de Pearson}
-Maximiza la correlación espacial entre predicciones y observaciones:
-
-\begin{equation}
-\mathcal{L}_{\text{Correlación}} = 1.0 - r_{\text{Pearson}}
-\end{equation}
-
-donde:
-\begin{equation}
-r_{\text{Pearson}} = \frac{\text{Cov}(\hat{y}, y)}{\sigma_{\hat{y}} \cdot \sigma_y}
-\end{equation}
-
-\paragraph{5. Pérdida de Suavizado Espacial}
-Penaliza diferencias grandes entre predicciones de píxeles adyacentes, promoviendo coherencia espacial:
-
-\begin{equation}
-\mathcal{L}_{\text{Suavizado}} = \texttt{--smooth\_weight} \cdot \mathbb{E}\left[\sum_{\text{pares vecinos}} (\hat{y}_i - \hat{y}_j)^2\right]
-\end{equation}
 
 \subsubsection{Normalización EMA de componentes}
 
@@ -345,7 +339,7 @@ A continuación se describen los argumentos de línea de comandos más relevante
     \item \texttt{--pca\_variance}: Varianza explicada objetivo para PCA automático. Valor por defecto: $0.999$.
 \end{itemize}
 
-\subsection*{Regularización y aumento de datos \textit{(data augmentation}}
+\subsection*{Regularización y aumento de datos \textit{(data augmentation})}
 
 \begin{itemize}
     \item \texttt{--noise\_std}: Desviación estándar del ruido gaussiano aditivo en augmentation. Valor por defecto: $0.05$.
@@ -403,7 +397,7 @@ El modelo implementa un monitoreo dinámico de RAM en tiempo real mediante \text
     \item \textbf{Liberado de memoria}: Se ejecuta \texttt{gc.collect()} después de cada etapa intensiva para liberar memoria inmediatamente.
 \end{itemize}
 
-Esta arquitectura permite entrenar modelos con predictores de cientos de miles de píxeles incluso en máquinas con 4 GB de RAM, repartiendo la carga entre procesamiento en disco (I/O rápido) y cálculo (GPU/CPU).
+Esta arquitectura permite entrenar modelos con predictores de cientos de miles de píxeles incluso en máquinas con poca RAM, repartiendo la carga entre procesamiento en disco (I/O rápido) y cálculo (GPU/CPU).
 
 
 \section{Evaluación del modelo}

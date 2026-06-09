@@ -1,0 +1,201 @@
+\section{Selección de predictores y relevancia física}
+
+La comparación sistemática de las once combinaciones de predictores evidenció que la
+combinación 4, conformada por la temperatura superficial del mar (SST), la
+precipitación global (tp) y los índices de la Oscilación Madden-Julian
+(RMM1, RMM2) es la más adecuada para el pronóstico de precipitación
+mensual en la región de Bocacosta.
+
+Este resultado es coherente con la dinámica atmosférica regional descrita en el marco
+teórico. La SST del Pacífico Oriental modula directamente la intensidad convectiva sobre
+la Bocacosta mediante su influencia en la Zona de Convergencia Intertropical (ZCIT) y en
+los vientos alisios \cite{dai2000global}. La precipitación global (tp), por su
+parte, encapsula la organización espacial de los sistemas convectivos a escala sinóptica y
+planetaria, actuando como un predictor de la actividad convectiva de gran
+escala que antecede a los eventos locales. La inclusión de los índices de la MJO aporta
+información sobre la variabilidad intraestacional organizada, la cual modula de forma
+significativa la distribución temporal de las lluvias en el sur de Guatemala.
+
+En contraste, las combinaciones que incorporaron variables adicionales como el
+geopotencial (z), la humedad relativa y específica (r, q) y
+las componentes del viento (u, v) no mejoraron el desempeño en gran manera, y en
+varios casos lo redujeron. Esto sugiere que, si bien estas variables tienen respaldo
+físico como predictores de la convección \cite{houze2014}, su inclusión en el modelo
+LSTM pudo introducir colinealidad o ruido estadístico que dificultó el aprendizaje de
+los patrones relevantes, incrementando el riesgo de sobreajuste. De igual manera, la
+temperatura a 2 metros (2t) y la presión superficial (sp) no aportaron precisión
+significativamente, lo que indica que la información climática que contienen ya está
+suficientemente representada en la SST y la precipitación global para la región de
+interés.
+
+Este hallazgo tiene implicaciones prácticas relevantes: un modelo operativo con solo
+tres tipos de predictores de reanálisis resulta computacionalmente eficiente,
+reproducible y de fácil actualización para una institución como el INSIVUMEH.
+
+\section{Desempeño global del modelo en el año 2025}
+
+Las estadísticas globales obtenidas al pronosticar todos los meses del año 2025 muestran
+un desempeño general satisfactorio. La correlación de Pearson de $r = 0.9166$ y la de
+Spearman de $\rho = 0.9122$, ambas con $p \approx 0$, indican que el modelo captura
+correctamente la fase y la tendencia de la variabilidad de la precipitación a lo largo
+del año. El coeficiente de Nash-Sutcliffe de $\text{NSE} = 0.7440$ confirma que la
+capacidad predictiva del modelo es superior a la de la media
+climatológica como predictor de referencia, situándose en un rango considerado aceptable
+para aplicaciones hidrológicas. El índice de Kling-Gupta de
+$\text{KGE} = 0.7503$ refuerza esta conclusión, indicando que el modelo logra un
+equilibrio razonable entre correlación, variabilidad y sesgo.
+
+No obstante, el modelo exhibe una sobreestimación sistemática positiva de
+$47.22$ mm, equivalente a un porcentaje de sesgo de
+$20.17\ \%$. Esta tendencia a sobreestimar la precipitación puede atribuirse a que la transformación 
+aplicada al objetivo, atenúa los valores extremos durante el entrenamiento,
+induciendo al modelo a prever magnitudes moderadamente superiores a las observadas al
+invertir las predicciones al espacio original en milímetros. El RMSE de 102.55\,mm
+refleja principalmente el impacto de los meses con mayor precipitación acumulada
+(mayo--octubre), donde los errores absolutos son naturalmente mayores dado el amplio
+rango dinámico de la variable.
+
+\section{Análisis del desempeño por mes}
+
+El análisis mensual revela una marcada heterogeneidad en el desempeño del modelo a
+lo largo del ciclo anual, que puede interpretarse en el contexto de la estacionalidad
+climática de la Bocacosta.
+
+\subsection*{Meses secos (diciembre--marzo)}
+
+Durante la estación seca el modelo presenta errores absolutos bajos
+(RMSE de 11--55\,mm), consistentes con los volúmenes de precipitación reducidos del
+período. Sin embargo, las métricas de eficiencia como el KGE muestran valores negativos
+o cercanos a cero en enero ($\text{KGE} = -0.269$), febrero ($\text{KGE} = -1.155$)
+y diciembre ($\text{KGE} = -0.514$), así como correlaciones débiles o negativas. Esta
+aparente contradicción se explica debido a que, cuando la precipitación observada es cercana a
+cero, pequeñas desviaciones absolutas producen métricas de eficiencia relativa muy
+desfavorables. En febrero y diciembre la correlación de Pearson es negativa
+($r = -0.033$ y $r = -0.246$, respectivamente), lo que indica que el modelo no logra
+reproducir la variabilidad espacial de la precipitación residual en estos meses. Esto
+puede deberse a que los escasos eventos de lluvia en la estación seca están gobernados
+por mecanismos locales o frontales de corta duración difíciles de capturar mediante
+predictores de gran escala.
+
+\subsection*{Meses de transición y comienzo de la estación lluviosa (abril--junio)}
+
+El mes de abril muestra el mayor error relativo del año ($\text{RMSE} = 118.7$\,mm,
+$\text{KGE} = 0.011$), con un sesgo positivo de 108.9\,mm. Esto corresponde al inicio
+de la estación lluviosa, un período de alta variabilidad interanual en el que la fecha
+del primer evento lluvioso significativo puede diferir sustancialmente entre años. A pesar de
+esto la similitud entre el patrón observado y el predicho es uno de las más marcadas de todo
+el año.  La SST y la MJO, si bien modulan la probabilidad de convección, no determinan con precisión
+el momento exacto de la transición, lo que induce al modelo a anticipar precipitaciones
+abundantes antes de que estas se produzcan. Mayo presenta un patrón similar
+($\text{RMSE} = 134.1$\,mm, sesgo $= 96.6$\,mm), aunque con una correlación aceptable
+de $r = 0.588$, indicando que el modelo captura la tendencia general pero sobreestima
+las magnitudes.
+
+Junio y julio representan los meses con mejor desempeño dentro de la estación lluviosa
+(KGE de 0.653 y 0.649, respectivamente), con sesgos pequeños ($-17.9$ y $-2.0$\,mm).
+Esto indica que el modelo ha aprendido adecuadamente los patrones de precipitación
+asociados al inicio consolidado del monzón y al paso sistemático de
+ondas del este, forzantes que se expresan con claridad en la señal de la SST y los
+índices de la MJO.
+
+\subsection*{Pico de la estación lluviosa (agosto--octubre)}
+
+Agosto presenta el mejor desempeño individual de todos los meses lluviosos
+($r = 0.848$, $\text{KGE} = 0.703$), coincidiendo con el segundo máximo del ciclo
+bimodal de precipitación de la Bocacosta, asociado al pico de la ZCIT en el Pacífico
+Oriental. Octubre muestra también una correlación satisfactoria ($r = 0.722$), aunque
+el sesgo positivo elevado ($114.2$\,mm) sugiere que el modelo sobreestima la extensión
+de los eventos extremos en este mes.
+
+El mes de septiembre constituye el mayor desafío para el modelo ($\text{RMSE} =
+222.7$\,mm, sesgo $= 211.1$\,mm, $\text{KGE} = 0.350$). Esta degradación puede
+atribuirse a que septiembre coincide con el pico de la temporada de ciclones tropicales
+en el Atlántico y el Pacífico Oriental, y con la actividad máxima de la ZCIT
+\cite{herrera2017}.
+Los predictores utilizados codifican correctamente la predisposición atmosférica a la
+convección, pero no discriminan con suficiente precisión la ocurrencia e
+intensidad de eventos extremos individuales dentro del mes, lo cual representa una
+limitación intrínseca del enfoque de predicción mensual con predictores de gran escala.
+
+\subsection*{Fin de la estación lluviosa (noviembre)}
+
+Noviembre presenta una correlación espacial alta ($r = 0.891$), lo que indica que el
+modelo captura bien la variabilidad entre píxeles. Sin embargo, el $\text{KGE} = 0.205$
+y el sesgo de 64.2\,mm reflejan una sobreestimación sistemática durante la transición
+hacia la estación seca. En este período, la señal de la SST y la MJO puede aún indicar
+condiciones favorables para la convección mientras la precipitación observada decrece
+por el avance de la subsidencia y la reducción de la humedad superficial. Al final,
+se presenta una subestimación sistemática durante el mes de diciembre. Detectando aunque
+en mayor medida la reducción de la precipitación al final del año.
+
+\section{Análisis del ciclo anual medio}
+
+El ciclo anual medio muestra que el modelo reproduce con buena fidelidad
+la forma general de la curva de precipitación mensual climatológica de la Bocacosta: el
+ascenso de mayo a junio, la canícula de julio-agosto, el segundo máximo en septiembre y
+el descenso sostenido hacia diciembre. El modelo tiende, sin embargo, a suavizar el
+primer pico (junio) y a amplificar el segundo (septiembre), lo cual es consistente con
+el sesgo positivo detectado y con la dificultad para representar adecuadamente los
+eventos extremos de septiembre.
+
+La sobreestimación generalizada en los meses lluviosos se refleja en la curva
+pronosticada, que se desplaza hacia arriba respecto a la observada durante casi todo el
+año.
+
+\section{Interpretación de los mapas espaciales}
+
+La comparación mensual de los mapas de precipitación acumulada pronosticados por la
+LSTM con los registrados por ENACTS revela que el modelo reproduce correctamente los
+patrones espaciales dominantes de la Bocacosta: la concentración de precipitación sobre
+la franja paralela a la cadena volcánica, el gradiente norte-sur desde la llanura
+costera hacia el altiplano, y la extensión diferencial entre la estación seca y la
+lluviosa. La arquitectura multi-torre con modulación por coordenadas geográficas
+contribuye a esta especificidad espacial, permitiendo que el modelo aprenda sesgos
+locales sistemáticos mediante el sesgo por píxel aprendible.
+
+Sin embargo, en los meses de mayor dificultad (septiembre, octubre) la LSTM distribuye
+la precipitación de manera más uniforme sobre toda la región, sin capturar los núcleos
+de precipitación extrema que los datos ENACTS registran en puntos específicos del
+territorio. Esto indica que la resolución del reanálisis ERA5, aunque superior a la de
+modelos globales más gruesos, introduce un límite en la capacidad del modelo para
+reproducir la variabilidad orográfica a escala de detalle propia de la Bocacosta.
+
+\begin{comment}
+\subsection{Limitaciones del modelo y perspectivas de mejora}
+
+Con base en el análisis precedente, se identifican las siguientes limitaciones
+principales del modelo desarrollado:
+
+\begin{enumerate}
+    \item \textbf{Sesgo positivo sistemático}: La sobreestimación del $20.17\,\%$
+    requiere la implementación de una corrección de sesgo empírica o cuantílica antes
+    de su aplicación operativa.
+
+    \item \textbf{Dificultad en meses de transición estacional}: El modelo no captura
+    con precisión el inicio y el fin de la estación lluviosa, lo que limita su utilidad
+    para pronósticos de comienzo de temporada. La incorporación de índices de humedad
+    del suelo o de anomalías de viento en 850\,hPa como predictores adicionales podría
+    mejorar este aspecto.
+
+    \item \textbf{Subestimación de la estructura extrema en septiembre}: Los eventos de
+    precipitación extrema asociados a ciclones tropicales o a la actividad máxima de la
+    ZCIT no son bien representados. El uso de predictores específicos de actividad
+    ciclónica, o de índices de vórtice relativo, podría complementar la información de
+    la SST y la MJO en este mes crítico.
+
+    \item \textbf{Resolución espacial del reanálisis}: La cuadrícula ERA5 no resuelve
+    completamente la orografía escarpada de la Bocacosta, introduciendo un límite en la
+    habilidad predictiva del modelo para precipitación orográfica de detalle.
+
+    \item \textbf{Período de evaluación limitado}: La validación se realizó sobre un
+    único año (2025). Una evaluación multianual que abarque fases contrastantes del
+    ENSO permitiría caracterizar de manera más robusta la habilidad del modelo bajo
+    distintas condiciones climáticas de fondo.
+\end{enumerate}
+
+A pesar de estas limitaciones, los resultados demuestran que la arquitectura LSTM
+multi-torre con predictores físicamente motivados constituye una herramienta viable y
+complementaria a los modelos numéricos de predicción del tiempo para el pronóstico de
+precipitación mensual en la región de Bocacosta, alcanzando niveles de correlación y
+eficiencia que justifican su desarrollo hacia un sistema operativo de apoyo al INSIVUMEH.
+\end{comment}

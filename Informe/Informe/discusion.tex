@@ -20,7 +20,7 @@ En contraste, las combinaciones que incorporaron variables adicionales como el
 geopotencial (z), la humedad relativa y específica (r, q) y
 las componentes del viento (u, v) no mejoraron el desempeño en gran manera, y en
 varios casos lo redujeron. Esto sugiere que, si bien estas variables tienen respaldo
-físico como predictores de la convección \cite{houze2014}, su inclusión en el modelo
+físico como predictores de la convección \cite{houze2014cloud}, su inclusión en el modelo
 LSTM pudo introducir colinealidad o ruido estadístico que dificultó el aprendizaje de
 los patrones relevantes, incrementando el riesgo de sobreajuste. De igual manera, la
 temperatura a 2 metros (2t) y la presión superficial (sp) no aportaron precisión
@@ -111,7 +111,7 @@ El mes de septiembre constituye el mayor desafío para el modelo ($\text{RMSE} =
 222.7$\,mm, sesgo $= 211.1$\,mm, $\text{KGE} = 0.350$). Esta degradación puede
 atribuirse a que septiembre coincide con el pico de la temporada de ciclones tropicales
 en el Atlántico y el Pacífico Oriental, y con la actividad máxima de la ZCIT
-\cite{herrera2017}.
+\cite{herrera2017descripcion}.
 Los predictores utilizados codifican correctamente la predisposición atmosférica a la
 convección, pero no discriminan con suficiente precisión la ocurrencia e
 intensidad de eventos extremos individuales dentro del mes, lo cual representa una
@@ -160,42 +160,38 @@ territorio. Esto indica que la resolución del reanálisis ERA5, aunque superior
 modelos globales más gruesos, introduce un límite en la capacidad del modelo para
 reproducir la variabilidad orográfica a escala de detalle propia de la Bocacosta.
 
-\begin{comment}
-\subsection{Limitaciones del modelo y perspectivas de mejora}
+\section{Comparación con la metodología NextGen}
 
-Con base en el análisis precedente, se identifican las siguientes limitaciones
-principales del modelo desarrollado:
+\subsubsection*{Rendimiento global}
 
-\begin{enumerate}
-    \item \textbf{Sesgo positivo sistemático}: La sobreestimación del $20.17\,\%$
-    requiere la implementación de una corrección de sesgo empírica o cuantílica antes
-    de su aplicación operativa.
+El modelo LSTM supera a NextGen en la mayoría de las métricas globales. Presenta un RMSE menor (102.55 mm frente a 114.15 mm) y un MAE también inferior (73.22 mm contra 77.95 mm), lo que indica que, en promedio, las predicciones de la red neuronal se desvían menos de los valores observados. La correlación de Pearson es notablemente más alta para LSTM (0.9166) que para NextGen (0.8719), lo que demuestra una mayor capacidad del primero para reproducir la variabilidad temporal y espacial de la precipitación. En términos de eficiencia hidrológica, el coeficiente de Nash-Sutcliffe (NSE) es también superior para LSTM (0.7440) respecto a NextGen (0.6931), confirmando que el modelo basado en datos explica una mayor proporción de la varianza observada.
 
-    \item \textbf{Dificultad en meses de transición estacional}: El modelo no captura
-    con precisión el inicio y el fin de la estación lluviosa, lo que limita su utilidad
-    para pronósticos de comienzo de temporada. La incorporación de índices de humedad
-    del suelo o de anomalías de viento en 850\,hPa como predictores adicionales podría
-    mejorar este aspecto.
+Sin embargo, NextGen presenta dos ventajas relativas: un sesgo porcentual (Bias porcentual) menor (9.18\%) frente al 20.17\% de LSTM, y un índice de Kling-Gupta (KGE) ligeramente superior (0.8094 contra 0.7503). El menor sesgo sugiere que NextGen compensa mejor las sobreestimaciones y subestimaciones sistemáticas, mientras que el mayor KGE indica que NextGen logra un mejor equilibrio entre correlación, variabilidad relativa y sesgo. Esta diferencia puede deberse a que NextGen, al estar basado en modelos físicos acoplados, incorpora mecanismos que limitan las desviaciones sistemáticas.
 
-    \item \textbf{Subestimación de la estructura extrema en septiembre}: Los eventos de
-    precipitación extrema asociados a ciclones tropicales o a la actividad máxima de la
-    ZCIT no son bien representados. El uso de predictores específicos de actividad
-    ciclónica, o de índices de vórtice relativo, podría complementar la información de
-    la SST y la MJO en este mes crítico.
+\subsubsection*{Desempeño mensual}
 
-    \item \textbf{Resolución espacial del reanálisis}: La cuadrícula ERA5 no resuelve
-    completamente la orografía escarpada de la Bocacosta, introduciendo un límite en la
-    habilidad predictiva del modelo para precipitación orográfica de detalle.
+El análisis mensual revela comportamientos diferenciados:
 
-    \item \textbf{Período de evaluación limitado}: La validación se realizó sobre un
-    único año (2025). Una evaluación multianual que abarque fases contrastantes del
-    ENSO permitiría caracterizar de manera más robusta la habilidad del modelo bajo
-    distintas condiciones climáticas de fondo.
-\end{enumerate}
+\begin{itemize}
+	\item \textbf{Meses (diciembre–marzo)}: LSTM presenta errores absolutos más bajos (RMSE entre 11 y 55 mm) que NextGen (entre 6 y 57 mm), pero con correlaciones muy débiles o negativas en ambos modelos. NextGen logra un sesgo casi nulo en enero (-0.27 mm), mientras que LSTM sobreestima en +8.7 mm. En febrero, NextGen obtiene una correlación positiva (0.544) frente a la negativa de LSTM (-0.033), lo que sugiere una ligera ventaja del modelo físico en condiciones de muy baja precipitación.
+	
+	\item \textbf{Inicio de la estación lluviosa (abril–junio)}: Ambos modelos sobreestiman fuertemente, especialmente en abril (sesgo de 108.9 mm para LSTM y -15.3 mm para NextGen, aunque este último subestima). LSTM muestra mejor correlación en abril (0.730) que NextGen (0.675). En junio, LSTM presenta un KGE de 0.653 frente a 0.307 de NextGen, indicando un mejor desempeño del LSTM una vez consolidado el monzón.
+	
+	\item \textbf{Pico de la estación lluviosa (agosto–octubre)}: LSTM supera claramente a NextGen en correlación (0.848 frente a 0.675 en agosto; 0.722 frente a 0.616 en octubre). Sin embargo, ambos modelos presentan sesgos positivos elevados en septiembre y octubre, aunque NextGen muestra un sesgo ligeramente menor en septiembre (185.5 mm frente a 211.1 mm). La eficiencia KGE en septiembre es baja para ambos (0.350 LSTM, -0.232 NextGen), reflejando la dificultad compartida para pronosticar eventos extremos.
+	
+	\item \textbf{Transición a estación seca (noviembre–diciembre)}: LSTM exhibe una correlación muy alta en noviembre (0.891) frente a 0.454 de NextGen, aunque ambos sobreestiman sistemáticamente. En diciembre, LSTM subestima (-28.3 mm) mientras que NextGen también subestima (-24.1 mm), con correlaciones negativas en ambos.
+\end{itemize}
 
-A pesar de estas limitaciones, los resultados demuestran que la arquitectura LSTM
-multi-torre con predictores físicamente motivados constituye una herramienta viable y
-complementaria a los modelos numéricos de predicción del tiempo para el pronóstico de
-precipitación mensual en la región de Bocacosta, alcanzando niveles de correlación y
-eficiencia que justifican su desarrollo hacia un sistema operativo de apoyo al INSIVUMEH.
-\end{comment}
+\subsubsection*{Interpretación espacial}
+
+Los mapas mensuales presentados en las figuras muestran que LSTM reproduce con mayor fidelidad los gradientes espaciales finos de la precipitación en la Bocacosta, especialmente durante los meses de transición y el pico de la estación lluviosa. En particular, en abril, mayo, junio, agosto y noviembre, la distribución espacial pronosticada por LSTM se asemeja más a las observaciones ENACTS que la de NextGen. Este comportamiento refleja la capacidad de la arquitectura para detectar sesgos locales sistemáticos.
+
+NextGen, en cambio, tiende a producir campos más suavizados espacialmente, con menor contraste entre la llanura costera y las elevaciones volcánicas. Esto es consistente con la resolución efectiva de los modelos numéricos globales, que a menudo no resuelven adecuadamente la orografía compleja de la región.
+
+\subsubsection*{Implicaciones prácticas}
+
+La comparación realizada sugiere que el modelo LSTM, a pesar de su mayor sesgo porcentual, ofrece un mejor desempeño en términos de correlación y error cuadrático medio, lo que lo hace más adecuado para aplicaciones que requieren capturar la variabilidad espacial y temporal de la precipitación, como la planificación agrícola y los sistemas de alerta temprana. NextGen, por su parte, muestra un sesgo sistemático menor, lo que podría ser útil para estimaciones de volúmenes mensuales o estacionales.
+
+No obstante, ambos modelos enfrentan dificultades durante eventos extremos (especialmente septiembre) y durante la estación seca, donde la señal de los predictores de gran escala se debilita. Esto sugiere que una estrategia de ensamble o de corrección de sesgo posterior podría combinar las fortalezas de ambos enfoques.
+
+En conclusión, el modelo LSTM propuesto no solo complementa a los métodos tradicionales, sino que en varios aspectos los supera, particularmente en la reproducción de patrones espaciales y la variabilidad intraestacional, lo que valida su uso como herramienta operativa complementaria dentro del INSIVUMEH.

@@ -5,14 +5,10 @@ The style file: unsrt.bst
 Database file #1: biblio.bib
 Warning--entry type for "HDFGroup2024HDF5" isn't style-file defined
 --line 145 of file biblio.bib
-Repeated entry---line 517 of file biblio.bib
- : @article{atmosferica1986viento
- :                               ,
-I'm skipping whatever remains of this entry
 Warning--entry type for "makgabutlane_convergence_metservice" isn't style-file defined
---line 562 of file biblio.bib
+--line 553 of file biblio.bib
 Warning--entry type for "nws_cloud_development" isn't style-file defined
---line 570 of file biblio.bib
+--line 561 of file biblio.bib
 Warning--empty publisher in pidwirny2006cloud
 Warning--there's a number but no volume in ramos2022influencia
 Warning--empty publisher in VanishingGradient
@@ -20,7 +16,7 @@ Warning--empty journal in acosta2005contribucion
 Warning--empty journal in riishojgaard2021intercambio
 You've used 77 entries,
             1791 wiz_defined-function locations,
-            903 strings with 17479 characters,
+            903 strings with 17481 characters,
 and the built_in function-call counts, 16055 in all, are:
 = -- 1422
 > -- 709
@@ -59,4 +55,4 @@ warning$ -- 5
 while$ -- 155
 width$ -- 79
 write$ -- 828
-(There was 1 error message)
+(There were 8 warnings)

@@ -7,8 +7,11 @@ El modelo predictivo se construyó siguiendo un enfoque de aprendizaje automáti
 \label{sec:adquisicion_datos}
 
 \subsection{Fuentes de datos}\label{subsec:fuentes_de_datos}
-Los datos de precipitación observada fueron obtenidos del Instituto Nacional de Sismología, Vulcanología, Meteorología e Hidrología (INSIVUMEH) de Guatemala, consistiendo en series de tiempo diarias de precipitación medida en estaciones pluviométricas calibradas distribuidas a lo largo del país. Los predictores climáticos fueron adquiridos de fuentes globales de reanálisis (Copernicus Climate Data Store: ERA5 post-processed daily statistics on single [and pressure] levels from 1940 to present) considerados en la cuadrícula de latitudes de $[-165, 0]$ en longitud y $[-15, 75]$ en latitud, para poder considerar las teleconexiones que dominan el escenario climático guatemalteco, sin considerar ruido proveniente de otras regiones climáticas lejos de Centroamérica:
+Los datos de precipitación observada fueron obtenidos del Instituto Nacional de Sismología, Vulcanología, Meteorología e Hidrología (INSIVUMEH) de Guatemala, del registro Enhancing National Climate Services (ENACTS por sus siglas en inglés), dado por datos satelitales de CHIRPS para precipitación y MERRA2 para temperatura con el valor de las estaciones convencionales de INSIVUMEH. Este registro proporciona datos diarios de temperatura y precipitación desde 1981 con una resolución de 0.05$^{\circ}$ y coordenadas Longitud: [92.525W, 87.97501W]; Latitud: [13.475N, 18.525N]. 
 
+Los predictores climáticos fueron adquiridos de fuentes globales de reanálisis (Copernicus Climate Data Store: ERA5 post-processed daily statistics on single [and pressure] levels from 1940 to present) delimitados por la cuadrícula de latitudes de $[-165, 0]$ en longitud y $[-15, 75]$ en latitud, para poder considerar las teleconexiones que dominan el escenario climático guatemalteco, sin considerar ruido proveniente de otras regiones climáticas lejos de Centroamérica. ERA5 es la quinta generación de datos atmosféricos de reanálisis del Centro Europeo de Predicciones Metereológicas a Plazo Medio (ECMWF, por sus siglas en inglés). Está basado en el Integrated Forecasting System Cy41r2.
+
+Se consideró el siguiente conjunto de predictores:
 \begin{itemize}
     \item Temperatura Superficial del Mar (SST).
     \item Presión Superficial (SP).
@@ -20,7 +23,7 @@ Los datos de precipitación observada fueron obtenidos del Instituto Nacional de
     \item Temperatura a 2 metros de la superficie (2m).
 \end{itemize}
 
-Se asume que determinadas combinaciones de predictores tendrán mejores resultados que otras, tanto para el país en general, como para regiones y departamentos específicos de este. Las combinaciones propuestas fueron:
+Se asume que determinadas combinaciones de predictores tendrán mejores resultados que otras, tanto para el país en general, como para regiones y departamentos específicos. Las combinaciones propuestas fueron:
 \begin{enumerate}
     \item SST, z, r, q, tp, u, v.
     \item SST, SP, tp.
@@ -36,7 +39,7 @@ Se asume que determinadas combinaciones de predictores tendrán mejores resultad
     \item SST, z, r, q, tp, u, v, 2t, MJO.
 \end{enumerate}
 
-La efectividad de cada predictor será evaluada mediante diagnósticos descritos más adelante.
+La efectividad de cada combinación será evaluada mediante diagnósticos descritos más adelante.
 
 \subsection{Normalización espacio-temporal}
 Todos los archivos de entrada (NetCDF4) fueron procesados para garantizar consistencia dimensional y nomenclatura:

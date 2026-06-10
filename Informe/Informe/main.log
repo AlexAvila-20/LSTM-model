@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.17)  8 JUN 2026 11:43
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.4.17)  10 JUN 2026 14:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -933,24 +933,24 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 173.
-LaTeX Font Info:    ... okay on input line 173.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 186.
+LaTeX Font Info:    ... okay on input line 186.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 186.
+LaTeX Font Info:    ... okay on input line 186.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 186.
+LaTeX Font Info:    ... okay on input line 186.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 186.
+LaTeX Font Info:    ... okay on input line 186.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 186.
+LaTeX Font Info:    ... okay on input line 186.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 186.
+LaTeX Font Info:    ... okay on input line 186.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 186.
+LaTeX Font Info:    ... okay on input line 186.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 186.
+LaTeX Font Info:    ... okay on input line 186.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 186.
+LaTeX Font Info:    ... okay on input line 186.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -986,19 +986,19 @@ LaTeX Font Info:    ... okay on input line 173.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \microtypecontext on input line 173.
-Package microtype Info: Applying patch `item' on input line 173.
-Package microtype Info: Applying patch `toc' on input line 173.
-Package microtype Info: Applying patch `eqnum' on input line 173.
-Package microtype Info: Applying patch `footnote' on input line 173.
-Package microtype Info: Applying patch `verbatim' on input line 173.
+LaTeX Info: Redefining \microtypecontext on input line 186.
+Package microtype Info: Applying patch `item' on input line 186.
+Package microtype Info: Applying patch `toc' on input line 186.
+Package microtype Info: Applying patch `eqnum' on input line 186.
+Package microtype Info: Applying patch `footnote' on input line 186.
+Package microtype Info: Applying patch `verbatim' on input line 186.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 173.
+LaTeX Info: Redefining \showhyphens on input line 186.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1042,7 +1042,7 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count358
-Package hyperref Info: Link coloring ON on input line 173.
+Package hyperref Info: Link coloring ON on input line 186.
  (./main.out)
 (./main.out)
 \@outlinefile=\write4
@@ -1052,7 +1052,7 @@ Package hyperref Info: Link coloring ON on input line 173.
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}{/usr/share/texmf/fonts/enc/
 dvips/cm-super/cm-super-t1.enc}]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 240
+LaTeX Font Info:    Trying to load font information for U+msa on input line 253
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -1061,7 +1061,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 240
+LaTeX Font Info:    Trying to load font information for U+msb on input line 253
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -1070,8 +1070,8 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 (/usr/share/texlive/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 24
-0.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 25
+3.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
@@ -1085,7 +1085,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.255 \chapter
+l.268 \chapter
               {Objetivos} [1
 
 ]
@@ -1095,7 +1095,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.259 \chapter
+l.272 \chapter
               {Marco teórico} [2
 
 ]
@@ -1118,7 +1118,7 @@ LaTeX Warning: Characters dropped after `\end{comment}' on input line 256.
 
 ]
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 4
-5.
+8.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
@@ -1129,7 +1129,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             See the microtype manual for details.
  [17] [18] [19]
 [20] [21] [22] [23] [24]
-Overfull \hbox (1.15318pt too wide) in paragraph at lines 335--336
+Overfull \hbox (1.15318pt too wide) in paragraph at lines 338--339
 []\T1/cmtt/m/n/10.95 --target_transform\T1/cmr/m/n/10.95 (-20) : Trans-for-ma-c
 i�n del tar-get: \T1/cmtt/m/n/10.95 log1p\T1/cmr/m/n/10.95 (-20) , \T1/cmtt/m/n
 /10.95 cbrt\T1/cmr/m/n/10.95 (-20) , \T1/cmtt/m/n/10.95 pow025\T1/cmr/m/n/10.95
@@ -1137,386 +1137,524 @@ i�n del tar-get: \T1/cmtt/m/n/10.95 log1p\T1/cmr/m/n/10.95 (-20) , \T1/cmtt/m/n
 tandard\T1/cmr/m/n/10.95 (-20) ,
  []
 
-[25] [26] [27] [28]
-Overfull \hbox (8.23602pt too wide) in paragraph at lines 488--489
+[25] [26] [27] [28] [29]
+Overfull \hbox (8.23602pt too wide) in paragraph at lines 491--492
 []\T1/cmr/m/n/10.95 (-20) Carga un archi-vo de predic-ciones NetCDF (t�pi-ca-me
 nte \T1/cmtt/m/n/10.95 modelo_pixel_predictions.nc\T1/cmr/m/n/10.95 (-20) ). 
  []
 
-[29]) [30]
+) [30]
 \bbl@ensure@spanish {Cap\'\i tulo} 5.
-(./resultados.tex
+(./results.tex
 <Informe/resultados/comparacion_combinaciones.png, id=807, 859.65166pt x 853.14
 735pt>
 File: Informe/resultados/comparacion_combinaciones.png Graphic file (type png)
 <use Informe/resultados/comparacion_combinaciones.png>
 Package pdftex.def Info: Informe/resultados/comparacion_combinaciones.png  used
  on input line 6.
-(pdftex.def)             Requested size: 398.33858pt x 395.32951pt.
+(pdftex.def)             Requested size: 369.88582pt x 367.09355pt.
  [31
 
  <./Informe/resultados/comparacion_combinaciones.png>]
-<Informe/resultados/pronósticos/Pronóstico_1_2025_Boca Costa_03.png, id=816, 
-423.5022pt x 301.8477pt>
-File: Informe/resultados/pronósticos/Pronóstico_1_2025_Boca Costa_03.png Grap
-hic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_1_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_1_2025_Boc
-a Costa_03.png  used on input line 89.
+Overfull \hbox (4.918pt too wide) in paragraph at lines 35--35
+[]   \T1/cmtt/m/n/8 Pearson r                 = 0.9166  (p=0.00e+00)[] 
+ []
+
+
+Overfull \hbox (4.918pt too wide) in paragraph at lines 36--36
+[]   \T1/cmtt/m/n/8 Spearman rho              = 0.9122  (p=0.00e+00)[] 
+ []
+
+
+Overfull \hbox (4.918pt too wide) in paragraph at lines 69--69
+[]   \T1/cmtt/m/n/8 Pearson r                 = 0.8719  (p=0.00e+00)[] 
+ []
+
+
+Overfull \hbox (4.918pt too wide) in paragraph at lines 70--70
+[]   \T1/cmtt/m/n/8 Spearman rho              = 0.8906  (p=0.00e+00)[] 
+ []
+
+<Informe/resultados/BocacostaLSTM/com.metricas.png, id=816, 859.5312pt x 569.48
+76pt>
+File: Informe/resultados/BocacostaLSTM/com.metricas.png Graphic file (type png)
+
+<use Informe/resultados/BocacostaLSTM/com.metricas.png>
+Package pdftex.def Info: Informe/resultados/BocacostaLSTM/com.metricas.png  use
+d on input line 100.
+(pdftex.def)             Requested size: 201.83247pt x 133.72786pt.
+<Informe/resultados/BocacostaNextGen/com.metricas.png, id=817, 859.5312pt x 569
+.4876pt>
+File: Informe/resultados/BocacostaNextGen/com.metricas.png Graphic file (type p
+ng)
+<use Informe/resultados/BocacostaNextGen/com.metricas.png>
+Package pdftex.def Info: Informe/resultados/BocacostaNextGen/com.metricas.png  
+used on input line 106.
+(pdftex.def)             Requested size: 201.83247pt x 133.72786pt.
+[32]
+<Informe/resultados/BocacostaLSTM/com.cicloanual.png, id=824, 570.4512pt x 353.
+6412pt>
+File: Informe/resultados/BocacostaLSTM/com.cicloanual.png Graphic file (type pn
+g)
+<use Informe/resultados/BocacostaLSTM/com.cicloanual.png>
+Package pdftex.def Info: Informe/resultados/BocacostaLSTM/com.cicloanual.png  u
+sed on input line 119.
+(pdftex.def)             Requested size: 215.72047pt x 133.72786pt.
+
+Overfull \hbox (8.2676pt too wide) in paragraph at lines 119--120
+ [][] 
+ []
+
+<Informe/resultados/BocacostaNextGen/com.cicloanual.png, id=825, 570.4512pt x 3
+53.6412pt>
+File: Informe/resultados/BocacostaNextGen/com.cicloanual.png Graphic file (type
+ png)
+<use Informe/resultados/BocacostaNextGen/com.cicloanual.png>
+Package pdftex.def Info: Informe/resultados/BocacostaNextGen/com.cicloanual.png
+  used on input line 125.
+(pdftex.def)             Requested size: 215.72047pt x 133.72786pt.
+
+Overfull \hbox (8.2676pt too wide) in paragraph at lines 125--126
+ [][] 
+ []
+
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_1_2025_Boca Costa_03.png,
+ id=826, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_1_2025_Boca Costa_03
+.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_1_2025_Boca Costa_03.
+png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_1
+_2025_Boca Costa_03.png  used on input line 148.
+(pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_1_2025_Boca Costa_0
+3.png, id=827, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_1_2025_Boca Co
+sta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_1_2025_Boca Cos
+ta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_1_2025_Boca Costa_03.png  used on input line 152.
 (pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
 <Informe/resultados/precipitación/Precipitación_1_2025_Boca Costa_03.png, id=
-817, 423.5022pt x 301.8477pt>
+828, 423.5022pt x 301.8477pt>
 File: Informe/resultados/precipitación/Precipitación_1_2025_Boca Costa_03.png
  Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_1_2025_Boca Costa_03.png>
 
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_1_202
-5_Boca Costa_03.png  used on input line 96.
+5_Boca Costa_03.png  used on input line 159.
+(pdftex.def)             Requested size: 237.70987pt x 169.42505pt.
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_2_2025_Boca Costa_03.png,
+ id=829, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_2_2025_Boca Costa_03
+.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_2_2025_Boca Costa_03.
+png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_2
+_2025_Boca Costa_03.png  used on input line 173.
 (pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
-<Informe/resultados/pronósticos/Pronóstico_2_2025_Boca Costa_03.png, id=818, 
-423.5022pt x 301.8477pt>
-File: Informe/resultados/pronósticos/Pronóstico_2_2025_Boca Costa_03.png Grap
-hic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_2_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_2_2025_Boc
-a Costa_03.png  used on input line 106.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_2_2025_Boca Costa_0
+3.png, id=830, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_2_2025_Boca Co
+sta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_2_2025_Boca Cos
+ta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_2_2025_Boca Costa_03.png  used on input line 177.
 (pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
 <Informe/resultados/precipitación/Precipitación_2_2025_Boca Costa_03.png, id=
-819, 423.5022pt x 301.8477pt>
+831, 423.5022pt x 301.8477pt>
 File: Informe/resultados/precipitación/Precipitación_2_2025_Boca Costa_03.png
  Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_2_2025_Boca Costa_03.png>
 
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_2_202
-5_Boca Costa_03.png  used on input line 112.
+5_Boca Costa_03.png  used on input line 184.
+(pdftex.def)             Requested size: 237.70987pt x 169.42505pt.
+
+LaTeX Warning: Float too large for page by 18.07541pt on input line 186.
+
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_3_2025_Boca Costa_03.png,
+ id=832, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_3_2025_Boca Costa_03
+.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_3_2025_Boca Costa_03.
+png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_3
+_2025_Boca Costa_03.png  used on input line 199.
 (pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
-<Informe/resultados/pronósticos/Pronóstico_3_2025_Boca Costa_03.png, id=820, 
-423.5022pt x 301.8477pt>
-File: Informe/resultados/pronósticos/Pronóstico_3_2025_Boca Costa_03.png Grap
-hic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_3_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_3_2025_Boc
-a Costa_03.png  used on input line 122.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_3_2025_Boca Costa_0
+3.png, id=833, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_3_2025_Boca Co
+sta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_3_2025_Boca Cos
+ta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_3_2025_Boca Costa_03.png  used on input line 203.
 (pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
 <Informe/resultados/precipitación/Precipitación_3_2025_Boca Costa_03.png, id=
-821, 423.5022pt x 301.8477pt>
+834, 423.5022pt x 301.8477pt>
 File: Informe/resultados/precipitación/Precipitación_3_2025_Boca Costa_03.png
  Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_3_2025_Boca Costa_03.png>
 
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_3_202
-5_Boca Costa_03.png  used on input line 128.
+5_Boca Costa_03.png  used on input line 210.
+(pdftex.def)             Requested size: 237.70987pt x 169.42505pt.
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_4_2025_Boca Costa_03.png,
+ id=835, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_4_2025_Boca Costa_03
+.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_4_2025_Boca Costa_03.
+png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_4
+_2025_Boca Costa_03.png  used on input line 224.
 (pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
-
-[32 <./Informe/resultados/pronósticos/Pronóstico_1_2025_Boca Costa_03.png> <.
-/Informe/resultados/precipitación/Precipitación_1_2025_Boca Costa_03.png> <./
-Informe/resultados/pronósticos/Pronóstico_2_2025_Boca Costa_03.png> <./Inform
-e/resultados/precipitación/Precipitación_2_2025_Boca Costa_03.png>]
-<Informe/resultados/pronósticos/Pronóstico_4_2025_Boca Costa_03.png, id=834, 
-423.5022pt x 301.8477pt>
-File: Informe/resultados/pronósticos/Pronóstico_4_2025_Boca Costa_03.png Grap
-hic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_4_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_4_2025_Boc
-a Costa_03.png  used on input line 138.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_4_2025_Boca Costa_0
+3.png, id=836, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_4_2025_Boca Co
+sta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_4_2025_Boca Cos
+ta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_4_2025_Boca Costa_03.png  used on input line 228.
 (pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
 <Informe/resultados/precipitación/Precipitación_4_2025_Boca Costa_03.png, id=
-835, 423.5022pt x 301.8477pt>
+837, 423.5022pt x 301.8477pt>
 File: Informe/resultados/precipitación/Precipitación_4_2025_Boca Costa_03.png
  Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_4_2025_Boca Costa_03.png>
 
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_4_202
-5_Boca Costa_03.png  used on input line 144.
-(pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
-<Informe/resultados/pronósticos/Pronóstico_5_2025_Boca Costa_03.png, id=836, 
-430.0065pt x 295.8252pt>
-File: Informe/resultados/pronósticos/Pronóstico_5_2025_Boca Costa_03.png Grap
-hic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_5_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_5_2025_Boc
-a Costa_03.png  used on input line 154.
+5_Boca Costa_03.png  used on input line 235.
+(pdftex.def)             Requested size: 237.70987pt x 169.42505pt.
+
+LaTeX Warning: Float too large for page by 18.07541pt on input line 239.
+
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_5_2025_Boca Costa_03.png,
+ id=838, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_5_2025_Boca Costa_03
+.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_5_2025_Boca Costa_03.
+png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_5
+_2025_Boca Costa_03.png  used on input line 252.
+(pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_5_2025_Boca Costa_0
+3.png, id=839, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_5_2025_Boca Co
+sta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_5_2025_Boca Cos
+ta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_5_2025_Boca Costa_03.png  used on input line 256.
 (pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
 <Informe/resultados/precipitación/Precipitación_5_2025_Boca Costa_03.png, id=
-837, 430.0065pt x 295.8252pt>
+840, 430.0065pt x 295.8252pt>
 File: Informe/resultados/precipitación/Precipitación_5_2025_Boca Costa_03.png
  Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_5_2025_Boca Costa_03.png>
 
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_5_202
-5_Boca Costa_03.png  used on input line 160.
+5_Boca Costa_03.png  used on input line 263.
+(pdftex.def)             Requested size: 237.70987pt x 163.53491pt.
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_6_2025_Boca Costa_03.png,
+ id=841, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_6_2025_Boca Costa_03
+.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_6_2025_Boca Costa_03.
+png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_6
+_2025_Boca Costa_03.png  used on input line 277.
 (pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
-<Informe/resultados/pronósticos/Pronóstico_6_2025_Boca Costa_03.png, id=838, 
-430.0065pt x 295.8252pt>
-File: Informe/resultados/pronósticos/Pronóstico_6_2025_Boca Costa_03.png Grap
-hic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_6_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_6_2025_Boc
-a Costa_03.png  used on input line 170.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_6_2025_Boca Costa_0
+3.png, id=842, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_6_2025_Boca Co
+sta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_6_2025_Boca Cos
+ta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_6_2025_Boca Costa_03.png  used on input line 281.
 (pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
 <Informe/resultados/precipitación/Precipitación_6_2025_Boca Costa_03.png, id=
-839, 430.0065pt x 295.8252pt>
+843, 430.0065pt x 295.8252pt>
 File: Informe/resultados/precipitación/Precipitación_6_2025_Boca Costa_03.png
  Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_6_2025_Boca Costa_03.png>
 
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_6_202
-5_Boca Costa_03.png  used on input line 176.
+5_Boca Costa_03.png  used on input line 288.
+(pdftex.def)             Requested size: 237.70987pt x 163.53491pt.
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_7_2025_Boca Costa_03.png,
+ id=844, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_7_2025_Boca Costa_03
+.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_7_2025_Boca Costa_03.
+png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_7
+_2025_Boca Costa_03.png  used on input line 305.
 (pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
- [33 <./Informe/resultados/pronósticos/Pronóstico_3_2025_Boca Costa_03.png> <
-./Informe/resultados/precipitación/Precipitación_3_2025_Boca Costa_03.png> <.
-/Informe/resultados/pronósticos/Pronóstico_4_2025_Boca Costa_03.png> <./Infor
-me/resultados/precipitación/Precipitación_4_2025_Boca Costa_03.png> <./Inform
-e/resultados/pronósticos/Pronóstico_5_2025_Boca Costa_03.png> <./Informe/resu
-ltados/precipitación/Precipitación_5_2025_Boca Costa_03.png>]
-<Informe/resultados/pronósticos/Pronóstico_7_2025_Boca Costa_03.png, id=853, 
-430.0065pt x 295.8252pt>
-File: Informe/resultados/pronósticos/Pronóstico_7_2025_Boca Costa_03.png Grap
-hic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_7_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_7_2025_Boc
-a Costa_03.png  used on input line 186.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_7_2025_Boca Costa_0
+3.png, id=845, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_7_2025_Boca Co
+sta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_7_2025_Boca Cos
+ta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_7_2025_Boca Costa_03.png  used on input line 309.
 (pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
 <Informe/resultados/precipitación/Precipitación_7_2025_Boca Costa_03.png, id=
-854, 430.0065pt x 295.8252pt>
+846, 430.0065pt x 295.8252pt>
 File: Informe/resultados/precipitación/Precipitación_7_2025_Boca Costa_03.png
  Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_7_2025_Boca Costa_03.png>
 
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_7_202
-5_Boca Costa_03.png  used on input line 192.
+5_Boca Costa_03.png  used on input line 316.
+(pdftex.def)             Requested size: 237.70987pt x 163.53491pt.
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_8_2025_Boca Costa_03.png,
+ id=847, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_8_2025_Boca Costa_03
+.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_8_2025_Boca Costa_03.
+png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_8
+_2025_Boca Costa_03.png  used on input line 330.
 (pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
-<Informe/resultados/pronósticos/Pronóstico_8_2025_Boca Costa_03.png, id=855, 
-430.0065pt x 295.8252pt>
-File: Informe/resultados/pronósticos/Pronóstico_8_2025_Boca Costa_03.png Grap
-hic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_8_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_8_2025_Boc
-a Costa_03.png  used on input line 202.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_8_2025_Boca Costa_0
+3.png, id=848, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_8_2025_Boca Co
+sta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_8_2025_Boca Cos
+ta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_8_2025_Boca Costa_03.png  used on input line 334.
 (pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
 <Informe/resultados/precipitación/Precipitación_8_2025_Boca Costa_03.png, id=
-856, 430.0065pt x 295.8252pt>
+849, 430.0065pt x 295.8252pt>
 File: Informe/resultados/precipitación/Precipitación_8_2025_Boca Costa_03.png
  Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_8_2025_Boca Costa_03.png>
 
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_8_202
-5_Boca Costa_03.png  used on input line 208.
+5_Boca Costa_03.png  used on input line 341.
+(pdftex.def)             Requested size: 237.70987pt x 163.53491pt.
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_9_2025_Boca Costa_03.png,
+ id=850, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_9_2025_Boca Costa_03
+.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_9_2025_Boca Costa_03.
+png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_9
+_2025_Boca Costa_03.png  used on input line 358.
 (pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
-<Informe/resultados/pronósticos/Pronóstico_9_2025_Boca Costa_03.png, id=857, 
-430.0065pt x 295.8252pt>
-File: Informe/resultados/pronósticos/Pronóstico_9_2025_Boca Costa_03.png Grap
-hic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_9_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_9_2025_Boc
-a Costa_03.png  used on input line 218.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_9_2025_Boca Costa_0
+3.png, id=851, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_9_2025_Boca Co
+sta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_9_2025_Boca Cos
+ta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_9_2025_Boca Costa_03.png  used on input line 362.
 (pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
 <Informe/resultados/precipitación/Precipitación_9_2025_Boca Costa_03.png, id=
-858, 430.0065pt x 295.8252pt>
+852, 430.0065pt x 295.8252pt>
 File: Informe/resultados/precipitación/Precipitación_9_2025_Boca Costa_03.png
  Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_9_2025_Boca Costa_03.png>
 
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_9_202
-5_Boca Costa_03.png  used on input line 224.
+5_Boca Costa_03.png  used on input line 369.
+(pdftex.def)             Requested size: 237.70987pt x 163.53491pt.
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_10_2025_Boca Costa_03.png
+, id=853, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_10_2025_Boca Costa_0
+3.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_10_2025_Boca Costa_03
+.png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_1
+0_2025_Boca Costa_03.png  used on input line 383.
 (pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
- [34 <./Informe/resultados/pronósticos/Pronóstico_6_2025_Boca Costa_03.png> <
-./Informe/resultados/precipitación/Precipitación_6_2025_Boca Costa_03.png> <.
-/Informe/resultados/pronósticos/Pronóstico_7_2025_Boca Costa_03.png> <./Infor
-me/resultados/precipitación/Precipitación_7_2025_Boca Costa_03.png> <./Inform
-e/resultados/pronósticos/Pronóstico_8_2025_Boca Costa_03.png> <./Informe/resu
-ltados/precipitación/Precipitación_8_2025_Boca Costa_03.png>]
-<Informe/resultados/pronósticos/Pronóstico_10_2025_Boca Costa_03.png, id=872,
- 430.0065pt x 295.8252pt>
-File: Informe/resultados/pronósticos/Pronóstico_10_2025_Boca Costa_03.png Gra
-phic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_10_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_10_2025_Bo
-ca Costa_03.png  used on input line 234.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_10_2025_Boca Costa_
+03.png, id=854, 430.0065pt x 295.8252pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_10_2025_Boca C
+osta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_10_2025_Boca Co
+sta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_10_2025_Boca Costa_03.png  used on input line 387.
 (pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
 <Informe/resultados/precipitación/Precipitación_10_2025_Boca Costa_03.png, id
-=873, 430.0065pt x 295.8252pt>
+=855, 430.0065pt x 295.8252pt>
 File: Informe/resultados/precipitación/Precipitación_10_2025_Boca Costa_03.pn
 g Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_10_2025_Boca Costa_03.png
 >
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_10_20
-25_Boca Costa_03.png  used on input line 240.
-(pdftex.def)             Requested size: 194.48749pt x 133.79718pt.
-<Informe/resultados/pronósticos/Pronóstico_11_2025_Boca Costa_03.png, id=874,
- 423.5022pt x 301.8477pt>
-File: Informe/resultados/pronósticos/Pronóstico_11_2025_Boca Costa_03.png Gra
-phic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_11_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_11_2025_Bo
-ca Costa_03.png  used on input line 250.
+25_Boca Costa_03.png  used on input line 394.
+(pdftex.def)             Requested size: 237.70987pt x 163.53491pt.
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_11_2025_Boca Costa_03.png
+, id=856, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_11_2025_Boca Costa_0
+3.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_11_2025_Boca Costa_03
+.png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_1
+1_2025_Boca Costa_03.png  used on input line 412.
+(pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_11_2025_Boca Costa_
+03.png, id=857, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_11_2025_Boca C
+osta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_11_2025_Boca Co
+sta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_11_2025_Boca Costa_03.png  used on input line 416.
 (pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
 <Informe/resultados/precipitación/Precipitación_11_2025_Boca Costa_03.png, id
-=875, 423.5022pt x 301.8477pt>
+=858, 423.5022pt x 301.8477pt>
 File: Informe/resultados/precipitación/Precipitación_11_2025_Boca Costa_03.pn
 g Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_11_2025_Boca Costa_03.png
 >
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_11_20
-25_Boca Costa_03.png  used on input line 256.
+25_Boca Costa_03.png  used on input line 423.
+(pdftex.def)             Requested size: 237.70987pt x 169.42505pt.
+<Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_12_2025_Boca Costa_03.png
+, id=859, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_12_2025_Boca Costa_0
+3.png Graphic file (type png)
+<use Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_12_2025_Boca Costa_03
+.png>
+Package pdftex.def Info: Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_1
+2_2025_Boca Costa_03.png  used on input line 437.
 (pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
-<Informe/resultados/pronósticos/Pronóstico_12_2025_Boca Costa_03.png, id=876,
- 423.5022pt x 301.8477pt>
-File: Informe/resultados/pronósticos/Pronóstico_12_2025_Boca Costa_03.png Gra
-phic file (type png)
-<use Informe/resultados/pronósticos/Pronóstico_12_2025_Boca Costa_03.png>
-Package pdftex.def Info: Informe/resultados/pronósticos/Pronóstico_12_2025_Bo
-ca Costa_03.png  used on input line 266.
+<Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_12_2025_Boca Costa_
+03.png, id=860, 423.5022pt x 301.8477pt>
+File: Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_12_2025_Boca C
+osta_03.png Graphic file (type png)
+<use Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_12_2025_Boca Co
+sta_03.png>
+Package pdftex.def Info: Informe/resultados/pronósticosNextGen/Pronóstico_Nex
+tGen_12_2025_Boca Costa_03.png  used on input line 441.
 (pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
 <Informe/resultados/precipitación/Precipitación_12_2025_Boca Costa_03.png, id
-=877, 423.5022pt x 301.8477pt>
+=861, 423.5022pt x 301.8477pt>
 File: Informe/resultados/precipitación/Precipitación_12_2025_Boca Costa_03.pn
 g Graphic file (type png)
 <use Informe/resultados/precipitación/Precipitación_12_2025_Boca Costa_03.png
 >
 Package pdftex.def Info: Informe/resultados/precipitación/Precipitación_12_20
-25_Boca Costa_03.png  used on input line 272.
-(pdftex.def)             Requested size: 194.48749pt x 138.61671pt.
- [35 <./Informe/resultados/pronósticos/Pronóstico_9_2025_Boca Costa_03.png> <
-./Informe/resultados/precipitación/Precipitación_9_2025_Boca Costa_03.png> <.
-/Informe/resultados/pronósticos/Pronóstico_10_2025_Boca Costa_03.png> <./Info
-rme/resultados/precipitación/Precipitación_10_2025_Boca Costa_03.png> <./Info
-rme/resultados/pronósticos/Pronóstico_11_2025_Boca Costa_03.png> <./Informe/r
-esultados/precipitación/Precipitación_11_2025_Boca Costa_03.png>]
-LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
-286.
+25_Boca Costa_03.png  used on input line 448.
+(pdftex.def)             Requested size: 237.70987pt x 169.42505pt.
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmtt.fd
-File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-)
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: TS1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
+LaTeX Warning: Float too large for page by 18.07541pt on input line 451.
 
-
-! LaTeX Error: Unicode character ρ (U+03C1)
-               not set up for use with LaTeX.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.288 ... ρ                = 0.9122  (p=0.00e+00)
-                                                  
-? 
-[36 <./Informe/resultados/pronósticos/Pronóstico_12_2025_Boca Costa_03.png> <
-./Informe/resultados/precipitación/Precipitación_12_2025_Boca Costa_03.png>]
-<Informe/resultados/Bocacosta/com.metricas.png, id=900, 859.5312pt x 569.4876pt
->
-File: Informe/resultados/Bocacosta/com.metricas.png Graphic file (type png)
-<use Informe/resultados/Bocacosta/com.metricas.png>
-Package pdftex.def Info: Informe/resultados/Bocacosta/com.metricas.png  used on
- input line 312.
-(pdftex.def)             Requested size: 300.60434pt x 199.16928pt.
-<Informe/resultados/Bocacosta/com.cicloanual.png, id=901, 570.4512pt x 353.6412
-pt>
-File: Informe/resultados/Bocacosta/com.cicloanual.png Graphic file (type png)
-<use Informe/resultados/Bocacosta/com.cicloanual.png>
-Package pdftex.def Info: Informe/resultados/Bocacosta/com.cicloanual.png  used 
-on input line 319.
-(pdftex.def)             Requested size: 229.49078pt x 142.26378pt.
-) [37 <./Informe/resultados/Bocacosta/com.metricas.png> <./Informe/resultados/B
-ocacosta/com.cicloanual.png>]
+) [33 <./Informe/resultados/BocacostaLSTM/com.metricas.png> <./Informe/resultad
+os/BocacostaNextGen/com.metricas.png> <./Informe/resultados/BocacostaLSTM/com.c
+icloanual.png> <./Informe/resultados/BocacostaNextGen/com.cicloanual.png>]
+[34 <./Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_1_2025_Boca Costa_0
+3.png> <./Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_1_2025_Boc
+a Costa_03.png> <./Informe/resultados/precipitación/Precipitación_1_2025_Boca
+ Costa_03.png> <./Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_2_2025_B
+oca Costa_03.png> <./Informe/resultados/pronósticosNextGen/Pronóstico_NextGen
+_2_2025_Boca Costa_03.png> <./Informe/resultados/precipitación/Precipitación_
+2_2025_Boca Costa_03.png>] [35 <./Informe/resultados/pronósticosLSTM/Pronósti
+co_LSTM_3_2025_Boca Costa_03.png> <./Informe/resultados/pronósticosNextGen/Pro
+nóstico_NextGen_3_2025_Boca Costa_03.png> <./Informe/resultados/precipitación
+/Precipitación_3_2025_Boca Costa_03.png> <./Informe/resultados/pronósticosLST
+M/Pronóstico_LSTM_4_2025_Boca Costa_03.png> <./Informe/resultados/pronósticos
+NextGen/Pronóstico_NextGen_4_2025_Boca Costa_03.png> <./Informe/resultados/pre
+cipitación/Precipitación_4_2025_Boca Costa_03.png>] [36 <./Informe/resultados
+/pronósticosLSTM/Pronóstico_LSTM_5_2025_Boca Costa_03.png> <./Informe/resulta
+dos/pronósticosNextGen/Pronóstico_NextGen_5_2025_Boca Costa_03.png> <./Inform
+e/resultados/precipitación/Precipitación_5_2025_Boca Costa_03.png> <./Informe
+/resultados/pronósticosLSTM/Pronóstico_LSTM_6_2025_Boca Costa_03.png> <./Info
+rme/resultados/pronósticosNextGen/Pronóstico_NextGen_6_2025_Boca Costa_03.png
+> <./Informe/resultados/precipitación/Precipitación_6_2025_Boca Costa_03.png>
+] [37 <./Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_7_2025_Boca Costa
+_03.png> <./Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_7_2025_B
+oca Costa_03.png> <./Informe/resultados/precipitación/Precipitación_7_2025_Bo
+ca Costa_03.png> <./Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_8_2025
+_Boca Costa_03.png> <./Informe/resultados/pronósticosNextGen/Pronóstico_NextG
+en_8_2025_Boca Costa_03.png> <./Informe/resultados/precipitación/Precipitació
+n_8_2025_Boca Costa_03.png>] [38 <./Informe/resultados/pronósticosLSTM/Pronós
+tico_LSTM_9_2025_Boca Costa_03.png> <./Informe/resultados/pronósticosNextGen/P
+ronóstico_NextGen_9_2025_Boca Costa_03.png> <./Informe/resultados/precipitaci�
+�n/Precipitación_9_2025_Boca Costa_03.png> <./Informe/resultados/pronósticosL
+STM/Pronóstico_LSTM_10_2025_Boca Costa_03.png> <./Informe/resultados/pronósti
+cosNextGen/Pronóstico_NextGen_10_2025_Boca Costa_03.png> <./Informe/resultados
+/precipitación/Precipitación_10_2025_Boca Costa_03.png>] [39 <./Informe/resul
+tados/pronósticosLSTM/Pronóstico_LSTM_11_2025_Boca Costa_03.png> <./Informe/r
+esultados/pronósticosNextGen/Pronóstico_NextGen_11_2025_Boca Costa_03.png> <.
+/Informe/resultados/precipitación/Precipitación_11_2025_Boca Costa_03.png> <.
+/Informe/resultados/pronósticosLSTM/Pronóstico_LSTM_12_2025_Boca Costa_03.png
+> <./Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_12_2025_Boca Co
+sta_03.png> <./Informe/resultados/precipitación/Precipitación_12_2025_Boca Co
+sta_03.png>]
 \bbl@ensure@spanish {Cap\'\i tulo} 6.
-(./discusion.tex
+(./discusion.tex [40
 
-Package natbib Warning: Citation `houze2014' on page 38 undefined on input line
- 23.
-
-[38
-
-] [39]
-
-Package natbib Warning: Citation `herrera2017' on page 40 undefined on input li
-ne 114.
-
-[40]) [41]
+] [41] [42] [43] [44]) [45]
 \bbl@ensure@spanish {Cap\'\i tulo} 7.
-[42
+[46
 
 ]
 \bbl@ensure@spanish {Cap\'\i tulo} 8.
-(./main.bbl [43
+(./main.bbl [47
 
-]
-! Misplaced alignment tab character &.
-l.34 \newblock {\em Environmental Modelling &
-                                              Software}, 23(6):813--834, 2008.
-? 
-[44
+] [48
 
-] [45] [46] [47] [48]
+] [49] [50] [51] [52]
 Underfull \hbox (badness 10000) in paragraph at lines 425--431
 \T1/cmtt/m/n/10.95 source / zhu / ZHU _ Training _ Page / Miscellaneous / Diver
 gence / divergence . html$[][]\T1/cmr/m/n/10.95 (+20) ,
  []
 
-)
-
-Package natbib Warning: There were undefined citations.
-
-[49] (./main.aux)
+) [53] (./main.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
  ***********
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package rerunfilecheck Warning: File `main.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `main.out':
-(rerunfilecheck)             Before: 9B1A68D5E37F8C1EB1202C7B47C74947;26217
-(rerunfilecheck)             After:  8C604D7B31D546D3F6C745B3A1E6FDA9;25944.
+Package rerunfilecheck Info: File `main.out' has not changed.
+(rerunfilecheck)             Checksum: 85AF27CDBEA70000C02FDD305D02A8E3;26393.
  ) 
 Here is how much of TeX's memory you used:
- 34521 strings out of 476080
- 668825 string characters out of 5792744
- 2065801 words of memory out of 5000000
- 55354 multiletter control sequences out of 15000+600000
- 589648 words of font info for 235 fonts, out of 8000000 for 9000
+ 34534 strings out of 476080
+ 675968 string characters out of 5792744
+ 2077801 words of memory out of 5000000
+ 55388 multiletter control sequences out of 15000+600000
+ 588909 words of font info for 226 fonts, out of 8000000 for 9000
  59 hyphenation exceptions out of 8191
  89i,13n,94p,1029b,855s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-pdfTeX warning (dest): name{subsection.4.6.4} has been referenced but does not 
-exist, replaced by a fixed one
-
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/
-share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/
-msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1095.pfb></usr/sha
-re/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/type1
-/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfb
-x1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/shar
-e/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type1/
-public/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm
-0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/share
-/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1/p
-ublic/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1
-095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/
-texmf/fonts/type1/public/cm-super/sfti1095.pfb></usr/share/texmf/fonts/type1/pu
-blic/cm-super/sftt1095.pfb>
-Output written on main.pdf (51 pages, 9455159 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
+r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
+e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
+ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/
+type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmsy6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbol
+s/msbm10.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbi1095.pfb></usr/s
+hare/texmf/fonts/type1/public/cm-super/sfbx0900.pfb></usr/share/texmf/fonts/typ
+e1/public/cm-super/sfbx1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/s
+fbx1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfbx1200.pfb></usr/sh
+are/texmf/fonts/type1/public/cm-super/sfbx1440.pfb></usr/share/texmf/fonts/type
+1/public/cm-super/sfbx1728.pfb></usr/share/texmf/fonts/type1/public/cm-super/sf
+rm0600.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm0800.pfb></usr/sha
+re/texmf/fonts/type1/public/cm-super/sfrm0900.pfb></usr/share/texmf/fonts/type1
+/public/cm-super/sfrm1000.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfr
+m1095.pfb></usr/share/texmf/fonts/type1/public/cm-super/sfrm1200.pfb></usr/shar
+e/texmf/fonts/type1/public/cm-super/sfti1095.pfb></usr/share/texmf/fonts/type1/
+public/cm-super/sftt0800.pfb></usr/share/texmf/fonts/type1/public/cm-super/sftt
+1095.pfb>
+Output written on main.pdf (55 pages, 13912827 bytes).
 PDF statistics:
- 1174 PDF objects out of 1200 (max. 8388607)
- 1001 compressed objects within 11 object streams
- 340 named destinations out of 1000 (max. 500000)
- 52140 words of extra memory for PDF output out of 61914 (max. 10000000)
+ 1218 PDF objects out of 1440 (max. 8388607)
+ 1012 compressed objects within 11 object streams
+ 339 named destinations out of 1000 (max. 500000)
+ 51698 words of extra memory for PDF output out of 61914 (max. 10000000)
 

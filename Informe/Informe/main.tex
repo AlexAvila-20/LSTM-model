@@ -170,6 +170,19 @@
 % ------------------------------------------------------------
 % Documento
 % ------------------------------------------------------------
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{float}
+
+% Reducir espacios verticales
+\captionsetup{skip=3pt}
+\captionsetup[subfigure]{font=footnotesize,skip=2pt}
+
+\setlength{\textfloatsep}{6pt}
+\setlength{\floatsep}{6pt}
+\setlength{\intextsep}{6pt}
+
 \begin{document}
 
 % ------------------------------------------------------------
@@ -266,296 +279,11 @@ a un manuscrito académico.
 
 \chapter{Resultados}
 \label{sec:resultados}
-\input{resultados.tex}
+\input{results.tex}
 
 \chapter{Discusión de resultados}
 \label{sec:discusiónderesultados}
 \input{discusion.tex}
-
-\chapter{Conclusiones}
-\label{sec:conclusiones}
-
-\chapter{Recomendaciones}
-\label{sec:recomendaciones}
-
-% ------------------------------------------------------------
-% Bibliografía
-% ------------------------------------------------------------
-\nocite{*}
-\bibliographystyle{unsrt}
-\bibliography{biblio}
-
-\end{document}
-
-
-\documentclass[11pt,letterpaper,oneside]{report}
-
-% ------------------------------------------------------------
-% Idioma y codificación
-% ------------------------------------------------------------
-\usepackage[provide=*, spanish]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-
-% ------------------------------------------------------------
-% Márgenes y formato general
-% ------------------------------------------------------------
-\usepackage[
-  letterpaper,
-  top=30mm,
-  bottom=30mm,
-  left=32mm,
-  right=32mm,
-  headheight=14pt,
-  headsep=10mm
-]{geometry}
-
-\usepackage{setspace}
-\onehalfspacing
-
-\usepackage{microtype}
-\usepackage{indentfirst}
-
-% ------------------------------------------------------------
-% Matemática y física
-% ------------------------------------------------------------
-\usepackage{amsmath, amssymb, amsfonts}
-\usepackage{latexsym}
-\usepackage{physics}
-\usepackage[amssymb]{SIunits}
-
-% ------------------------------------------------------------
-% Figuras, tablas y captions
-% ------------------------------------------------------------
-\usepackage{graphicx}
-\usepackage{float}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{multicol}
-
-\usepackage[font=small,labelfont=bf,labelsep=colon]{caption}
-
-% Para que diga "Fig." en vez de "Figura"
-\addto\captionsspanish{
-  \renewcommand{\figurename}{Fig.}
-  \renewcommand{\tablename}{Tabla}
-}
-
-% ------------------------------------------------------------
-% Colores y código
-% ------------------------------------------------------------
-\usepackage{xcolor}
-\usepackage{listings}
-\usepackage[many]{tcolorbox}
-
-\lstdefinelanguage{Mathematica}{
-  morekeywords={
-    Module, Table, Plot, Integrate, Sum, If, Do, While, For, Return,
-    Function, Set, SetDelayed, Rule, RuleDelayed, Block, With, True, False
-  },
-  sensitive=true,
-  morecomment=[l](\*),
-  morestring=[b]",
-}
-
-\lstset{
-  language=Mathematica,
-  basicstyle=\ttfamily\small,
-  keywordstyle=\color{blue}\bfseries,
-  commentstyle=\color{gray},
-  stringstyle=\color{red},
-  showstringspaces=false,
-  breaklines=true,
-  postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space}
-}
-
-% ------------------------------------------------------------
-% Bibliografía
-% ------------------------------------------------------------
-\usepackage{natbib}
-
-% ------------------------------------------------------------
-% Encabezados tipo paper
-% ------------------------------------------------------------
-\usepackage{fancyhdr}
-
-\pagestyle{fancy}
-\fancyhf{}
-\fancyhead[L]{\small\thepage}
-\fancyhead[R]{\small\nouppercase{\leftmark}}
-\renewcommand{\headrulewidth}{0pt}
-
-\fancypagestyle{plain}{
-  \fancyhf{}
-  \fancyhead[L]{\small\thepage}
-  \fancyhead[R]{\small\nouppercase{\leftmark}}
-  \renewcommand{\headrulewidth}{0pt}
-}
-
-% ------------------------------------------------------------
-% Estilo de títulos
-% ------------------------------------------------------------
-\usepackage{titlesec}
-
-\titleformat{\chapter}
-  {\normalfont\Large\bfseries}
-  {\thechapter}
-  {1em}
-  {}
-
-\titlespacing*{\chapter}
-  {0pt}
-  {-10pt}
-  {24pt}
-
-\titleformat{\section}
-  {\normalfont\large\bfseries}
-  {\thesection}
-  {1em}
-  {}
-
-\titleformat{\subsection}
-  {\normalfont\normalsize\bfseries}
-  {\thesubsection}
-  {1em}
-  {}
-
-% ------------------------------------------------------------
-% Hipervínculos
-% ------------------------------------------------------------
-\usepackage[
-  bookmarksnumbered,
-  breaklinks=true,
-  colorlinks=true,
-  linkcolor=blue,
-  citecolor=blue,
-  urlcolor=blue,
-  pdfauthor={Miguel Avila miguelavila.c@icloud.com},
-  pdftitle={Desarrollo de un modelo de pronóstico de precipitación para la región Bocacosta de Guatemala mediante redes neuronales LSTM},
-  pdfsubject={Informe final de ejercicio profesional supervisado},
-  pdfkeywords={meteorology, climate physics}
-]{hyperref}
-
-% ------------------------------------------------------------
-% Datos del documento
-% ------------------------------------------------------------
-\title{
-  \LARGE\bfseries
-  Desarrollo de un modelo de pronóstico de precipitación\\
-  para la región Bocacosta de Guatemala\\
-  mediante redes neuronales LSTM
-}
-
-\author{
-  Miguel Alexander Avila Chacón\\[0.4em]
-  \small Universidad de San Carlos de Guatemala\\
-  \small Escuela de Ciencias Físicas y Matemáticas\\[0.4em]
-  \small Supervisado por Ing. Klaus Hermann Aldo Johannes Zúñiga Kaufmann\\
-  \small y Dr. Giovanni Ramírez
-}
-
-\date{\small Guatemala, junio de 2026}
-
-% ------------------------------------------------------------
-% Documento
-% ------------------------------------------------------------
-\begin{document}
-
-% ------------------------------------------------------------
-% Portada tipo paper
-% ------------------------------------------------------------
-\begin{titlepage}
-\thispagestyle{empty}
-
-\vspace*{1.5cm}
-
-\begin{center}
-
-{\LARGE\bfseries
-Desarrollo de un modelo de pronóstico de precipitación\\
-para la región Bocacosta de Guatemala\\
-mediante redes neuronales LSTM
-\par}
-
-\vspace{1.5cm}
-
-{\large Miguel Alexander Avila Chacón\par}
-
-\vspace{0.5cm}
-
-{\small
-Universidad de San Carlos de Guatemala\\
-Escuela de Ciencias Físicas y Matemáticas\\
-Departamento de Física
-\par}
-
-\vspace{0.5cm}
-
-{\small
-Informe final de ejercicio profesional supervisado
-\par}
-
-\vspace{0.5cm}
-
-{\small
-Supervisado por\\
-Ing. Klaus Hermann Aldo Johannes Zúñiga Kaufmann\\
-Dr. Giovanni Ramírez
-\par}
-
-\vspace{1.5cm}
-
-{\small Guatemala, junio de 2026\par}
-
-\end{center}
-
-\vfill
-
-\begin{center}
-\begin{minipage}{0.82\textwidth}
-\begin{center}
-\textbf{Resumen}
-\end{center}
-
-Aquí va el resumen del trabajo. Este formato reproduce una presentación más sobria,
-con márgenes amplios, texto centrado en una columna y una primera página similar
-a un manuscrito académico.
-
-\vspace{1em}
-
-\noindent\textbf{Palabras clave:} precipitación; Bocacosta; Guatemala; redes neuronales LSTM; pronóstico climático.
-\end{minipage}
-\end{center}
-
-\end{titlepage}
-
-% ------------------------------------------------------------
-% Numeración y contenido
-% ------------------------------------------------------------
-\pagenumbering{arabic}
-\setcounter{page}{1}
-
-\chapter{Introducción}
-\label{sec:introduccion}
-\input{introducción.tex}
-
-\chapter{Objetivos}
-\label{sec:objetivos}
-\input{objetivos.tex}
-
-\chapter{Marco teórico}
-\label{sec:marco}
-\input{theory.tex}
-
-\chapter{Metodología}
-\label{sec:metodologia}
-\input{metodología.tex}
-
-\chapter{Resultados}
-\label{sec:resultados}
-
-\chapter{Discusión de resultados}
-\label{sec:discusiónderesultados}
 
 \chapter{Conclusiones}
 \label{sec:conclusiones}

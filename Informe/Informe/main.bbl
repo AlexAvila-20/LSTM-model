@@ -360,6 +360,42 @@ Cesar Eduardo~Ord{\'o}{\~n}ez Morales, Enrique~Loras Castillo, Marco
   quetzalteca, guatemala.
 \newblock {\em Cuadernos Geogr{\'a}ficos}, 41:149--172, 2007.
 
+\bibitem{malawi}
+{Malawi National Meteorological Agency}.
+\newblock Precipitation flexible seasonal nextgen forecast.
+\newblock Interactive Maproom.
+\newblock Accessed: 2026-06-11.
+
+\bibitem{irinext}
+{International Research Institute for Climate and Society (IRI)}.
+\newblock {\em PyCPT2: The NextGen Approach - Central Chile Seasonal Forecast
+  User Guide}.
+\newblock Columbia University, 2024.
+\newblock Accessed: 2026-06-11.
+
+\bibitem{cirohnext}
+{Cooperative Institute for Research to Operations in Hydrology (CIROH)}.
+\newblock Data assimilation and fusion for operational {NextGen} {NWM}: An
+  enhanced hydrologic forecasting framework.
+\newblock CIROH Research Projects, 2022.
+\newblock Project dates: August 1, 2022 – July 31, 2025. Accessed:
+  2026-06-11.
+
+\bibitem{munoznext}
+{\'A}.~G. Mu{\~n}oz, L.~Goddard, A.~W. Robertson, et~al.
+\newblock {NextGen}: A next-generation system for calibrating, ensembling and
+  verifying regional seasonal and subseasonal forecasts.
+\newblock In {\em AGU Fall Meeting Abstracts}, volume 2019, pages A23U--3024,
+  2019.
+\newblock Accessed: 2026-06-11.
+
+\bibitem{ponsnext}
+Diego Pons, {\'A}ngel~G. Mu{\~n}oz, Ligia~M. Mel{\'e}ndez, Mario Chocooj,
+  Rosario G{\'o}mez, Xandre Chourio, and Carmen~Gonz{\'a}lez Romero.
+\newblock A coffee yield next-generation forecast system for rain-fed
+  plantations: The case of the samal{\'a} watershed in guatemala.
+\newblock {\em Weather and Forecasting}, 36(6):2021--2038, 2021.
+
 \bibitem{islam2019overview}
 Mohaiminul Islam, Guorong Chen, and Shangzhu Jin.
 \newblock An overview of neural network.

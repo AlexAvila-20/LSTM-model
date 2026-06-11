@@ -263,3 +263,28 @@ La Bocacosta es una de las zonas con más producción agrícola del país (café
     \item Gestión de recursos hídricos para generación hidroeléctrica en la vertiente del Pacífico.
 \end{itemize}
 El desarrollo de un modelo LSTM para la precipitación local busca complementar las limitaciones de los modelos numéricos globales, proporcionando una herramienta basada en predictores físicos de gran escala.
+
+\section{Método tradicional de pronóstico}
+
+\subsection{Metodología NextGen para Pronóstico Estacional}
+
+\noindent La metodología NextGen (Next Generation Seasonal Forecast System por sus siglas en inglés) es un enfoque sistemático y flexible para el diseño, implementación, producción y verificación de pronósticos climáticos desarrollado por el Instituto Internacional de Investigación para el Clima y la Sociedad (IRI) de la Universidad de Columbia. Esta metodología ha sido adoptada por numerosos Servicios Meteorológicos e Hidrológicos Nacionales a lo largo de todo el mundo En Guatemala, el Instituto Nacional de Sismología, Vulcanología, Meteorología e Hidrología (INSIVUMEH) utiliza esta metodología para la generación de sus pronósticos climáticos de precipitación \citep{malawi}.
+
+\subsubsection{Fundamentos}
+
+El enfoque NextGen centra el diseño del sistema de pronóstico en las necesidades del usuario. En primer lugar, el usuario define la variable de interés (predictando), esto determina los procesos físicos que determinan su comportamiento, encontrando los predictores adecuados. Este mismo flujo de trabajo dicta las métricas a evaluar, y el tipo de pronóstico, por ejemplo, probabilístico o determinista \citep{irinext}.
+
+\subsubsection{Base técnica}
+
+El enfoque aprovecha la disponibilidad de datos en tiempo real de proyectos de conjuntos de múltiples modelos como el North American Multimodel Ensemble (NMME) de la NOAA y el Copernicus Climate Change Service de la Unión Europea \citep{cirohnext}. La metodología consta de varios componentes clave que la diferencian de aproximaciones convencionales \citep{irinext, munoznext, malawi}:
+\begin{itemize}
+	\item NextGen utiliza directamente los pronósticos estacionales de precipitación de los Modelos de Circulación General (GCM).
+	
+	\item Los pronósticos generados por los GCM presentan sesgos. Para corregirlos, NextGen aplica el enfoque de \textit{Model Output Statistics} (MOS), que utiliza estadísticas de las salidas de los modelos durante un período de (hindcast) para recalibrar las predicciones.
+	
+	\item NextGen enfatiza la combinación de pronósticos de múltiples GCM, una estrategia establecida para aumentar la destreza de los pronósticos estacionales.
+	
+	\item NextGen tiene la capacidad de proporcionar probabilidades de exceder umbrales específicos de interés para la toma de decisiones. Esto permite pronosticar no solo los valores medios, sino también los eventos extremos.
+\end{itemize}
+
+La metodología NextGen representa un avance en los sistemas de pronóstico climático operacional, al combinar las necesidades del usuario, herramientas estadísticas sofisticadas y modelos climáticos globales, proporcionando una base robusta y verificable para la toma de decisiones en sectores como la agricultura, la gestión de recursos hídricos y la prevención de desastres \citep{ponsnext}.

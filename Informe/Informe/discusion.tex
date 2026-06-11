@@ -10,8 +10,8 @@ Este resultado es coherente con la dinámica atmosférica regional descrita en e
 teórico. La SST del Pacífico Oriental modula directamente la intensidad convectiva sobre
 la Bocacosta mediante su influencia en la Zona de Convergencia Intertropical (ZCIT) y en
 los vientos alisios \cite{dai2000global}. La precipitación global (tp), por su
-parte, encapsula la organización espacial de los sistemas convectivos a escala sinóptica y
-planetaria, actuando como un predictor de la actividad convectiva de gran
+parte, encapsula la organización espacial de los sistemas convectivos, 
+actuando como un predictor de la actividad convectiva de gran
 escala que antecede a los eventos locales. La inclusión de los índices de la MJO aporta
 información sobre la variabilidad intraestacional organizada, la cual modula de forma
 significativa la distribución temporal de las lluvias en el sur de Guatemala.
@@ -30,7 +30,7 @@ interés.
 
 Este hallazgo tiene implicaciones prácticas relevantes: un modelo operativo con solo
 tres tipos de predictores de reanálisis resulta computacionalmente eficiente,
-reproducible y de fácil actualización para una institución como el INSIVUMEH.
+reproducible y de fácil actualización para esta región en INSIVUMEH.
 
 \section{Desempeño global del modelo en el año 2025}
 
@@ -69,36 +69,36 @@ período. Sin embargo, las métricas de eficiencia como el KGE muestran valores 
 o cercanos a cero en enero ($\text{KGE} = -0.269$), febrero ($\text{KGE} = -1.155$)
 y diciembre ($\text{KGE} = -0.514$), así como correlaciones débiles o negativas. Esta
 aparente contradicción se explica debido a que, cuando la precipitación observada es cercana a
-cero, pequeñas desviaciones absolutas producen métricas de eficiencia relativa muy
-desfavorables. En febrero y diciembre la correlación de Pearson es negativa
+cero, pequeñas desviaciones absolutas producen métricas desfavorables 
+de eficiencia relativa. En febrero y diciembre la correlación de Pearson es negativa
 ($r = -0.033$ y $r = -0.246$, respectivamente), lo que indica que el modelo no logra
-reproducir la variabilidad espacial de la precipitación residual en estos meses. Esto
+reproducir con precisión la variabilidad espacial de la precipitación residual en estos meses. Esto
 puede deberse a que los escasos eventos de lluvia en la estación seca están gobernados
 por mecanismos locales o frontales de corta duración difíciles de capturar mediante
 predictores de gran escala.
 
-\subsection*{Meses de transición y comienzo de la estación lluviosa (abril--junio)}
+\subsection*{Meses de transición y comienzo de la época lluviosa (abril--junio)}
 
 El mes de abril muestra el mayor error relativo del año ($\text{RMSE} = 118.7$\,mm,
 $\text{KGE} = 0.011$), con un sesgo positivo de 108.9\,mm. Esto corresponde al inicio
 de la estación lluviosa, un período de alta variabilidad interanual en el que la fecha
-del primer evento lluvioso significativo puede diferir sustancialmente entre años. A pesar de
+del primer evento lluvioso significativo puede diferir en gran manera entre años. A pesar de
 esto la similitud entre el patrón observado y el predicho es uno de las más marcadas de todo
 el año.  La SST y la MJO, si bien modulan la probabilidad de convección, no determinan con precisión
 el momento exacto de la transición, lo que induce al modelo a anticipar precipitaciones
 abundantes antes de que estas se produzcan. Mayo presenta un patrón similar
 ($\text{RMSE} = 134.1$\,mm, sesgo $= 96.6$\,mm), aunque con una correlación aceptable
-de $r = 0.588$, indicando que el modelo captura la tendencia general pero sobreestima
-las magnitudes.
+de $r = 0.588$, indicando que el modelo captura la tendencia general pero no
+las magnitudes exactas.
 
 Junio y julio representan los meses con mejor desempeño dentro de la estación lluviosa
 (KGE de 0.653 y 0.649, respectivamente), con sesgos pequeños ($-17.9$ y $-2.0$\,mm).
 Esto indica que el modelo ha aprendido adecuadamente los patrones de precipitación
-asociados al inicio consolidado del monzón y al paso sistemático de
-ondas del este, forzantes que se expresan con claridad en la señal de la SST y los
-índices de la MJO.
+asociados al inicio consolidado del monzón. %y al paso sistemático de
+%ondas del este, forzantes que se expresan con claridad en la señal de la SST y los
+%índices de la MJO.
 
-\subsection*{Pico de la estación lluviosa (agosto--octubre)}
+\subsection*{Segundo pico de la época lluviosa (agosto--octubre)}
 
 Agosto presenta el mejor desempeño individual de todos los meses lluviosos
 ($r = 0.848$, $\text{KGE} = 0.703$), coincidiendo con el segundo máximo del ciclo
@@ -149,15 +149,15 @@ LSTM con los registrados por ENACTS revela que el modelo reproduce correctamente
 patrones espaciales dominantes de la Bocacosta: la concentración de precipitación sobre
 la franja paralela a la cadena volcánica, el gradiente norte-sur desde la llanura
 costera hacia el altiplano, y la extensión diferencial entre la estación seca y la
-lluviosa. La arquitectura multi-torre con modulación por coordenadas geográficas
+lluviosa. La arquitectura con modulación por coordenadas geográficas
 contribuye a esta especificidad espacial, permitiendo que el modelo aprenda sesgos
-locales sistemáticos mediante el sesgo por píxel aprendible.
+locales mediante el sesgo por píxel aprendible.
 
 Sin embargo, en los meses de mayor dificultad (septiembre, octubre) la LSTM distribuye
 la precipitación de manera más uniforme sobre toda la región, sin capturar los núcleos
 de precipitación extrema que los datos ENACTS registran en puntos específicos del
 territorio. Esto indica que la resolución del reanálisis ERA5, aunque superior a la de
-modelos globales más gruesos, introduce un límite en la capacidad del modelo para
+otros modelos globales, introduce un límite en la capacidad del modelo para
 reproducir la variabilidad orográfica a escala de detalle propia de la Bocacosta.
 
 \section{Comparación con la metodología NextGen}

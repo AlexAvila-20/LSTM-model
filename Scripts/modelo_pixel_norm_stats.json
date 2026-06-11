@@ -1,39 +1,23 @@
 {
   "predictor_stats": [
     {
-      "mean": 292.6358469110702,
-      "std": 9.537626245726218,
-      "varname": "sst",
-      "domain": "auto"
-    },
-    {
-      "mean": 0.00010683610954752911,
-      "std": 0.00045008556652433593,
-      "varname": "tp",
-      "domain": "auto"
-    },
-    {
-      "mean": -0.00024669463318423366,
-      "std": 0.9851759021801613,
+      "mean": -0.02295042996542543,
+      "std": 0.9592464348445975,
       "varname": "RMM1",
       "domain": "auto"
     },
     {
-      "mean": 0.010540008805925026,
-      "std": 0.9081219202720094,
+      "mean": 0.0050269563811598346,
+      "std": 0.8769434754908269,
       "varname": "RMM2",
       "domain": "auto"
     }
   ],
   "predictor_feat_sizes": [
-    1099,
-    899,
     1,
     1
   ],
   "predictor_names": [
-    "sst",
-    "tp",
     "RMM1",
     "RMM2"
   ],
@@ -53,7 +37,7 @@
   "low_threshold": 30.0,
   "high_threshold": 250.0,
   "tweedie_weight": 0.4,
-  "tweedie_power": 1.6,
+  "tweedie_power": 1.5,
   "tweedie_scale_norm": true,
   "corr_weight": 0.1,
   "extreme_boost": 3.0,

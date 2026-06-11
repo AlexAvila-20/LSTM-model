@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex main"] 1781114150.5759 "main.aux" "main.bbl" "main" 1781114225.70806 0
-  "./biblio.bib" 1781114090.7286 39102 e4a740de2be884ff8f4dba7c4e3f52c1 ""
+["bibtex main"] 1781198284.25827 "main.aux" "main.bbl" "main" 1781198299.09275 0
+  "./biblio.bib" 1781198224.14929 41565 d2b9a0fb6b395f290011b44f0d028498 ""
   "/usr/share/texlive/texmf-dist/bibtex/bst/base/unsrt.bst" 1292289607 18030 1376b4b231b50c66211e47e42eda2875 ""
-  "main.aux" 1781114225.1753 24591 d5caa277f82f1597d43884a36830bb6d "lualatex"
+  "main.aux" 1781198298.60622 25524 810a66208690d223406325309c18e30c "lualatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["lualatex"] 1781114210.76007 "main.tex" "main.pdf" "main" 1781114225.7083 0
+["lualatex"] 1781198284.35801 "main.tex" "main.pdf" "main" 1781198299.09298 0
   "/home/alex/.texlive2023/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc" 1776697679.98456 127309 677951b359b90ddbfa3eb54f696122f6 ""
   "/home/alex/.texlive2023/texmf-var/luatex-cache/generic/names/luaotfload-names.luc.gz" 1776697679.87056 392075 794b760581f12bedb134090b7a831e73 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1246382020 1004 54797486969f23fa377b128694d548df ""
@@ -342,16 +342,16 @@
   "Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_7_2025_Boca Costa_03.png" 1781027439.54172 512832 643d295eef51d59d86806e043b9bc50b ""
   "Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_8_2025_Boca Costa_03.png" 1781027462.31602 516037 31ed08c2e7941f58a9fdaae9660a6357 ""
   "Informe/resultados/pronósticosNextGen/Pronóstico_NextGen_9_2025_Boca Costa_03.png" 1781027485.39731 516179 919ac8b87a385d8a037fa278b131ab10 ""
-  "discusion.tex" 1781113968.97285 10518 2e22aec3d2fe3c45e296b3ca6ba30e63 ""
+  "discusion.tex" 1781195746.70264 15890 dfdc96b5096ec1faaf0fa7818f43f024 ""
   "introducción.tex" 1779292376.37876 2303 b7b3008969a832e1c462b55c1c12c42b ""
-  "main.aux" 1781114225.1753 24591 d5caa277f82f1597d43884a36830bb6d "lualatex"
-  "main.bbl" 1781114150.66691 17260 4b9db9509808ce4418dffa4d4674ffec "bibtex main"
-  "main.out" 1781114225.1773 26107 e6f5861fc18d4b36f51b2e71f458d7be "lualatex"
+  "main.aux" 1781198298.60622 25524 810a66208690d223406325309c18e30c "lualatex"
+  "main.bbl" 1781198284.34604 18722 99ac49d7016b537c53e47fc73bf6b019 "bibtex main"
+  "main.out" 1781198298.60822 27004 764afc7cc86134713d447b60595226dd "lualatex"
   "main.tex" 1781113095.20771 7234 2a38aa9d05db28b6e8d68b9894a2461d ""
   "metodología.tex" 1781041894.37269 31125 9ab61791556b94cf68db2a2e3ce8fcb3 ""
   "objetivos.tex" 1779292376.49276 772 7020f57a71d50ccc11eeb127a9739457 ""
   "results.tex" 1781113006.82258 14951 cf66ca5bb6f090b750660c4cc6add102 ""
-  "theory.tex" 1779292376.62677 32203 2e0c7ab5c90f05c0c0deee26b7aa2088 ""
+  "theory.tex" 1781198245.64799 35198 c084e1dbcb67b162ad8653453ff4f899 ""
   (generated)
   "main.aux"
   "main.log"

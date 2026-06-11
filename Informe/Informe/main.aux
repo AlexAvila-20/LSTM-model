@@ -108,99 +108,108 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.11.2}Underfitting (subajuste)}{14}{subsection.3.11.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.11.3}Técnicas de regularización}{14}{subsection.3.11.3}\protected@file@percent }
 \citation{acosta2005contribucion,morales2007acceso}
+\citation{malawi}
 \@writefile{toc}{\contentsline {section}{\numberline {3.12}Contexto climático de Guatemala y región de Bocacosta}{15}{section.3.12}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.12.1}Estacionalidad de la precipitación}{15}{subsection.3.12.1}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.12.2}Influencia del pacífico y rol de la orografía}{15}{subsection.3.12.2}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.12.3}Importancia de la predicción en la región}{15}{subsection.3.12.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Metodología}{16}{chapter.4}\protected@file@percent }
+\citation{irinext}
+\citation{cirohnext}
+\citation{irinext,munoznext,malawi}
+\citation{ponsnext}
+\@writefile{toc}{\contentsline {section}{\numberline {3.13}Método tradicional de pronóstico}{16}{section.3.13}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.13.1}Metodología NextGen para Pronóstico Estacional}{16}{subsection.3.13.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Fundamentos}{16}{subsubsection*.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Base técnica}{16}{subsubsection*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Metodología}{18}{chapter.4}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:metodologia}{{4}{16}{Metodología}{chapter.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Diseño general del estudio}{16}{section.4.1}\protected@file@percent }
-\newlabel{sec:disenio_general}{{4.1}{16}{Diseño general del estudio}{section.4.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.2}Adquisición y preprocesamiento de datos}{16}{section.4.2}\protected@file@percent }
-\newlabel{sec:adquisicion_datos}{{4.2}{16}{Adquisición y preprocesamiento de datos}{section.4.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Fuentes de datos}{16}{subsection.4.2.1}\protected@file@percent }
-\newlabel{subsec:fuentes_de_datos}{{4.2.1}{16}{Fuentes de datos}{subsection.4.2.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Normalización espacio-temporal}{17}{subsection.4.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Detección de píxeles válidos y máscaras espaciales}{18}{subsection.4.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.3}Normalización y reducción de dimensionalidad}{18}{section.4.3}\protected@file@percent }
-\newlabel{sec:normalizacion_pca}{{4.3}{18}{Normalización y reducción de dimensionalidad}{section.4.3}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Estandarización de predictores}{18}{subsection.4.3.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Análisis de Componentes Principales (PCA)}{18}{subsection.4.3.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.4}Construcción y segmentación de secuencias temporales}{19}{section.4.4}\protected@file@percent }
-\newlabel{sec:secuencias_temporales}{{4.4}{19}{Construcción y segmentación de secuencias temporales}{section.4.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Ventanas de entrada}{19}{subsection.4.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}División cronológica del conjunto de datos}{19}{subsection.4.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}Arquitectura del modelo LSTM multi-torre}{20}{section.4.5}\protected@file@percent }
-\newlabel{sec:arquitectura_lstm}{{4.5}{20}{Arquitectura del modelo LSTM multi-torre}{section.4.5}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Diseño de entrada y torres paralelas}{20}{subsection.4.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Fusión de representaciones y decodificación espacial}{20}{subsection.4.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Transformación de objetivo}{20}{subsection.4.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.6}Entrenamiento del modelo}{21}{section.4.6}\protected@file@percent }
-\newlabel{sec:entrenamiento_modelo}{{4.6}{21}{Entrenamiento del modelo}{section.4.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Función de Pérdida Compuesta y Argumentos de Entrenamiento}{21}{subsection.4.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Componentes de la Función de Pérdida}{21}{subsubsection*.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{1. Pérdida de Huber Focal}{21}{paragraph*.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{2. Pérdida de Cuantil Adaptativa}{22}{paragraph*.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{3. Pérdida de Tweedie}{22}{paragraph*.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{4. Pérdida de Correlación de Pearson}{22}{paragraph*.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{5. Pérdida de Suavizado Espacial}{23}{paragraph*.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.2}Regularización y detención temprana}{23}{subsection.4.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.3}Acumulación de gradientes}{23}{subsection.4.6.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Normalización EMA de componentes}{23}{subsubsection*.7}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Argumentos principales de entrenamiento}{24}{subsubsection*.8}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Interacción de parámetros y recomendaciones}{26}{subsubsection*.9}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{Implementación de Control de Memoria (Low-RAM)}{27}{subsubsection*.10}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.7}Evaluación del modelo}{27}{section.4.7}\protected@file@percent }
-\newlabel{sec:evaluacion_modelo}{{4.7}{27}{Evaluación del modelo}{section.4.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.1}Métricas de error global}{27}{subsection.4.7.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.2}Métricas de eficiencia de modelos hidrológicos}{28}{subsection.4.7.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.3}Análisis temporal y espacial}{28}{subsection.4.7.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.4}Distribuciones y estadísticas de entrenamiento}{28}{subsection.4.7.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4.8}Diagnósticos ejecutados}{29}{section.4.8}\protected@file@percent }
-\newlabel{sec:diagnosticos}{{4.8}{29}{Diagnósticos ejecutados}{section.4.8}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.9}Procedimiento de predicción operativa}{29}{section.4.9}\protected@file@percent }
-\newlabel{sec:prediccion_operativa}{{4.9}{29}{Procedimiento de predicción operativa}{section.4.9}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.10}Procesamiento geográfico de resultados}{30}{section.4.10}\protected@file@percent }
-\newlabel{sec:procesamiento_geografico}{{4.10}{30}{Procesamiento geográfico de resultados}{section.4.10}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Resultados}{31}{chapter.5}\protected@file@percent }
+\newlabel{sec:metodologia}{{4}{18}{Metodología}{chapter.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Diseño general del estudio}{18}{section.4.1}\protected@file@percent }
+\newlabel{sec:disenio_general}{{4.1}{18}{Diseño general del estudio}{section.4.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Adquisición y preprocesamiento de datos}{18}{section.4.2}\protected@file@percent }
+\newlabel{sec:adquisicion_datos}{{4.2}{18}{Adquisición y preprocesamiento de datos}{section.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.1}Fuentes de datos}{18}{subsection.4.2.1}\protected@file@percent }
+\newlabel{subsec:fuentes_de_datos}{{4.2.1}{18}{Fuentes de datos}{subsection.4.2.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Normalización espacio-temporal}{19}{subsection.4.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Detección de píxeles válidos y máscaras espaciales}{20}{subsection.4.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Normalización y reducción de dimensionalidad}{20}{section.4.3}\protected@file@percent }
+\newlabel{sec:normalizacion_pca}{{4.3}{20}{Normalización y reducción de dimensionalidad}{section.4.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Estandarización de predictores}{20}{subsection.4.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Análisis de Componentes Principales (PCA)}{20}{subsection.4.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Construcción y segmentación de secuencias temporales}{21}{section.4.4}\protected@file@percent }
+\newlabel{sec:secuencias_temporales}{{4.4}{21}{Construcción y segmentación de secuencias temporales}{section.4.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Ventanas de entrada}{21}{subsection.4.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}División cronológica del conjunto de datos}{21}{subsection.4.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}Arquitectura del modelo LSTM multi-torre}{22}{section.4.5}\protected@file@percent }
+\newlabel{sec:arquitectura_lstm}{{4.5}{22}{Arquitectura del modelo LSTM multi-torre}{section.4.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.1}Diseño de entrada y torres paralelas}{22}{subsection.4.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.2}Fusión de representaciones y decodificación espacial}{22}{subsection.4.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5.3}Transformación de objetivo}{22}{subsection.4.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Entrenamiento del modelo}{23}{section.4.6}\protected@file@percent }
+\newlabel{sec:entrenamiento_modelo}{{4.6}{23}{Entrenamiento del modelo}{section.4.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.1}Función de Pérdida Compuesta y Argumentos de Entrenamiento}{23}{subsection.4.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Componentes de la Función de Pérdida}{23}{subsubsection*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{1. Pérdida de Huber Focal}{23}{paragraph*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{2. Pérdida de Cuantil Adaptativa}{24}{paragraph*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{3. Pérdida de Tweedie}{24}{paragraph*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{4. Pérdida de Correlación de Pearson}{24}{paragraph*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{5. Pérdida de Suavizado Espacial}{25}{paragraph*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.2}Regularización y detención temprana}{25}{subsection.4.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6.3}Acumulación de gradientes}{25}{subsection.4.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Normalización EMA de componentes}{25}{subsubsection*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Argumentos principales de entrenamiento}{26}{subsubsection*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Interacción de parámetros y recomendaciones}{28}{subsubsection*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{Implementación de Control de Memoria (Low-RAM)}{29}{subsubsection*.12}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.7}Evaluación del modelo}{29}{section.4.7}\protected@file@percent }
+\newlabel{sec:evaluacion_modelo}{{4.7}{29}{Evaluación del modelo}{section.4.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.1}Métricas de error global}{29}{subsection.4.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.2}Métricas de eficiencia de modelos hidrológicos}{30}{subsection.4.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.3}Análisis temporal y espacial}{30}{subsection.4.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7.4}Distribuciones y estadísticas de entrenamiento}{30}{subsection.4.7.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.8}Diagnósticos ejecutados}{31}{section.4.8}\protected@file@percent }
+\newlabel{sec:diagnosticos}{{4.8}{31}{Diagnósticos ejecutados}{section.4.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.9}Procedimiento de predicción operativa}{31}{section.4.9}\protected@file@percent }
+\newlabel{sec:prediccion_operativa}{{4.9}{31}{Procedimiento de predicción operativa}{section.4.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.10}Procesamiento geográfico de resultados}{32}{section.4.10}\protected@file@percent }
+\newlabel{sec:procesamiento_geografico}{{4.10}{32}{Procesamiento geográfico de resultados}{section.4.10}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Resultados}{33}{chapter.5}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:resultados}{{5}{31}{Resultados}{chapter.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Desempeño para distintos conjuntos de predictores}{31}{section.5.1}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Comparación de métricas para distintos predictores}}{31}{figure.caption.11}\protected@file@percent }
+\newlabel{sec:resultados}{{5}{33}{Resultados}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Desempeño para distintos conjuntos de predictores}{33}{section.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Comparación de métricas para distintos predictores}}{33}{figure.caption.13}\protected@file@percent }
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:comparación_combinaciones}{{5.1}{31}{Comparación de métricas para distintos predictores}{figure.caption.11}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Comparación con la precipitación real del año 2025 y los pronósticos de NextGen}{32}{section.5.2}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces RMSE, sesgo medio, correlación de Pearson y coeficiente de Kling-Gupta mensuales medios para los datos de validación del entrenamiento en la región de Bocacosta.}}{33}{figure.caption.13}\protected@file@percent }
-\newlabel{fig:metricas_comparadas}{{5.2}{33}{RMSE, sesgo medio, correlación de Pearson y coeficiente de Kling-Gupta mensuales medios para los datos de validación del entrenamiento en la región de Bocacosta}{figure.caption.13}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Precipitación media mensual para los datos de validación del entrenamiento en la región de Bocacosta.}}{33}{figure.caption.14}\protected@file@percent }
-\newlabel{fig:cicloanual_comparado}{{5.3}{33}{Precipitación media mensual para los datos de validación del entrenamiento en la región de Bocacosta}{figure.caption.14}{}}
+\newlabel{fig:comparación_combinaciones}{{5.1}{33}{Comparación de métricas para distintos predictores}{figure.caption.13}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Comparación con la precipitación real del año 2025 y los pronósticos de NextGen}{34}{section.5.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces RMSE, sesgo medio, correlación de Pearson y coeficiente de Kling-Gupta mensuales medios para los datos de validación del entrenamiento en la región de Bocacosta.}}{35}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:metricas_comparadas}{{5.2}{35}{RMSE, sesgo medio, correlación de Pearson y coeficiente de Kling-Gupta mensuales medios para los datos de validación del entrenamiento en la región de Bocacosta}{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Precipitación media mensual para los datos de validación del entrenamiento en la región de Bocacosta.}}{35}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:cicloanual_comparado}{{5.3}{35}{Precipitación media mensual para los datos de validación del entrenamiento en la región de Bocacosta}{figure.caption.16}{}}
 \citation{dai2000global}
 \citation{houze2014cloud}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Discusión de resultados}{40}{chapter.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Discusión de resultados}{42}{chapter.6}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:discusiónderesultados}{{6}{40}{Discusión de resultados}{chapter.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Selección de predictores y relevancia física}{40}{section.6.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Desempeño global del modelo en el año 2025}{40}{section.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.3}Análisis del desempeño por mes}{41}{section.6.3}\protected@file@percent }
+\newlabel{sec:discusiónderesultados}{{6}{42}{Discusión de resultados}{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Selección de predictores y relevancia física}{42}{section.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Desempeño global del modelo en el año 2025}{42}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Análisis del desempeño por mes}{43}{section.6.3}\protected@file@percent }
 \citation{herrera2017descripcion}
-\@writefile{toc}{\contentsline {section}{\numberline {6.4}Análisis del ciclo anual medio}{43}{section.6.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.5}Interpretación de los mapas espaciales}{43}{section.6.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.6}Comparación con la metodología NextGen}{43}{section.6.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusiones}{46}{chapter.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Análisis del ciclo anual medio}{45}{section.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Interpretación de los mapas espaciales}{45}{section.6.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.6}Comparación con la metodología NextGen}{45}{section.6.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}Conclusiones}{48}{chapter.7}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:conclusiones}{{7}{46}{Conclusiones}{chapter.7}{}}
+\newlabel{sec:conclusiones}{{7}{48}{Conclusiones}{chapter.7}{}}
 \citation{*}
 \bibstyle{unsrt}
 \bibdata{biblio}
-\@writefile{toc}{\contentsline {chapter}{\numberline {8}Recomendaciones}{47}{chapter.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}Recomendaciones}{49}{chapter.8}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{sec:recomendaciones}{{8}{47}{Recomendaciones}{chapter.8}{}}
+\newlabel{sec:recomendaciones}{{8}{49}{Recomendaciones}{chapter.8}{}}
 \bibcite{matich2001redes}{{1}{}{{}}{{}}}
 \bibcite{salas2004redes}{{2}{}{{}}{{}}}
 \bibcite{tablada2009redes}{{3}{}{{}}{{}}}
@@ -264,19 +273,24 @@
 \bibcite{NeuralNetworkArchitectures}{{61}{}{{}}{{}}}
 \bibcite{acosta2005contribucion}{{62}{}{{}}{{}}}
 \bibcite{morales2007acceso}{{63}{}{{}}{{}}}
-\bibcite{islam2019overview}{{64}{}{{}}{{}}}
-\bibcite{hochreiter1998recurrent}{{65}{}{{}}{{}}}
-\bibcite{ortiz2002modelos}{{66}{}{{}}{{}}}
-\bibcite{grossberg2013recurrent}{{67}{}{{}}{{}}}
-\bibcite{yu2019review}{{68}{}{{}}{{}}}
-\bibcite{song2020time}{{69}{}{{}}{{}}}
-\bibcite{karevan2020transductive}{{70}{}{{}}{{}}}
-\bibcite{rew1990netcdf}{{71}{}{{}}{{}}}
-\bibcite{riishojgaard2021intercambio}{{72}{}{{}}{{}}}
-\bibcite{HDFGroup2024HDF5}{{73}{}{{}}{{}}}
-\bibcite{nws_divergence}{{74}{}{{}}{{}}}
-\bibcite{trenberth1987global}{{75}{}{{}}{{}}}
-\bibcite{nash-sutcliffe}{{76}{}{{}}{{}}}
-\bibcite{avalosanalisis}{{77}{}{{}}{{}}}
+\bibcite{malawi}{{64}{}{{}}{{}}}
+\bibcite{irinext}{{65}{}{{}}{{}}}
+\bibcite{cirohnext}{{66}{}{{}}{{}}}
+\bibcite{munoznext}{{67}{}{{}}{{}}}
+\bibcite{ponsnext}{{68}{}{{}}{{}}}
+\bibcite{islam2019overview}{{69}{}{{}}{{}}}
+\bibcite{hochreiter1998recurrent}{{70}{}{{}}{{}}}
+\bibcite{ortiz2002modelos}{{71}{}{{}}{{}}}
+\bibcite{grossberg2013recurrent}{{72}{}{{}}{{}}}
+\bibcite{yu2019review}{{73}{}{{}}{{}}}
+\bibcite{song2020time}{{74}{}{{}}{{}}}
+\bibcite{karevan2020transductive}{{75}{}{{}}{{}}}
+\bibcite{rew1990netcdf}{{76}{}{{}}{{}}}
+\bibcite{riishojgaard2021intercambio}{{77}{}{{}}{{}}}
+\bibcite{HDFGroup2024HDF5}{{78}{}{{}}{{}}}
+\bibcite{nws_divergence}{{79}{}{{}}{{}}}
+\bibcite{trenberth1987global}{{80}{}{{}}{{}}}
+\bibcite{nash-sutcliffe}{{81}{}{{}}{{}}}
+\bibcite{avalosanalisis}{{82}{}{{}}{{}}}
 \providecommand\NAT@force@numbers{}\NAT@force@numbers
-\gdef \@abspage@last{55}
+\gdef \@abspage@last{58}

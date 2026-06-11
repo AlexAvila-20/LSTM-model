@@ -1,0 +1,19 @@
+\begin{enumerate}
+	\item La región de Bocacosta presenta una orografía compleja que induce ascenso forzado y núcleos de precipitación convectiva. El modelo actual utiliza predictores atmosféricos de reanálisis que no ingresan directamente variables como altitud del terreno. Se recomienda agregar capas topográficas como predictores estáticos, lo que podría mejorar la representación de los patrones de lluvia orográfica y reducir los errores espaciales en meses de alta variabilidad.
+	
+	\item El modelo exhibe una sobreestimación sistemática del 20.17\% (47.22 mm anuales en promedio). Se recomienda implementar métodos de corrección de sesgo utilizando un conjunto de validación independiente.
+	
+	\item La comparación mostró que LSTM supera a NextGen en correlación y error cuadrático, mientras que NextGen presenta menor sesgo y mejor KGE. Un ensamble simple (promedio ponderado) o una una red neuronal que combine las salidas de ambos podría aprovechar las fortalezas complementarias, mejorando la robustez y reduciendo el sesgo sin sacrificar la capacidad de reproducir patrones espaciales finos.
+	
+	\item El desempeño se degrada notablemente en septiembre (RMSE > 220 mm, sesgo > 200 mm). Se recomienda:
+	\begin{itemize}
+		\item Utilizar una función de pérdida con mayor énfasis en percentiles altos (pérdida cuantílica con \(\tau > 0.9\)). 
+		\item Entrenar un clasificador binario para detectar eventos extremos (\(>\) percentil 95) y usarlo como condicionante de la red.
+	\end{itemize}
+	
+	\item Durante la estación seca, las métricas de eficiencia (KGE, NSE) son negativas o cercanas a cero, aunque los errores absolutos son pequeños. Esto indica que el modelo no captura la escasa variabilidad espacial de la precipitación residual. Se recomienda:
+	\begin{itemize}
+		\item Implementar un clasificador de ocurrencia de lluvia.
+		\item Predictores como (evapotranspiración) capaces de modelar la persistencia de las condiciones secas.
+	\end{itemize}
+\end{enumerate}

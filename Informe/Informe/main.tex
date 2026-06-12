@@ -242,11 +242,9 @@ Dr. Giovanni Ramírez
 \begin{center}
 \textbf{Resumen}
 \end{center}
+Se desarrolló un modelo de pronóstico de precipitación mensual para la región de Bocacosta (Guatemala) utilizando redes neuronales LSTM (Long Short-Term Memory) y datos de reanálisis ERA5. Se encontró que para la región, una combinación óptima de predictores de precipitación está conformada por la temperatura superficial del mar (SST), la precipitación global (tp) e índices de la oscilación Madden-Julian (RMM1, RMM2). La arquitectura de la red incluye la reducción de dimensionalidad mediante PCA, transformación del objetivo y una función de pérdida compuesta (Huber, cuantil, Tweedie, correlación y suavizado espacial). El modelo se entrenó con datos hasta 2024 y se validó pronosticando el año 2025.
 
-Aquí va el resumen del trabajo. Este formato reproduce una presentación más sobria,
-con márgenes amplios, texto centrado en una columna y una primera página similar
-a un manuscrito académico.
-
+El modelo alcanzó una correlación de Pearson de 0.9166, RMSE de 102.55 mm, MAE de 73.22 mm, coeficiente de Nash‑Sutcliffe (NSE) de 0.7440 e índice de Kling‑Gupta (KGE) de 0.7503. Comparado con la metodología NextGen utilizada por el INSIVUMEH, el LSTM muestra menor RMSE, mayor correlación y mejor NSE, aunque NextGen tiene menor sesgo y ligeramente mejor KGE. El modelo reproduce adecuadamente los patrones espaciales de precipitación asociados a la orografía, con mejor desempeño en junio‑agosto (KGE > 0.65) y dificultades en la estación seca (enero‑febrero, diciembre) y en eventos extremos (septiembre). Se concluye que la red LSTM constituye una herramienta complementaria válida para el pronóstico mensual en Bocacosta, con la ventaja de requerir solo tres predictores de fácil disponibilidad. Se recomienda incorporar topografía, aplicar corrección de sesgo y desarrollar un ensamble con NextGen para mejorar la precisión en extremos y en períodos secos.
 \vspace{1em}
 
 \noindent\textbf{Palabras clave:} precipitación; Bocacosta; Guatemala; redes neuronales LSTM; pronóstico climático.
